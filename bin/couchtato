@@ -1,0 +1,71 @@
+#!/usr/bin/env node
+
+var fs = require('fs'),
+    path = require('path'),
+    Couchtato = require('../lib/couchtato.js').Couchtato,
+    args = process.argv.slice(2),
+    base = process.cwd(),
+    confFile = path.join(base, 'couchtato.js'),
+    usage, conf, options, couchtato, doInit, doIterate;
+
+usage = 'Usage: couchtato [options]\n'
+    + '\n'
+    + 'Options:\n'
+    + '  -u, --url      CouchDB URL http(s)://host:port/path\n'
+    + '  -h, --help     Display help info\n';
+    
+abort = function (message) {
+    console.error(message);
+    process.exit(1);
+};
+
+while (args.length) {
+    var arg = args.shift();
+    switch (arg) {
+        case 'init':
+            args.action = arg;
+            break;
+        case '-u':
+        case '--url':
+            args.length
+                ? (args.url = args.shift())
+                : abort('--url requires an argument');
+            break;
+        case '-h':
+        case '--help':
+            abort(usage);
+            break;
+    }
+}
+
+doInit = function () {
+    console.log('Creating couchtato.js config file...');
+    fs.writeFileSync('couchtato.js', 'exports.conf = {"tasks": {"all_docs": {"fn": function (db, doc) {console.log(doc);}}}};');
+};
+
+doIterate = function () {
+    try {
+        if (fs.statSync(confFile).isFile()) {
+            conf = require(confFile);
+        }
+    } catch (e) {
+        abort('No config file found. Use \'couchtato init\' to create a sample config.');
+    }
+    options = {
+        url: args.url,
+        tasks: conf.tasks,
+        pageSize: 50,
+        encoding: 'utf-8'
+    };
+    couchtato = new Couchtato(options);
+    couchtato.iterate();
+};
+
+switch (args.action) {
+    case 'init':
+        doInit();
+        break;
+    case undefined:
+        doIterate();
+        break;
+}

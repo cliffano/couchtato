@@ -1,0 +1,15 @@
+{
+    "name": "couchtato",
+    "description": "CouchDB document iterator.",
+    "keywords": ["couchdb", "document", "iterator"],
+    "version": "0.0.1",
+    "homepage" : "http://github.com/cliffano/couchtato",
+    "author": "Cliffano Subagio <blah@cliffano.com> (http://blog.cliffano.com)",
+    "bin": { "couchtato": "./bin/couchtato" },
+    "repository": { "type": "git", "url": "http://github.com/cliffano/couchtato.git" },
+    "bugs": { "web": "http://github.com/cliffano/couchtato/issues" },
+    "directories": { "bin": "./bin", "lib": "./lib" },
+    "dependencies": { "cradle": ">= 0.1.0" },
+    "engines": { "node": ">= 0.4.0" },
+    "licenses" : [{ "type" : "MIT", "url" : "http://github.com/cliffano/couchtato/raw/master/LICENSE" } ]
+}
