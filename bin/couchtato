@@ -12,6 +12,7 @@ usage = 'Usage: couchtato [options]\n'
     + '\n'
     + 'Options:\n'
     + '  -u, --url      CouchDB URL http(s)://host:port/path\n'
+    + '  -p, --pagesize The number of documents per page\n'
     + '  -h, --help     Display help info\n';
     
 abort = function (message) {
@@ -30,6 +31,12 @@ while (args.length) {
             args.length
                 ? (args.url = args.shift())
                 : abort('--url requires an argument');
+            break;
+        case '-p':
+        case '--pagesize':
+            args.length
+                ? (args.pageSize = parseInt(args.shift()))
+                : abort('--pageSize requires an argument');
             break;
         case '-h':
         case '--help':
@@ -54,7 +61,7 @@ doIterate = function () {
     options = {
         url: args.url,
         tasks: conf.tasks,
-        pageSize: 50,
+        pageSize: args.pageSize || 500,
         encoding: 'utf-8'
     };
     couchtato = new Couchtato(options);
