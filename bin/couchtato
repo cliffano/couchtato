@@ -53,7 +53,7 @@ doInit = function () {
 doIterate = function () {
     try {
         if (fs.statSync(confFile).isFile()) {
-            conf = require(confFile);
+            conf = require(confFile).conf;
         }
     } catch (e) {
         abort('No config file found. Use \'couchtato init\' to create a sample config.');
