@@ -2,7 +2,8 @@
 
 var fs = require('fs'),
     path = require('path'),
-    Couchtato = require('../lib/couchtato.js').Couchtato,
+    Conf = require('../lib/conf').Conf,
+    Couchtato = require('../lib/couchtato').Couchtato,
     args = process.argv.slice(2),
     base = process.cwd(),
     confFile = path.join(base, 'couchtato.js'),
@@ -51,16 +52,9 @@ doInit = function () {
 };
 
 doIterate = function () {
-    try {
-        if (fs.statSync(confFile).isFile()) {
-            conf = require(confFile).conf;
-        }
-    } catch (e) {
-        abort('No config file found. Use \'couchtato init\' to create a sample config.');
-    }
     options = {
         url: args.url,
-        tasks: conf.tasks,
+        tasks: new Conf().read(confFile).tasks,
         pageSize: args.pageSize || 500,
         encoding: 'utf-8'
     };
