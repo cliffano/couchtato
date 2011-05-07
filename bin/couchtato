@@ -13,6 +13,7 @@ var fs = require('fs'),
 usage = 'Usage: couchtato [options]\n'
     + '\n'
     + 'Options:\n'
+    + '  -f, --file     Configuration file\n'
     + '  -u, --url      CouchDB URL http(s)://host:port/path\n'
     + '  -p, --pagesize The number of documents per page\n'
     + '  -h, --help     Display help info\n';
@@ -27,6 +28,12 @@ while (args.length) {
     switch (arg) {
         case 'init':
             args.action = arg;
+            break;
+        case '-f':
+        case '--file':
+            args.length
+                ? (args.file = path.join(process.cwd(), args.shift()))
+                : abort('--file requires an argument');
             break;
         case '-u':
         case '--url':
@@ -48,13 +55,13 @@ while (args.length) {
 }
 
 doInit = function () {
-    conf.init('couchtato.js');
+    conf.init(args.file || confFile);
 };
 
 doIterate = function () {
     options = {
         url: args.url,
-        tasks: conf.read(confFile).tasks,
+        tasks: conf.read(args.file || confFile).tasks,
         pageSize: args.pageSize || 500,
         encoding: 'utf-8'
     };
