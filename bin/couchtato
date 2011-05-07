@@ -6,6 +6,7 @@ var fs = require('fs'),
     Couchtato = require('../lib/couchtato').Couchtato,
     args = process.argv.slice(2),
     base = process.cwd(),
+    conf = new Conf(),
     confFile = path.join(base, 'couchtato.js'),
     usage, conf, options, couchtato, doInit, doIterate;
 
@@ -47,14 +48,13 @@ while (args.length) {
 }
 
 doInit = function () {
-    console.log('Creating couchtato.js config file...');
-    fs.writeFileSync('couchtato.js', 'exports.conf = {"tasks": {"all_docs": {"fn": function (db, doc) {console.log(doc);}}}};');
+    conf.init('couchtato.js');
 };
 
 doIterate = function () {
     options = {
         url: args.url,
-        tasks: new Conf().read(confFile).tasks,
+        tasks: conf.read(confFile).tasks,
         pageSize: args.pageSize || 500,
         encoding: 'utf-8'
     };

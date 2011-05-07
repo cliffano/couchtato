@@ -1,10 +1,11 @@
 var assert = require('assert'),
     Conf = require('../../lib/conf').Conf,
+    fs = require('fs'),
     path = require('path'),
     vows = require('vows');
 
 vows.describe('Conf').addBatch({
-    'when configuration file is invalid': {
+    'read when configuration file is invalid': {
         topic: function() {
             return new Conf();
         },
@@ -79,11 +80,39 @@ vows.describe('Conf').addBatch({
             } catch (e) {
                 assert.equal(e.message, 'Invalid configuration - Conf must contain tasks: exports.conf = { tasks: {} }');
             }
+        }
+    },
+    'read when configuration file is valid': {
+        topic: function() {
+            return new Conf();
         },
-        'should return empty object when tasks is empty': function(topic) {
+        'should return empty object if tasks is empty': function(topic) {
             var conf = topic.read(path.join(process.cwd(), 'test/resources/emptytasks.js'));
             assert.isObject(conf.tasks);
             assert.isEmpty(conf.tasks);
+        },
+        'should return all tasks if they exist': function(topic) {
+            var conf = topic.read(path.join(process.cwd(), 'test/resources/hastasks.js')),
+                count = 0, task;
+            for (task in conf.tasks) {
+                count += 1;
+            }
+            assert.equal(count, 3);
+        }
+    },
+    'init when configuration file does not exist': {
+        topic: function() {
+            return new Conf();
+        },
+        'should write file with sample conf': function(topic) {
+            var file = 'build/test/couchtato.js', conf;
+            topic.init(file);
+            assert.isTrue(fs.statSync(file).isFile());
+            try {
+                conf = topic.init(file);
+            } catch (e) {
+                assert.fail('Error should not have been thrown.');
+            }
         }
     }
 }).export(module);
