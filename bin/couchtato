@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-var fs = require('fs'),
-    path = require('path'),
+var path = require('path'),
     Conf = require('../lib/conf').Conf,
     Couchtato = require('../lib/couchtato').Couchtato,
+    Stool = require('../lib/stool').Stool,
     args = process.argv.slice(2),
     base = process.cwd(),
     conf = new Conf(),
@@ -60,12 +60,11 @@ doInit = function () {
 
 doIterate = function () {
     options = {
-        url: args.url,
         tasks: conf.read(args.file || confFile).tasks,
         pageSize: args.pageSize || 500,
         encoding: 'utf-8'
     };
-    couchtato = new Couchtato(options);
+    couchtato = new Couchtato(options, new Stool(args.url));
     couchtato.iterate();
 };
 
