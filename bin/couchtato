@@ -3,7 +3,7 @@
 var path = require('path'),
     Conf = require('../lib/conf').Conf,
     Couchtato = require('../lib/couchtato').Couchtato,
-    Stool = require('../lib/stool').Stool,
+    Stool = require('../lib/stool/cradle').Stool,
     args = process.argv.slice(2),
     base = process.cwd(),
     conf = new Conf(),
