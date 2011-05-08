@@ -34,5 +34,49 @@ vows.describe('Stool').addBatch({
                 assert.equal(e.message, 'Unexpected Stool argument of type function');
             }
         }
+    },
+    'iterate when database exists': {
+        'should throw error when callback error is provided': function (topic) {
+            var _result, _options,
+                db = {
+                    all: function (options, cb) {
+                        _options = options;
+                        cb(new Error('Danger!'), undefined);
+                    }
+                },
+                process = function (result) {
+                    _result = result;
+                }
+                stool = new Stool(db);
+            try {
+                stool.iterate(undefined, 2, process);
+                assert.fail('An error should have been thrown.');
+            } catch (e) {
+                assert.equal(e.message, 'Danger!');
+            }
+            assert.isTrue(_options.include_docs);
+            assert.equal(_options.limit, 3);
+            assert.isUndefined(_options.startkey_docid);
+            assert.isUndefined(_result);
+        },
+        'should call all once when result is less than page size': function (topic) {
+            var _result, _options,
+                db = {
+                    all: function (options, cb) {
+                        _options = options;
+                        cb(undefined, [ { _id: 'a' } ]);
+                    }
+                },
+                process = function (result) {
+                    _result = result;
+                }
+                stool = new Stool(db);
+            stool.iterate(undefined, 2, process);
+            assert.isTrue(_options.include_docs);
+            assert.equal(_options.limit, 3);
+            assert.isUndefined(_options.startkey_docid);
+            assert.equal(_result.length, 1);
+            assert.equal(_result[0]._id, 'a');
+        }
     }
 }).export(module);
