@@ -82,7 +82,7 @@ vows.describe('Stool').addBatch({
                 db = {
                     all: function (options, cb) {
                         _options = options;
-                        cb(undefined, [ { _id: 'a' } ]);
+                        cb(undefined, [ { doc: { _id: 'a' } } ]);
                     }
                 },
                 process = function (result) {
@@ -94,14 +94,14 @@ vows.describe('Stool').addBatch({
             assert.equal(_options.limit, 3);
             assert.isUndefined(_options.startkey_docid);
             assert.equal(_result.length, 1);
-            assert.equal(_result[0]._id, 'a');
+            assert.equal(_result[0].doc._id, 'a');
         },
         'should call all once when result is exactly the page size': function (topic) {
             var _result, _options,
                 db = {
                     all: function (options, cb) {
                         _options = options;
-                        cb(undefined, [ { _id: 'a' }, { _id: 'b' } ]);
+                        cb(undefined, [ { doc: { _id: 'a' } }, { doc: { _id: 'b' } } ]);
                     }
                 },
                 process = function (result) {
@@ -113,8 +113,35 @@ vows.describe('Stool').addBatch({
             assert.equal(_options.limit, 3);
             assert.isUndefined(_options.startkey_docid);
             assert.equal(_result.length, 2);
-            assert.equal(_result[0]._id, 'a');
-            assert.equal(_result[1]._id, 'b');
+            assert.equal(_result[0].doc._id, 'a');
+            assert.equal(_result[1].doc._id, 'b');
+        },
+        'should call all twice when result is more than page size': function (topic) {
+            var _result, _options, dbCallCount = 0,
+                db = {
+                    all: function (options, cb) {
+                        _options = options;
+                        dbCallCount += 1;
+                        if (dbCallCount === 1) {
+                            cb(undefined, [ { doc: { _id: 'a' } }, { doc: { _id: 'b' } }, { doc: { _id: 'c' } } ]);
+                        } else if (dbCallCount === 2) {
+                            cb(undefined, [ { doc: { _id: 'c' } } ]);
+                        } else {
+                            assert.fail('Should not call all more than twice.');
+                        }
+                    }
+                },
+                process = function (result) {
+                    _result = result;
+                }
+                stool = new Stool(db);
+            stool.iterate(undefined, 2, process);
+            // options and result from the last call
+            assert.isTrue(_options.include_docs);
+            assert.equal(_options.limit, 3);
+            assert.equal(_options.startkey_docid, 'c');
+            assert.equal(_result.length, 1);
+            assert.equal(_result[0].doc._id, 'c');
         }
     }
 }).export(module);
