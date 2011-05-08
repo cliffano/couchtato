@@ -4,7 +4,7 @@ var assert = require('assert'),
 
 vows.describe('Couchtato').addBatch({
     'iterate': {
-        'should call stool iterate and execute tasks': function(topic) {
+        'should call stool iterate and execute tasks': function (topic) {
             var _startKeyDocId, _pageSize, _stool, _doc,
                 options = {
                     pageSize: 99,

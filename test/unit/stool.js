@@ -4,10 +4,10 @@ var assert = require('assert'),
 
 vows.describe('Stool').addBatch({
     'driver when constructor arg is string': {
-        topic: function() {
+        topic: function () {
             return new Stool('http://localhost:5984/blah');
         },
-        'should return Craddle db': function(topic) {
+        'should return Craddle db': function (topic) {
             var driver = topic.driver();
             assert.equal(driver.name, 'blah');
             assert.isFunction(driver.all);
@@ -16,19 +16,20 @@ vows.describe('Stool').addBatch({
         }
     },
     'driver when constructor arg is an object': {
-        topic: function() {
+        topic: function () {
             return new Stool({ blah: 'blah' });
         },
-        'should return the object itself': function(topic) {
+        'should return the object itself': function (topic) {
             var driver = topic.driver();
             assert.isObject(driver);
             assert.equal(driver.blah, 'blah');
         }
     },
     'driver when constructor arg is non string and non object': {
-        'should throw error': function(topic) {
+        'should throw error': function (topic) {
+            var stool;
             try {
-                new Stool(function () {});
+                stool = new Stool(function () {});
                 assert.fail('An error should have been thrown.');
             } catch (e) {
                 assert.equal(e.message, 'Unexpected Stool argument of type function');
@@ -46,7 +47,7 @@ vows.describe('Stool').addBatch({
                 },
                 process = function (result) {
                     _result = result;
-                }
+                },
                 stool = new Stool(db);
             try {
                 stool.iterate(undefined, 2, process);
@@ -69,7 +70,7 @@ vows.describe('Stool').addBatch({
                 },
                 process = function (result) {
                     _result = result;
-                }
+                },
                 stool = new Stool(db);
             stool.iterate(undefined, 2, process);
             assert.isTrue(_options.include_docs);
@@ -87,7 +88,7 @@ vows.describe('Stool').addBatch({
                 },
                 process = function (result) {
                     _result = result;
-                }
+                },
                 stool = new Stool(db);
             stool.iterate(undefined, 2, process);
             assert.isTrue(_options.include_docs);
@@ -106,7 +107,7 @@ vows.describe('Stool').addBatch({
                 },
                 process = function (result) {
                     _result = result;
-                }
+                },
                 stool = new Stool(db);
             stool.iterate(undefined, 2, process);
             assert.isTrue(_options.include_docs);
@@ -133,7 +134,7 @@ vows.describe('Stool').addBatch({
                 },
                 process = function (result) {
                     _result = result;
-                }
+                },
                 stool = new Stool(db);
             stool.iterate(undefined, 2, process);
             // options and result from the last call
