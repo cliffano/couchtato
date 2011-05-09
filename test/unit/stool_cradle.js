@@ -38,7 +38,7 @@ vows.describe('Stool').addBatch({
     },
     'iterate when database exists': {
         'should throw error when callback error is provided': function (topic) {
-            var _result, _options,
+            var _result, _options, _finishCallCount = 0,
                 db = {
                     all: function (options, cb) {
                         _options = options;
@@ -47,6 +47,9 @@ vows.describe('Stool').addBatch({
                 },
                 process = function (result) {
                     _result = result;
+                },
+                finish = function () {
+                    _finishCallCount = 1;
                 },
                 stool = new Stool(db);
             try {
@@ -59,9 +62,10 @@ vows.describe('Stool').addBatch({
             assert.equal(_options.limit, 3);
             assert.isUndefined(_options.startkey_docid);
             assert.isUndefined(_result);
+            assert.equal(_finishCallCount, 0);
         },
         'should call all once when result is empty': function (topic) {
-            var _result, _options,
+            var _result, _options, _finishCallCount = 0,
                 db = {
                     all: function (options, cb) {
                         _options = options;
@@ -71,15 +75,19 @@ vows.describe('Stool').addBatch({
                 process = function (result) {
                     _result = result;
                 },
+                finish = function () {
+                    _finishCallCount = 1;
+                },
                 stool = new Stool(db);
-            stool.iterate(undefined, 2, process);
+            stool.iterate(undefined, 2, process, finish);
             assert.isTrue(_options.include_docs);
             assert.equal(_options.limit, 3);
             assert.isUndefined(_options.startkey_docid);
             assert.equal(_result.length, 0);
+            assert.equal(_finishCallCount, 1);
         },
         'should call all once when result is less than page size': function (topic) {
-            var _result, _options,
+            var _result, _options, _finishCallCount,
                 db = {
                     all: function (options, cb) {
                         _options = options;
@@ -89,16 +97,20 @@ vows.describe('Stool').addBatch({
                 process = function (result) {
                     _result = result;
                 },
+                finish = function () {
+                    _finishCallCount = 1;
+                },
                 stool = new Stool(db);
-            stool.iterate(undefined, 2, process);
+            stool.iterate(undefined, 2, process, finish);
             assert.isTrue(_options.include_docs);
             assert.equal(_options.limit, 3);
             assert.isUndefined(_options.startkey_docid);
             assert.equal(_result.length, 1);
             assert.equal(_result[0].doc._id, 'a');
+            assert.equal(_finishCallCount, 1);
         },
         'should call all once when result is exactly the page size': function (topic) {
-            var _result, _options,
+            var _result, _options, _finishCallCount = 0,
                 db = {
                     all: function (options, cb) {
                         _options = options;
@@ -108,17 +120,21 @@ vows.describe('Stool').addBatch({
                 process = function (result) {
                     _result = result;
                 },
+                finish = function () {
+                    _finishCallCount = 1;
+                },
                 stool = new Stool(db);
-            stool.iterate(undefined, 2, process);
+            stool.iterate(undefined, 2, process, finish);
             assert.isTrue(_options.include_docs);
             assert.equal(_options.limit, 3);
             assert.isUndefined(_options.startkey_docid);
             assert.equal(_result.length, 2);
             assert.equal(_result[0].doc._id, 'a');
             assert.equal(_result[1].doc._id, 'b');
+            assert.equal(_finishCallCount, 1);
         },
         'should call all twice when result is more than page size': function (topic) {
-            var _result, _options, dbCallCount = 0,
+            var _result, _options, dbCallCount = 0, _finishCallCount = 0,
                 db = {
                     all: function (options, cb) {
                         _options = options;
@@ -135,14 +151,18 @@ vows.describe('Stool').addBatch({
                 process = function (result) {
                     _result = result;
                 },
+                finish = function () {
+                    _finishCallCount = 1;
+                },
                 stool = new Stool(db);
-            stool.iterate(undefined, 2, process);
+            stool.iterate(undefined, 2, process, finish);
             // options and result from the last call
             assert.isTrue(_options.include_docs);
             assert.equal(_options.limit, 3);
             assert.equal(_options.startkey_docid, 'c');
             assert.equal(_result.length, 1);
             assert.equal(_result[0].doc._id, 'c');
+            assert.equal(_finishCallCount, 1);
         }
     }
 }).export(module);

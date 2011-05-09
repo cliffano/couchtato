@@ -3,6 +3,7 @@
 var path = require('path'),
     Conf = require('../lib/conf').Conf,
     Couchtato = require('../lib/couchtato').Couchtato,
+    Report = require('../lib/report').Report,
     Stool = require('../lib/stool/cradle').Stool,
     args = process.argv.slice(2),
     base = process.cwd(),
@@ -64,7 +65,7 @@ doIterate = function () {
         pageSize: args.pageSize || 500,
         encoding: 'utf-8'
     };
-    couchtato = new Couchtato(options, new Stool(args.url));
+    couchtato = new Couchtato(options, new Stool(args.url), new Report());
     couchtato.iterate();
 };
 
