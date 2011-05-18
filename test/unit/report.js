@@ -103,7 +103,7 @@ vows.describe('Report').addBatch({
         },
         'should initialise count to 1 when key is first used': function (topic) {
             topic.count('blah');
-            assert.equal(topic.counts['blah'], 1);
+            assert.equal(topic.counts.blah, 1);
         }
     },
     'count the same key multiple times': {
@@ -112,11 +112,11 @@ vows.describe('Report').addBatch({
         },
         'should increment count': function (topic) {
             topic.count('blah');
-            assert.equal(topic.counts['blah'], 1);
+            assert.equal(topic.counts.blah, 1);
             topic.count('blah');
             topic.count('blah');
             topic.count('blah');
-            assert.equal(topic.counts['blah'], 4);
+            assert.equal(topic.counts.blah, 4);
         }
     },
     'toString summary report': {
