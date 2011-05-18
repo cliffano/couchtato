@@ -164,5 +164,89 @@ vows.describe('Stool').addBatch({
             assert.equal(_result[0].doc._id, 'c');
             assert.equal(_finishCallCount, 1);
         }
+    },
+    'save': {
+        'should call error callback when an error occured': function (topic) {
+            var _id, _rev, _doc, _err,
+                db = {
+                    'save': function (id, rev, doc, cb) {
+                        _id = id;
+                        _rev = rev;
+                        _doc = doc;
+                        cb({ 'message': 'some error' }, undefined);
+                    }
+                },
+                stool = new Stool(db);
+            stool.save({ _id: 'abc', _rev: '123', blah: 'foobar' },
+                undefined,
+                function (err) {
+                    _err = err;
+                });
+            assert.equal(_id, 'abc');
+            assert.equal(_rev, '123');
+            assert.equal(_doc.blah, 'foobar');
+            assert.equal(_err.message, 'some error');
+        },
+        'should call success callback when no error occured': function (topic) {
+            var _id, _rev, _doc, _res,
+                db = {
+                    'save': function (id, rev, doc, cb) {
+                        _id = id;
+                        _rev = rev;
+                        _doc = doc;
+                        cb(undefined, { 'message': 'success' });
+                    }
+                },
+                stool = new Stool(db);
+            stool.save({ _id: 'abc', _rev: '123', blah: 'foobar' },
+                function (res) {
+                    _res = res;
+                },
+                undefined);
+            assert.equal(_id, 'abc');
+            assert.equal(_rev, '123');
+            assert.equal(_doc.blah, 'foobar');
+            assert.equal(_res.message, 'success');
+        }
+    },
+    'remove': {
+        'should call error callback when an error occured': function (topic) {
+            var _id, _rev, _err,
+                db = {
+                    'remove': function (id, rev, cb) {
+                        _id = id;
+                        _rev = rev;
+                        cb({ 'message': 'some error' }, undefined);
+                    }
+                },
+                stool = new Stool(db);
+            stool.remove({ _id: 'abc', _rev: '123', blah: 'foobar' },
+                undefined,
+                function (err) {
+                    _err = err;
+                });
+            assert.equal(_id, 'abc');
+            assert.equal(_rev, '123');
+            assert.equal(_err.message, 'some error');
+        },
+        'should call success callback when no error occured': function (topic) {
+            var _id, _rev, _res,
+                db = {
+                    'remove': function (id, rev, cb) {
+                        _id = id;
+                        _rev = rev;
+                        cb(undefined, { 'message': 'success' });
+                    }
+                },
+                stool = new Stool(db);
+            stool.remove({ _id: 'abc', _rev: '123', blah: 'foobar' },
+                function (res) {
+                    _res = res;
+                },
+                undefined);
+            assert.equal(_id, 'abc');
+            assert.equal(_rev, '123');
+            assert.equal(_res.message, 'success');
+        }
     }
 }).export(module);
