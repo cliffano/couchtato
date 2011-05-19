@@ -5,26 +5,6 @@ var assert = require('assert'),
     vows = require('vows');
 
 vows.describe('Report').addBatch({
-    'summary report': {
-        topic: function () {
-            return new Report();
-        },
-        'should display undefined in summary when start and finish are undefined': function (topic) {
-            var summary = topic.summary();
-            assert.equal(summary.length, 2);
-            assert.equal(summary[0], 'Start: undefined');
-            assert.equal(summary[1], 'Finish: undefined');
-        },
-        'should display dates in summary': function (topic) {
-            topic.start(new Date(2011, 3, 1, 5, 6, 7, 8));
-            topic.finish(new Date(2011, 3, 1, 9, 6, 7, 8));
-            var summary = topic.summary();
-            assert.equal(summary.length, 2);
-            // ignore time zone info
-            assert.isNotNull(summary[0].match(/^Start: Fri Apr 01 2011 05:06:07 GMT.*/));
-            assert.isNotNull(summary[1].match(/^Finish: Fri Apr 01 2011 09:06:07 GMT.*/));
-        }
-    },
     'success called once': {
         topic: function () {
             return new Report();
@@ -119,14 +99,39 @@ vows.describe('Report').addBatch({
             assert.equal(topic.counts.blah, 4);
         }
     },
-    'toString summary report': {
+    'summary report': {
         topic: function () {
             return new Report();
         },
-        'should display the same line on first and last lines': function (topic) {
-            var summary = topic.toString('aaa');
-            assert.isNotNull(summary.match(/^aaa/));
-            assert.isNotNull(summary.match(/aaa$/));
+        'should display undefined in summary when start and finish are undefined': function (topic) {
+            var summary = topic.summary();
+            assert.equal(summary.length, 6);
+            assert.equal(summary[3], 'START: undefined');
+            assert.equal(summary[4], 'FINISH: undefined');
+            assert.isTrue(summary[0] === summary[2]);
+            assert.isTrue(summary[0] === summary[summary.length - 1]);
+        },
+        'should display dates in summary': function (topic) {
+            topic.start(new Date(2011, 3, 1, 5, 6, 7, 8));
+            topic.finish(new Date(2011, 3, 1, 9, 6, 7, 8));
+            var summary = topic.summary();
+            assert.equal(summary.length, 6);
+            // ignore time zone info
+            assert.isNotNull(summary[3].match(/^START: Fri Apr 01 2011 05:06:07 GMT.* /));
+            assert.isNotNull(summary[4].match(/^FINISH: Fri Apr 01 2011 09:06:07 GMT.* /));
+        }
+    },
+    'toString': {
+        topic: function () {
+            return new Report();
+        },
+        'should add a new line at the beginning of the string': function (topic) {
+            var summary = [ 'aaa', 'bbb' ];
+            assert.isNotNull(topic.toString(summary).match(/^\n/));
+        },
+        'should join the lines with new line as separator': function (topic) {
+            var summary = [ 'aaa', 'bbb' ];
+            assert.equal(topic.toString(summary), '\naaa\nbbb');
         }
     }
 }).export(module);
