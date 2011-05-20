@@ -1,67 +1,23 @@
 #!/usr/bin/env node
 
-var path = require('path'),
+var nomnom = require('nomnom'),
+    path = require('path'),
     Conf = require('../lib/conf').Conf,
     Couchtato = require('../lib/couchtato').Couchtato,
     Report = require('../lib/report').Report,
     Stool = require('../lib/stool/cradle').Stool,
-    args = process.argv.slice(2),
     base = process.cwd(),
     conf = new Conf(),
     confFile = path.join(base, 'couchtato.js'),
-    usage, conf, options, couchtato, doInit, doIterate;
+    args, conf, options, couchtato, doInit, doIterate;
 
-usage = 'Usage: couchtato [options]\n'
-    + '\n'
-    + 'Options:\n'
-    + '  -f, --file     Configuration file\n'
-    + '  -u, --url      CouchDB URL http(s)://host:port/path\n'
-    + '  -p, --pagesize The number of documents per page\n'
-    + '  -h, --help     Display help info\n';
-    
-abort = function (message) {
-    console.error(message);
-    process.exit(1);
+doInit = function (args) {
+    conf.init((args.file) ? path.join(process.cwd(), args.file) : confFile);
 };
 
-while (args.length) {
-    var arg = args.shift();
-    switch (arg) {
-        case 'init':
-            args.action = arg;
-            break;
-        case '-f':
-        case '--file':
-            args.length
-                ? (args.file = path.join(process.cwd(), args.shift()))
-                : abort('--file requires an argument');
-            break;
-        case '-u':
-        case '--url':
-            args.length
-                ? (args.url = args.shift())
-                : abort('--url requires an argument');
-            break;
-        case '-p':
-        case '--pagesize':
-            args.length
-                ? (args.pageSize = parseInt(args.shift()))
-                : abort('--pageSize requires an argument');
-            break;
-        case '-h':
-        case '--help':
-            abort(usage);
-            break;
-    }
-}
-
-doInit = function () {
-    conf.init(args.file || confFile);
-};
-
-doIterate = function () {
+doIterate = function (args) {
     options = {
-        tasks: conf.read(args.file || confFile).tasks,
+        tasks: conf.read(path.join(process.cwd(), args.file) || confFile).tasks,
         pageSize: args.pageSize || 500,
         encoding: 'utf-8'
     };
@@ -69,11 +25,20 @@ doIterate = function () {
     couchtato.iterate();
 };
 
-switch (args.action) {
-    case 'init':
-        doInit();
-        break;
-    case undefined:
-        doIterate();
-        break;
-}
+nomnom.command('init').callback(doInit);
+nomnom.command('iterate')
+    .opts({
+        file: {
+            string: '-f FILE',
+            help: 'Configuration file'
+        },
+        url: {
+            string: '-u URL',
+            help: 'CouchDB URL http(s)://<user>:<pass>@host:port/db'
+        },
+        pagesize: {
+            string: '-p PAGE_SIZE',
+            help: 'The number of documents per page'
+        }
+    }).callback(doIterate);
+nomnom.parseArgs();
