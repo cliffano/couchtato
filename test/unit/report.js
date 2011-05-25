@@ -111,7 +111,7 @@ vows.describe('Report').addBatch({
             assert.equal(summary[3], '0 successes, 0 errors');
         },
         'should display dates and success error counts in summary': function (topic) {
-            topic.start(new Date(2011, 3, 1, 5, 6, 7, 8));
+            topic.start(new Date(2011, 3, 1, 5, 6, 7, 8), 'http://user:pass@host:port/db');
             topic.finish(new Date(2011, 3, 1, 9, 6, 7, 8));
             var summary = topic.summary();
             assert.equal(summary.length, 4);
@@ -121,7 +121,7 @@ vows.describe('Report').addBatch({
             assert.equal(summary[3], '0 successes, 0 errors');
         },
         'should display counts in summary': function (topic) {
-            topic.start(new Date(2011, 3, 1, 5, 6, 7, 8));
+            topic.start(new Date(2011, 3, 1, 5, 6, 7, 8), 'http://user:pass@host:port/db');
             topic.finish(new Date(2011, 3, 1, 9, 6, 7, 8));
             topic.count('valid doc');
             topic.count('standard doc');

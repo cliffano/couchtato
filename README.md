@@ -36,3 +36,9 @@ You can configure the function to be executed against each document in the confi
 
 Report
 ------
+
+TODO
+----
+
+* Improve error text display
+* Wait for incomplete actions prior to finishing
