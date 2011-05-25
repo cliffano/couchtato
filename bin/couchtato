@@ -21,7 +21,7 @@ doIterate = function (args) {
         pageSize: args.pageSize || 500,
         encoding: 'utf-8'
     };
-    couchtato = new Couchtato(options, new Stool(args.url), new Report());
+    couchtato = new Couchtato(options, new Stool(args.url || 'http://localhost:5984/db'), new Report());
     couchtato.iterate();
 };
 
