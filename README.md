@@ -17,11 +17,11 @@ Create a sample couchtato.js config file.
     
 Iterate through the documents in a CouchDB database.
 
-    couchtato iterate -l http://user:pass@host:port/db
+    couchtato iterate -u http://user:pass@host:port/db
 
 Use a custom config file.
 
-    couchtato iterate -l http://user:pass@host:port/db -f path/to/myfile.js
+    couchtato iterate -u http://user:pass@host:port/db -f path/to/myfile.js
 
 Display help info.
 
