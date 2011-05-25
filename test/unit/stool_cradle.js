@@ -42,7 +42,7 @@ vows.describe('Stool').addBatch({
                 db = {
                     all: function (options, cb) {
                         _options = options;
-                        cb(new Error('Danger!'), undefined);
+                        cb({error: 'Danger!', reason: 'Sharks'}, undefined);
                     }
                 },
                 process = function (result) {
@@ -56,7 +56,7 @@ vows.describe('Stool').addBatch({
                 stool.iterate(undefined, 2, process);
                 assert.fail('An error should have been thrown.');
             } catch (e) {
-                assert.equal(e.message, 'Danger!');
+                assert.equal(e.message, 'Danger! - Sharks');
             }
             assert.isTrue(_options.include_docs);
             assert.equal(_options.limit, 3);

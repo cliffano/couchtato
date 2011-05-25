@@ -40,5 +40,4 @@ Report
 TODO
 ----
 
-* Improve error text display
 * Wait for incomplete actions prior to finishing
