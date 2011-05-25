@@ -32,7 +32,7 @@ opts = {
     },
     url: {
         string: '-u URL',
-        help: 'CouchDB URL http(s)://<user>:<pass>@host:port/db'
+        help: 'CouchDB URL http(s)://user:pass@host:port/db'
     },
     pagesize: {
         string: '-p PAGE_SIZE',
