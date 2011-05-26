@@ -32,7 +32,7 @@ Config
 
 Couchtato gives you the flexibility to do anything you want to each document in the database. Anything? Anything!
 
-You only need to specify the functions in the config file. Each function in exports.conf.tasks will be applied to each document one by one.
+You only need to specify the task functions in the config file. Each function in exports.conf.tasks will be applied to each document one by one.
 
     exports.conf = {
         "tasks": {
@@ -71,7 +71,7 @@ Note that you can also require other modules in the config file if you need to.
 The 'c' Variable
 ----------------
 
-That 'c' in function (c, doc) is a utility variable, it allows you to call the following convenient functions:
+That 'c' in function (c, doc) is a utility variable, it provides you the following convenient functions:
 
     save(doc)
     remove(doc)
@@ -101,8 +101,7 @@ Extend
 ------
 
 By default Couchtato uses cradle as its CouchDB library. If you want to use a different library,
-you have to implement an adapter like lib/stool/cradle.js , and make Stool configurable via the
-command line.
+you have to implement an adapter like lib/stool/cradle.js , and make the choice of Stool configurable via command line.
 
 TODO
 ----
