@@ -39,6 +39,11 @@ You only need to specify the functions in the config file. Each function in expo
             "log-all-docs": function (c, doc) {
                 console.log(doc);
             },
+            "log-by-criteria": function (c, doc) {
+                if (doc.title.match(/^The/)) {
+                    console.log(doc);
+                }
+            },
             "update-by-criteria": function (c, doc) {
                 if (doc.city === 'rome') {
                     doc.venue = 'san giorgio';
@@ -79,6 +84,19 @@ If you need to access the native CouchDB driver used by Couchtato, use
 Report
 ------
 
+Couchtato logs to a couchtato.log file and it also displays the logs on the console.
+
+A summary report will be displayed at the end of the run.
+
+    ------------------------------------------------
+    Start date: Fri May 27 2011 00:50:10 GMT+1000 (EST)
+    Finish date: Fri May 27 2011 00:50:24 GMT+1000 (EST)
+    10 successes, 0 errors
+    Counts:
+        - rome: 732
+        - tuscany: 6244
+        - florence: 1
+
 Extend
 ------
 
@@ -90,4 +108,5 @@ TODO
 ----
 
 * Pretify sample config file indentation
+* Add c.log(doc) util
 * Wait for incomplete actions prior to finishing
