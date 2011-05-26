@@ -6,7 +6,7 @@ CouchDB documents iterator
 Installation
 ------------
 
-    npm install couchtato
+    npm install -g couchtato
     
 Usage
 -----
@@ -15,11 +15,11 @@ Create a sample couchtato.js config file.
 
     couchtato init
     
-Iterate through the documents in a CouchDB database.
+Iterate through all documents in a CouchDB database.
 
     couchtato iterate -u http://user:pass@host:port/db
 
-Use a custom config file.
+Use a custom config file name (by default it uses couchtato.js) .
 
     couchtato iterate -u http://user:pass@host:port/db -f path/to/myfile.js
 
@@ -30,14 +30,64 @@ Display help info.
 Config
 ------
 
-You can configure the function to be executed against each document in the config file.
+Couchtato gives you the flexibility to do anything you want to each document in the database. Anything? Anything!
 
+You only need to specify the functions in the config file. Each function in exports.conf.tasks will be applied to each document one by one.
 
+    exports.conf = {
+        "tasks": {
+            "log-all-docs": function (c, doc) {
+                console.log(doc);
+            },
+            "update-by-criteria": function (c, doc) {
+                if (doc.city === 'rome') {
+                    doc.venue = 'san giorgio';
+                    c.save(doc);
+                }
+            },
+            "delete-by-criteria": function (c, doc) {
+                if (doc.author === 'spam') {
+                    c.remove(doc);
+                }
+            },
+            "count-by-field": function (c, doc) {
+                // the final count values will be displayed at the end of the iteration
+                c.count(doc.city);
+            },
+            "anything-you-want": function (c, doc) {
+                // you need to implement anythingYouWant function
+                anythingYouWant(doc);
+            }
+        }
+    }};
+
+Note that you can also require other modules in the config file if you need to.
+
+The 'c' Variable
+----------------
+
+That 'c' in function (c, doc) is a utility variable, it allows you to call the following functions:
+
+    save(doc)
+    remove(doc)
+    count(key)
+
+If you need to access the native CouchDB driver used by Couchtato, use
+
+    c.stool.driver()
 
 Report
 ------
 
+Extend
+------
+
+By default Couchtato uses cradle as its CouchDB library. If you want to use a different library,
+you have to implement an adapter like lib/stool/cradle.js , and make Stool configurable via the
+command line.
+
 TODO
 ----
 
+* Pretify sample config file indentation
 * Wait for incomplete actions prior to finishing
