@@ -56,7 +56,7 @@ You only need to specify the functions in the config file. Each function in expo
                 }
             },
             "count-by-field": function (c, doc) {
-                // the final count values will be displayed at the end of the iteration
+                // the final count values will be displayed at the end of the run
                 c.count(doc.city);
             },
             "anything-you-want": function (c, doc) {
@@ -71,7 +71,7 @@ Note that you can also require other modules in the config file if you need to.
 The 'c' Variable
 ----------------
 
-That 'c' in function (c, doc) is a utility variable, it allows you to call the following functions:
+That 'c' in function (c, doc) is a utility variable, it allows you to call the following convenient functions:
 
     save(doc)
     remove(doc)
@@ -84,7 +84,7 @@ If you need to access the native CouchDB driver used by Couchtato, use
 Report
 ------
 
-Couchtato logs to a couchtato.log file and it also displays the logs on the console.
+Couchtato displays the log messages on the console and writes to couchtato.log file.
 
 A summary report will be displayed at the end of the run.
 
