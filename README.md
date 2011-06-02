@@ -106,7 +106,6 @@ you have to implement an adapter like lib/stool/cradle.js , and make the choice 
 TODO
 ----
 
-* Pretify sample config file indentation
 * Add c.log(doc) util
 * Allow view iteration
 * Wait for incomplete actions prior to finishing

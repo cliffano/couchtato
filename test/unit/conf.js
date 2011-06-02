@@ -103,9 +103,11 @@ vows.describe('Conf').addBatch({
             topic.init(file);
             assert.isTrue(fs.statSync(file).isFile());
             try {
-                conf = topic.init(file);
+                topic.init(file);
+                conf = fs.readFileSync(file, 'utf-8');
+                assert.equal('exports.conf = {\n    "tasks": {\n        "all_docs": function (c, doc) {\n            console.log(doc);\n        }\n    }\n};', conf);
             } catch (e) {
-                assert.fail('Error should not have been thrown.');
+                assert.fail('Error should not have been thrown. ' + e.message);
             }
         }
     }
