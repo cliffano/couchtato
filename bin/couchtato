@@ -5,7 +5,6 @@ var nomnom = require('nomnom'),
     Conf = require('../lib/conf').Conf,
     Couchtato = require('../lib/couchtato').Couchtato,
     Report = require('../lib/report').Report,
-    Stool = require('../lib/stool/cradle').Stool,
     base = process.cwd(),
     conf = new Conf(),
     confFile = path.join(base, 'couchtato.js'),
@@ -20,9 +19,13 @@ doIterate = function (args) {
         tasks: conf.read((args.file) ? path.join(process.cwd(), args.file) : confFile).tasks,
         url: args.url || 'http://localhost:5984/db',
         pageSize: args.pageSize || 500,
+        driver: args.driver,
         encoding: 'utf-8'
     };
-    couchtato = new Couchtato(options, new Stool(options.url), new Report());
+    couchtato = new Couchtato(
+        options,
+        new (require('../lib/stool/' + (options.driver || 'cradle')).Stool)(options.url),
+        new Report());
     couchtato.iterate();
 };
 
@@ -38,6 +41,10 @@ opts = {
     pagesize: {
         string: '-p PAGE_SIZE',
         help: 'The number of documents per page'
+    },
+    driver: {
+        string: '-d DRIVER',
+        help: 'CouchDB driver module'
     }
 };
 

@@ -21,7 +21,7 @@ Iterate through all documents in a CouchDB database.
 
 Use a custom config file name (by default it uses couchtato.js) .
 
-    couchtato iterate -u http://user:pass@host:port/db -f path/to/myfile.js
+    couchtato iterate -u http://user:pass@host:port/db -f path/to/myconfigfile.js
 
 Display help info.
 
@@ -100,8 +100,11 @@ A summary report will be displayed at the end of the run.
 Extend
 ------
 
-By default Couchtato uses cradle as its CouchDB library. If you want to use a different library,
-you have to implement an adapter like lib/stool/cradle.js , and make the choice of Stool configurable via command line.
+By default Couchtato uses cradle as its CouchDB driver module. If you want to use a different module,
+you have to implement an adapter like lib/stool/cradle.js , e.g. lib/stool/mydriver.js,
+then specify the driver module via command line.
+
+    couchtato iterate -u http://user:pass@host:port/db -d mydriver
 
 TODO
 ----
