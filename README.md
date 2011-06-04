@@ -73,9 +73,19 @@ The 'c' Variable
 
 That 'c' in function (c, doc) is a utility variable, it provides you the following convenient functions:
 
+    # save the document in database
     c.save(doc)
+    
+    # remove the document from database
     c.remove(doc)
+    
+    # increment a counter associated with a particular key
     c.count(key)
+    
+    # log a message to both the console and couchtato.log file
+    # if you only want to display a message on the console,
+    # simply use good old console.log(message)
+    c.log(message)
 
 If you need to access the native CouchDB driver used by Couchtato, use
 
@@ -109,6 +119,5 @@ then specify the driver module via command line.
 TODO
 ----
 
-* Add c.log(doc) util
 * Allow view iteration
 * Wait for incomplete actions prior to finishing

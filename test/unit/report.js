@@ -99,6 +99,20 @@ vows.describe('Report').addBatch({
             assert.equal(topic.counts.blah, 4);
         }
     },
+    'log': {
+        topic: function () {
+            return new Report();
+        },
+        'should not give any error': function (topic) {
+            try {
+                topic.log('hello hello');
+                topic.log(undefined);
+                topic.log();
+            } catch (e) {
+                assert.fail('Error should not have been thrown. ' + e.message);
+            }
+        }
+    },
     'summary report': {
         topic: function () {
             return new Report();

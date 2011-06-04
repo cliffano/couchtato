@@ -100,5 +100,18 @@ vows.describe('Couchtato').addBatch({
             assert.equal(_keys.length, 3);
             assert.equal(_keys[2], 'xyz');
         }
+    },
+    'log': {
+        'should call report count with specified key': function (topic) {
+            var _message,
+                report = {
+                    log: function (message) {
+                        _message = message;
+                    }
+                },
+                couchtato = new Couchtato({}, {}, report);
+            couchtato.log('hello hello');
+            assert.equal(_message, 'hello hello');
+        }
     }
 }).export(module);
