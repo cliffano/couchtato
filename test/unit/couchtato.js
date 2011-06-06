@@ -5,7 +5,7 @@ var assert = require('assert'),
 vows.describe('Couchtato').addBatch({
     'iterate': {
         'should call stool iterate and execute tasks': function (topic) {
-            var _startKeyDocId, _pageSize, _stool, _doc, _start, _url, _finish,
+            var _startKeyDocId, _pageSize, _stool, _doc, _start, _url, _finish, _calls,
                 options = {
                     pageSize: 99,
                     tasks: {
@@ -29,8 +29,9 @@ vows.describe('Couchtato').addBatch({
                         _start = date;
                         _url = url;
                     },
-                    finish: function (date) {
+                    finish: function (date, calls) {
                         _finish = date;
+                        _calls = calls;
                     },
                     log: function () {
                         return 'dummysummary';
@@ -45,6 +46,7 @@ vows.describe('Couchtato').addBatch({
             assert.isNotNull(_start);
             assert.equal(_url, 'http://user:pass@host:port/db');
             assert.isNotNull(_finish);
+            assert.equal(_calls, 0);
         }
     },
     'save': {
@@ -62,6 +64,7 @@ vows.describe('Couchtato').addBatch({
             assert.equal(_doc.message, 'blah');
             assert.isFunction(_successCb);
             assert.isFunction(_errorCb);
+            assert.equal(couchtato.calls, 1);
         }
     },
     'remove': {
@@ -79,6 +82,7 @@ vows.describe('Couchtato').addBatch({
             assert.equal(_doc.message, 'blah');
             assert.isFunction(_successCb);
             assert.isFunction(_errorCb);
+            assert.equal(couchtato.calls, 1);
         }
     },
     'count': {

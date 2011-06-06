@@ -120,4 +120,3 @@ TODO
 ----
 
 * Allow view iteration
-* Wait for incomplete actions prior to finishing

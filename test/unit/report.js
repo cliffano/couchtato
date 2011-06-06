@@ -126,7 +126,7 @@ vows.describe('Report').addBatch({
         },
         'should display dates and success error counts in summary': function (topic) {
             topic.start(new Date(2011, 3, 1, 5, 6, 7, 8), 'http://user:pass@host:port/db');
-            topic.finish(new Date(2011, 3, 1, 9, 6, 7, 8));
+            topic.finish(new Date(2011, 3, 1, 9, 6, 7, 8), 777);
             var summary = topic.summary();
             assert.equal(summary.length, 4);
             // ignore time zone info
@@ -136,7 +136,7 @@ vows.describe('Report').addBatch({
         },
         'should display counts in summary': function (topic) {
             topic.start(new Date(2011, 3, 1, 5, 6, 7, 8), 'http://user:pass@host:port/db');
-            topic.finish(new Date(2011, 3, 1, 9, 6, 7, 8));
+            topic.finish(new Date(2011, 3, 1, 9, 6, 7, 8), 999);
             topic.count('valid doc');
             topic.count('standard doc');
             topic.count('valid doc');
