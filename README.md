@@ -119,4 +119,4 @@ then specify the driver module via command line.
 TODO
 ----
 
-* Allow view iteration
+* Add page limit config to avoid forcing to iterate the whole database
