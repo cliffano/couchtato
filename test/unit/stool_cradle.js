@@ -53,7 +53,7 @@ vows.describe('Stool').addBatch({
                 },
                 stool = new Stool(db);
             try {
-                stool.iterate(undefined, 2, process);
+                stool.iterate(undefined, 2, -1, process);
                 assert.fail('An error should have been thrown.');
             } catch (e) {
                 assert.equal(e.message, 'Danger! - Sharks');
@@ -79,7 +79,7 @@ vows.describe('Stool').addBatch({
                     _finishCallCount = 1;
                 },
                 stool = new Stool(db);
-            stool.iterate(undefined, 2, process, finish);
+            stool.iterate(undefined, 2, -1, process, finish);
             assert.isTrue(_options.include_docs);
             assert.equal(_options.limit, 3);
             assert.isUndefined(_options.startkey_docid);
@@ -101,7 +101,7 @@ vows.describe('Stool').addBatch({
                     _finishCallCount = 1;
                 },
                 stool = new Stool(db);
-            stool.iterate(undefined, 2, process, finish);
+            stool.iterate(undefined, 2, -1, process, finish);
             assert.isTrue(_options.include_docs);
             assert.equal(_options.limit, 3);
             assert.isUndefined(_options.startkey_docid);
@@ -124,7 +124,7 @@ vows.describe('Stool').addBatch({
                     _finishCallCount = 1;
                 },
                 stool = new Stool(db);
-            stool.iterate(undefined, 2, process, finish);
+            stool.iterate(undefined, 2, -1, process, finish);
             assert.isTrue(_options.include_docs);
             assert.equal(_options.limit, 3);
             assert.isUndefined(_options.startkey_docid);
@@ -144,7 +144,7 @@ vows.describe('Stool').addBatch({
                         } else if (dbCallCount === 2) {
                             cb(undefined, [ { doc: { _id: 'c' } } ]);
                         } else {
-                            assert.fail('Should not call all more than twice.');
+                            assert.fail('Should not call all twice.');
                         }
                     }
                 },
@@ -155,13 +155,44 @@ vows.describe('Stool').addBatch({
                     _finishCallCount = 1;
                 },
                 stool = new Stool(db);
-            stool.iterate(undefined, 2, process, finish);
+            stool.iterate(undefined, 2, -1, process, finish);
             // options and result from the last call
             assert.isTrue(_options.include_docs);
             assert.equal(_options.limit, 3);
             assert.equal(_options.startkey_docid, 'c');
             assert.equal(_result.length, 1);
             assert.equal(_result[0].doc._id, 'c');
+            assert.equal(dbCallCount, 2);
+            assert.equal(_finishCallCount, 1);
+        },
+        'should call all once when num pages is 1 even though result is more than page size': function (topic) {
+            var _result, _options, dbCallCount = 0, _finishCallCount = 0,
+                db = {
+                    all: function (options, cb) {
+                        _options = options;
+                        dbCallCount += 1;
+                        if (dbCallCount === 1) {
+                            cb(undefined, [ { doc: { _id: 'a' } }, { doc: { _id: 'b' } }, { doc: { _id: 'c' } } ]);
+                        } else {
+                            assert.fail('Should not call all once.');
+                        }
+                    }
+                },
+                process = function (result) {
+                    _result = result;
+                },
+                finish = function () {
+                    _finishCallCount = 1;
+                },
+                stool = new Stool(db);
+            stool.iterate(undefined, 2, 1, process, finish);
+            // options and result from the last call
+            assert.isTrue(_options.include_docs);
+            assert.equal(_options.limit, 3);
+            assert.equal(_options.startkey_docid, undefined);
+            assert.equal(_result.length, 3);
+            assert.equal(_result[0].doc._id, 'a');
+            assert.equal(dbCallCount, 1);
             assert.equal(_finishCallCount, 1);
         }
     },

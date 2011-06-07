@@ -115,8 +115,3 @@ you have to implement an adapter like lib/stool/cradle.js , e.g. lib/stool/mydri
 then specify the driver module via command line.
 
     couchtato iterate -u http://user:pass@host:port/db -d mydriver
-
-TODO
-----
-
-* Add page limit config to avoid forcing to iterate the whole database

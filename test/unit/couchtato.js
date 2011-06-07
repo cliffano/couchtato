@@ -5,9 +5,10 @@ var assert = require('assert'),
 vows.describe('Couchtato').addBatch({
     'iterate': {
         'should call stool iterate and execute tasks': function (topic) {
-            var _startKeyDocId, _pageSize, _stool, _doc, _start, _url, _finish, _calls,
+            var _startKeyDocId, _pageSize, _numPages, _stool, _doc, _start, _url, _finish, _calls,
                 options = {
                     pageSize: 99,
+                    numPages: -1,
                     tasks: {
                         'doSomething': function (stool, doc) {
                             _stool = stool;
@@ -17,9 +18,10 @@ vows.describe('Couchtato').addBatch({
                     url: 'http://user:pass@host:port/db'
                 },
                 stool = {
-                    iterate: function (startKeyDocId, pageSize, process, finish) {
+                    iterate: function (startKeyDocId, pageSize, numPages, process, finish) {
                         _startKeyDocId = startKeyDocId;
                         _pageSize = pageSize;
+                        _numPages = numPages;
                         process([ { doc: { _id: 'a' } } ]);
                         finish();
                     }
@@ -41,6 +43,7 @@ vows.describe('Couchtato').addBatch({
             couchtato.iterate('abcdef');
             assert.equal(_startKeyDocId, 'abcdef');
             assert.equal(_pageSize, 99);
+            assert.equal(_numPages, -1);
             assert.isFunction(_stool.iterate);
             assert.equal(_doc._id, 'a');
             assert.isNotNull(_start);
