@@ -3,6 +3,14 @@ Couchtato
 
 CouchDB documents iterator
 
+Couchtato gives the ability to iterate through all documents in a CouchDB database
+without having to create any view in a design document - thus avoiding view indexing.
+Couchtato is also useful when you want to find documents based on certain criterias,
+or when you want to generate a database dump, or when you want to update, delete, count
+documents in the database. Since Couchtato is a simple command line tool, the users
+won't have to know anything much about CouchDB, all they need to know is how to write
+simple JavaScript functions.
+
 Installation
 ------------
 
