@@ -19,6 +19,10 @@ Iterate through all documents in a CouchDB database.
 
     couchtato iterate -u http://user:pass@host:port/db
 
+Only iterate the first 5 pages in the database where each page has 1000 documents.
+
+    couchtato iterate -u http://user:pass@host:port/db -n 5 -p 1000
+
 Use a custom config file name (by default it uses couchtato.js) .
 
     couchtato iterate -u http://user:pass@host:port/db -f path/to/myconfigfile.js
@@ -71,7 +75,7 @@ Note that you can also require other modules in the config file if you need to.
 The 'c' Variable
 ----------------
 
-That 'c' in function (c, doc) is a utility variable, it provides you the following convenient functions:
+That 'c' in function (c, doc) is a utility variable, it provides you with the following convenient functions:
 
     # save the document in database
     c.save(doc)
@@ -80,11 +84,12 @@ That 'c' in function (c, doc) is a utility variable, it provides you the followi
     c.remove(doc)
     
     # increment a counter associated with a particular key
+    # the result of all counters will be displayed in the summary report
     c.count(key)
     
     # log a message to both the console and couchtato.log file
     # if you only want to display a message on the console,
-    # simply use good old console.log(message)
+    # simply use good ol' console.log(message)
     c.log(message)
 
 If you need to access the native CouchDB driver used by Couchtato, use
