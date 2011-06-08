@@ -78,7 +78,7 @@ You only need to specify the task functions in the config file. Each function in
         }
     }};
 
-Note that you can also require other modules in the config file if you need to.
+Note that you can also require other NodeJS modules in the config file if you need to.
 
 The 'c' Variable
 ----------------
