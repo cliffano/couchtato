@@ -19,7 +19,7 @@ doIterate = function (args) {
         tasks: conf.read((args.file) ? path.join(process.cwd(), args.file) : confFile).tasks,
         url: args.url || 'http://localhost:5984/db',
         pageSize: args.pageSize || 500,
-        numPages: args.numpages || -1,
+        numPages: args.numPages || -1,
         driver: args.driver,
         encoding: 'utf-8'
     };
@@ -39,11 +39,11 @@ opts = {
         string: '-u URL',
         help: 'CouchDB URL http(s)://user:pass@host:port/db'
     },
-    pagesize: {
+    pageSize: {
         string: '-p PAGE_SIZE',
         help: 'The number of documents per page'
     },
-    numpages: {
+    numPages: {
         string: '-n NUM_PAGES',
         help: 'The number of pages to iterate'
     },
