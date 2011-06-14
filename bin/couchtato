@@ -33,7 +33,7 @@ doIterate = function (args) {
 opts = {
     file: {
         string: '-f FILE',
-        help: 'Configuration file'
+        help: 'Configuration file, default: couchtato.js'
     },
     url: {
         string: '-u URL',
@@ -41,15 +41,15 @@ opts = {
     },
     pageSize: {
         string: '-p PAGE_SIZE',
-        help: 'The number of documents per page'
+        help: 'The number of documents per page, default: 500'
     },
     numPages: {
         string: '-n NUM_PAGES',
-        help: 'The number of pages to iterate'
+        help: 'The number of pages to iterate, default: -1 (all)'
     },
     driver: {
         string: '-d DRIVER',
-        help: 'CouchDB driver module'
+        help: 'CouchDB driver module, default: cradle'
     }
 };
 
