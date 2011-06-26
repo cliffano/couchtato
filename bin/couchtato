@@ -1,6 +1,12 @@
 #!/usr/bin/env node
 
-var nomnom = require('nomnom'),
+var DEFAULT_PAGE_SIZE = 500,
+    DEFAULT_NUM_PAGES = -1,
+    DEFAULT_DRIVER = 'cradle',
+    DEFAULT_FILE = 'couchtato.js',
+    DEFAULT_URL = 'http://localhost:5984/db',
+    DEFAULT_ENCODING = 'utf-8',
+    nomnom = require('nomnom'),
     path = require('path'),
     Conf = require('../lib/conf').Conf,
     Couchtato = require('../lib/couchtato').Couchtato,
@@ -8,7 +14,7 @@ var nomnom = require('nomnom'),
     base = process.cwd(),
     conf = new Conf(),
     confFile = path.join(base, 'couchtato.js'),
-    args, opts, conf, options, couchtato, doInit, doIterate;
+    couchtato, args, opts, conf, options, doInit, doIterate;
 
 doInit = function (args) {
     conf.init((args.file) ? path.join(process.cwd(), args.file) : confFile);
@@ -17,11 +23,11 @@ doInit = function (args) {
 doIterate = function (args) {
     options = {
         tasks: conf.read((args.file) ? path.join(process.cwd(), args.file) : confFile).tasks,
-        url: args.url || 'http://localhost:5984/db',
-        pageSize: args.pageSize || 500,
-        numPages: args.numPages || -1,
-        driver: args.driver,
-        encoding: 'utf-8'
+        url: args.url || DEFAULT_URL,
+        pageSize: args.pageSize || DEFAULT_PAGE_SIZE,
+        numPages: args.numPages || DEFAULT_NUM_PAGES,
+        driver: args.driver || DEFAULT_DRIVER,
+        encoding: DEFAULT_ENCODING
     };
     couchtato = new Couchtato(
         options,
@@ -33,7 +39,7 @@ doIterate = function (args) {
 opts = {
     file: {
         string: '-f FILE',
-        help: 'Configuration file, default: couchtato.js'
+        help: 'Configuration file, default: ' + DEFAULT_FILE
     },
     url: {
         string: '-u URL',
@@ -41,15 +47,15 @@ opts = {
     },
     pageSize: {
         string: '-p PAGE_SIZE',
-        help: 'The number of documents per page, default: 500'
+        help: 'The number of documents per page, default: ' + DEFAULT_PAGE_SIZE
     },
     numPages: {
         string: '-n NUM_PAGES',
-        help: 'The number of pages to iterate, default: -1 (all)'
+        help: 'The number of pages to iterate, default: ' + DEFAULT_NUM_PAGES + ' (all)'
     },
     driver: {
         string: '-d DRIVER',
-        help: 'CouchDB driver module, default: cradle'
+        help: 'CouchDB driver module, default: ' + DEFAULT_DRIVER
     }
 };
 
