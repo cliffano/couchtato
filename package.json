@@ -1,6 +1,6 @@
 {
     "name": "couchtato",
-    "description": "CouchDB documents iterator.",
+    "description": "CouchDB document utility tool.",
     "keywords": ["couchdb", "documents"],
     "version": "0.0.2",
     "homepage" : "http://github.com/cliffano/couchtato",
