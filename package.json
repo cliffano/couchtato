@@ -1,7 +1,7 @@
 {
     "name": "couchtato",
     "description": "CouchDB document utility tool.",
-    "keywords": ["couchdb", "documents"],
+    "keywords": ["couchdb", "database", "document", "command line", "utility"],
     "version": "0.0.2",
     "homepage" : "http://github.com/cliffano/couchtato",
     "author": "Cliffano Subagio <blah@cliffano.com> (http://blog.cliffano.com)",
