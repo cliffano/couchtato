@@ -1,5 +1,5 @@
 var assert = require('assert'),
-    Report = require('../../lib/report').Report,
+    Report = require('../lib/report').Report,
     fs = require('fs'),
     path = require('path'),
     vows = require('vows');

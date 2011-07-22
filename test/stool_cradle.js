@@ -1,5 +1,5 @@
 var assert = require('assert'),
-    Stool = require('../../lib/stool/cradle').Stool,
+    Stool = require('../lib/stool/cradle').Stool,
     vows = require('vows');
 
 vows.describe('Stool').addBatch({

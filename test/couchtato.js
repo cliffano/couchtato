@@ -1,5 +1,5 @@
 var assert = require('assert'),
-    Couchtato = require('../../lib/couchtato').Couchtato,
+    Couchtato = require('../lib/couchtato').Couchtato,
     vows = require('vows');
 
 vows.describe('Couchtato').addBatch({

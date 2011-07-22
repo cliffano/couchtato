@@ -1,5 +1,5 @@
 var assert = require('assert'),
-    Conf = require('../../lib/conf').Conf,
+    Conf = require('../lib/conf').Conf,
     fs = require('fs'),
     path = require('path'),
     vows = require('vows');
