@@ -6,6 +6,7 @@ var DEFAULT_PAGE_SIZE = 500,
     DEFAULT_FILE = 'couchtato.js',
     DEFAULT_URL = 'http://localhost:5984/db',
     DEFAULT_ENCODING = 'utf-8',
+    fs = require('fs'),
     nomnom = require('nomnom'),
     path = require('path'),
     Conf = require('../lib/conf').Conf,
@@ -56,6 +57,13 @@ opts = {
     driver: {
         string: '-d DRIVER',
         help: 'CouchDB driver module, default: ' + DEFAULT_DRIVER
+    },
+    version: {
+        abbr: 'v',
+        help: 'Couchtato version number',
+        callback: function () {
+            return JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json'))).version;
+        }
     }
 };
 
