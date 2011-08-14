@@ -53,7 +53,7 @@ vows.describe('Stool').addBatch({
                 },
                 stool = new Stool(db);
             try {
-                stool.iterate(undefined, 2, -1, process);
+                stool.iterate(undefined, undefined, 2, -1, process);
                 assert.fail('An error should have been thrown.');
             } catch (e) {
                 assert.equal(e.message, 'Danger! - Sharks');
@@ -79,7 +79,7 @@ vows.describe('Stool').addBatch({
                     _finishCallCount = 1;
                 },
                 stool = new Stool(db);
-            stool.iterate(undefined, 2, -1, process, finish);
+            stool.iterate(undefined, undefined, 2, -1, process, finish);
             assert.isTrue(_options.include_docs);
             assert.equal(_options.limit, 3);
             assert.isUndefined(_options.startkey_docid);
@@ -101,10 +101,11 @@ vows.describe('Stool').addBatch({
                     _finishCallCount = 1;
                 },
                 stool = new Stool(db);
-            stool.iterate(undefined, 2, -1, process, finish);
+            stool.iterate(undefined, undefined, 2, -1, process, finish);
             assert.isTrue(_options.include_docs);
             assert.equal(_options.limit, 3);
             assert.isUndefined(_options.startkey_docid);
+            assert.isUndefined(_options.endkey_docid);
             assert.equal(_result.length, 1);
             assert.equal(_result[0].doc._id, 'a');
             assert.equal(_finishCallCount, 1);
@@ -124,10 +125,11 @@ vows.describe('Stool').addBatch({
                     _finishCallCount = 1;
                 },
                 stool = new Stool(db);
-            stool.iterate(undefined, 2, -1, process, finish);
+            stool.iterate(undefined, undefined, 2, -1, process, finish);
             assert.isTrue(_options.include_docs);
             assert.equal(_options.limit, 3);
             assert.isUndefined(_options.startkey_docid);
+            assert.isUndefined(_options.endkey_docid);
             assert.equal(_result.length, 2);
             assert.equal(_result[0].doc._id, 'a');
             assert.equal(_result[1].doc._id, 'b');
@@ -155,11 +157,12 @@ vows.describe('Stool').addBatch({
                     _finishCallCount = 1;
                 },
                 stool = new Stool(db);
-            stool.iterate(undefined, 2, -1, process, finish);
+            stool.iterate(undefined, 'z', 2, -1, process, finish);
             // options and result from the last call
             assert.isTrue(_options.include_docs);
             assert.equal(_options.limit, 3);
             assert.equal(_options.startkey_docid, 'c');
+            assert.equal(_options.endkey_docid, 'z');
             assert.equal(_result.length, 1);
             assert.equal(_result[0].doc._id, 'c');
             assert.equal(dbCallCount, 2);
@@ -185,11 +188,12 @@ vows.describe('Stool').addBatch({
                     _finishCallCount = 1;
                 },
                 stool = new Stool(db);
-            stool.iterate(undefined, 2, 1, process, finish);
+            stool.iterate(undefined, undefined, 2, 1, process, finish);
             // options and result from the last call
             assert.isTrue(_options.include_docs);
             assert.equal(_options.limit, 3);
-            assert.equal(_options.startkey_docid, undefined);
+            assert.isUndefined(_options.startkey_docid);
+            assert.isUndefined(_options.endkey_docid);
             assert.equal(_result.length, 3);
             assert.equal(_result[0].doc._id, 'a');
             assert.equal(dbCallCount, 1);
