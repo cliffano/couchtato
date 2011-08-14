@@ -27,6 +27,10 @@ Create a sample couchtato.js config file.
 Iterate through all documents in a CouchDB database.
 
     couchtato iterate -u http://user:pass@host:port/db
+    
+Iterate through documents starting from a document having a certain start key
+
+    couchtato iterate -u http://user:pass@host:port/db -s mystartkey
 
 Only iterate the first 5 pages in the database where each page has 1000 documents.
 

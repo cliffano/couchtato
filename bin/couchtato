@@ -4,6 +4,7 @@ var DEFAULT_PAGE_SIZE = 500,
     DEFAULT_NUM_PAGES = -1,
     DEFAULT_DRIVER = 'cradle',
     DEFAULT_FILE = 'couchtato.js',
+    DEFAULT_START_KEY = undefined,
     DEFAULT_URL = 'http://localhost:5984/db',
     DEFAULT_ENCODING = 'utf-8',
     fs = require('fs'),
@@ -27,6 +28,7 @@ doIterate = function (args) {
         url: args.url || DEFAULT_URL,
         pageSize: args.pageSize || DEFAULT_PAGE_SIZE,
         numPages: args.numPages || DEFAULT_NUM_PAGES,
+        startKey: args.startKey || DEFAULT_START_KEY,
         driver: args.driver || DEFAULT_DRIVER,
         encoding: DEFAULT_ENCODING
     };
@@ -34,7 +36,7 @@ doIterate = function (args) {
         options,
         new (require('../lib/stool/' + (options.driver || 'cradle')).Stool)(options.url),
         new Report());
-    couchtato.iterate();
+    couchtato.iterate(options.startKey);
 };
 
 opts = {
@@ -53,6 +55,10 @@ opts = {
     numPages: {
         string: '-n NUM_PAGES',
         help: 'The number of pages to iterate, default: ' + DEFAULT_NUM_PAGES + ' (all)'
+    },
+    startKey: {
+        string: '-s START_KEY',
+        help: 'Start key, default: ' + DEFAULT_START_KEY
     },
     driver: {
         string: '-d DRIVER',
