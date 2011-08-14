@@ -28,9 +28,9 @@ Iterate through all documents in a CouchDB database.
 
     couchtato iterate -u http://user:pass@host:port/db
     
-Iterate through documents starting from a document having a certain start key
+Iterate through documents within a range of IDs
 
-    couchtato iterate -u http://user:pass@host:port/db -s mystartkey
+    couchtato iterate -u http://user:pass@host:port/db -s mystartkey -e myendkey
 
 Only iterate the first 5 pages in the database where each page has 1000 documents.
 
