@@ -9,7 +9,7 @@
     "repository": { "type": "git", "url": "http://github.com/cliffano/couchtato.git" },
     "bugs": { "web": "http://github.com/cliffano/couchtato/issues" },
     "directories": { "bin": "./bin", "lib": "./lib" },
-    "dependencies": { "cradle": "0.5.5", "log4js": "0.2.6", "nomnom": "0.6.0" },
+    "dependencies": { "cradle": "0.5.5", "log4js": "0.3.8", "nomnom": "1.0.0" },
     "devDependencies": { "vows": "0.5.9" },
     "engines": { "node": ">= 0.4.0" },
     "licenses" : [{ "type" : "MIT", "url" : "http://github.com/cliffano/couchtato/raw/master/LICENSE" } ]
