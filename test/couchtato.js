@@ -6,7 +6,7 @@ vows.describe('Couchtato').addBatch({
     'iterate': {
         'should call stool iterate and execute tasks': function (topic) {
             var _startKeyDocId, _endKeyDocId, _pageSize, _numPages, _stool, _doc, _start, _url, _finish, _calls,
-                _successKey, _successDocs, _errorKey, _errorDocs, _errorErr,
+                _successDocs, _errorDocs, _errorErr,
                 options = {
                     pageSize: 99,
                     numPages: -1,
@@ -28,7 +28,7 @@ vows.describe('Couchtato').addBatch({
                         _numPages = numPages;
                         process([ { doc: { _id: 'a' } } ]);
                         successCb([ { id: '456', rev: 'a1' } ]);
-                        errorCb([ { id: '789', rev: 'a2' } ], 'some error');
+                        errorCb([ { id: '789', rev: 'a2', _deleted: true } ], 'some error');
                         finish();
                     }
                 },
@@ -41,12 +41,10 @@ vows.describe('Couchtato').addBatch({
                         _finish = date;
                         _calls = calls;
                     },
-                    success: function (key, docs) {
-                        _successKey = key;
+                    success: function (docs) {
                         _successDocs = docs;
                     },
-                    error: function (key, docs, err) {
-                        _errorKey = key;
+                    error: function (docs, err) {
                         _errorDocs = docs;
                         _errorErr = err;
                     },
@@ -65,11 +63,9 @@ vows.describe('Couchtato').addBatch({
             assert.isNotNull(_start);
             assert.equal(_url, 'http://user:pass@host:port/db');
             assert.isNotNull(_finish);
-            assert.equal(_successKey, 'flush');
             assert.equal(_successDocs.length, 1);
             assert.equal(_successDocs[0].id, '456');
             assert.equal(_successDocs[0].rev, 'a1');
-            assert.equal(_errorKey, 'flush');
             assert.equal(_errorDocs.length, 1);
             assert.equal(_errorDocs[0].id, '789');
             assert.equal(_errorDocs[0].rev, 'a2');
