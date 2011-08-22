@@ -14,10 +14,13 @@ vows.describe('Report').addBatch({
             assert.isEmpty(topic.successes);
         },
         'should record a single success when called once': function (topic) {
-            topic.success('blah', { _id: '123' });
+            topic.success('blah', [ { id: '123', rev: 'a1' }, { id: '456', rev: 'zz' } ]);
             assert.equal(topic.successes.length, 1);
             assert.equal(topic.successes[0].key, 'blah');
-            assert.equal(topic.successes[0].doc._id, '123');
+            assert.equal(topic.successes[0].docs[0].id, '123');
+            assert.equal(topic.successes[0].docs[0].rev, 'a1');
+            assert.equal(topic.successes[0].docs[1].id, '456');
+            assert.equal(topic.successes[0].docs[1].rev, 'zz');
         } 
     },
     'success called multiple times': {
@@ -25,16 +28,23 @@ vows.describe('Report').addBatch({
             return new Report();
         },
         'should record all successes': function (topic) {
-            topic.success('blah', { _id: '123' });
-            topic.success('blah', { _id: '456' });
-            topic.success('foobar', { _id: '888' });
+            topic.success('blah', [ { id: '123', rev: 'g1' }, { id: '124', rev: 'g2' } ]);
+            topic.success('blah', [ { id: '456', rev: 'a1' } ]);
+            topic.success('foobar', [ { id: '888', rev: 'x1' }, { id: '999', rev: 'x2' } ]);
             assert.equal(topic.successes.length, 3);
             assert.equal(topic.successes[0].key, 'blah');
-            assert.equal(topic.successes[0].doc._id, '123');
+            assert.equal(topic.successes[0].docs[0].id, '123');
+            assert.equal(topic.successes[0].docs[0].rev, 'g1');
+            assert.equal(topic.successes[0].docs[1].id, '124');
+            assert.equal(topic.successes[0].docs[1].rev, 'g2');
             assert.equal(topic.successes[1].key, 'blah');
-            assert.equal(topic.successes[1].doc._id, '456');
+            assert.equal(topic.successes[1].docs[0].id, '456');
+            assert.equal(topic.successes[1].docs[0].rev, 'a1');
             assert.equal(topic.successes[2].key, 'foobar');
-            assert.equal(topic.successes[2].doc._id, '888');
+            assert.equal(topic.successes[2].docs[0].id, '888');
+            assert.equal(topic.successes[2].docs[0].rev, 'x1');
+            assert.equal(topic.successes[2].docs[1].id, '999');
+            assert.equal(topic.successes[2].docs[1].rev, 'x2');
         } 
     },
     'error called once': {
@@ -45,11 +55,14 @@ vows.describe('Report').addBatch({
             assert.isArray(topic.errors);
             assert.isEmpty(topic.errors);
         },
-        'should record a single success when called once': function (topic) {
-            topic.error('blah', { _id: '123' }, 'something went wrong');
+        'should record a single error when called once': function (topic) {
+            topic.error('blah', [ { id: '123', rev: 'a1' }, { id: '456', rev: 'zz' } ], 'something went wrong');
             assert.equal(topic.errors.length, 1);
             assert.equal(topic.errors[0].key, 'blah');
-            assert.equal(topic.errors[0].doc._id, '123');
+            assert.equal(topic.errors[0].docs[0].id, '123');
+            assert.equal(topic.errors[0].docs[0].rev, 'a1');
+            assert.equal(topic.errors[0].docs[1].id, '456');
+            assert.equal(topic.errors[0].docs[1].rev, 'zz');
             assert.equal(topic.errors[0].error, 'something went wrong');
         } 
     },
@@ -57,19 +70,25 @@ vows.describe('Report').addBatch({
         topic: function () {
             return new Report();
         },
-        'should record all successes': function (topic) {
-            topic.error('blah', { _id: '123' }, 'something went wrong');
-            topic.error('blah', { _id: '456' }, 'bzzzt');
-            topic.error('foobar', { _id: '888' }, 'uh oh');
+        'should record all errors': function (topic) {
+            topic.error('blah', [ { id: '123', rev: 'g1' }, { id: '124', rev: 'g2' } ], 'something went wrong');
+            topic.error('blah', [ { id: '456', rev: 'a1' } ], 'bzzzt');
+            topic.error('foobar', [ { id: '888', rev: 'x1' }, { id: '999', rev: 'x2' } ], 'uh oh');
             assert.equal(topic.errors.length, 3);
             assert.equal(topic.errors[0].key, 'blah');
-            assert.equal(topic.errors[0].doc._id, '123');
+            assert.equal(topic.errors[0].docs[0].id, '123');
+            assert.equal(topic.errors[0].docs[0].rev, 'g1');
+            assert.equal(topic.errors[0].docs[1].id, '124');
+            assert.equal(topic.errors[0].docs[1].rev, 'g2');
             assert.equal(topic.errors[0].error, 'something went wrong');
-            assert.equal(topic.errors[1].key, 'blah');
-            assert.equal(topic.errors[1].doc._id, '456');
+            assert.equal(topic.errors[1].docs[0].id, '456');
+            assert.equal(topic.errors[1].docs[0].rev, 'a1');
             assert.equal(topic.errors[1].error, 'bzzzt');
             assert.equal(topic.errors[2].key, 'foobar');
-            assert.equal(topic.errors[2].doc._id, '888');
+            assert.equal(topic.errors[2].docs[0].id, '888');
+            assert.equal(topic.errors[2].docs[0].rev, 'x1');
+            assert.equal(topic.errors[2].docs[1].id, '999');
+            assert.equal(topic.errors[2].docs[1].rev, 'x2');
             assert.equal(topic.errors[2].error, 'uh oh');
         } 
     }, 

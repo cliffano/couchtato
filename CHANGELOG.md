@@ -1,3 +1,6 @@
+### 0.0.4
+* Added bulk save/remove support
+
 ### 0.0.3
 * Added startkey and endkey range support
 

@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 
-var DEFAULT_PAGE_SIZE = 500,
-    DEFAULT_NUM_PAGES = -1,
+var DEFAULT_BATCH_SIZE = 500,
     DEFAULT_DRIVER = 'cradle',
+    DEFAULT_ENCODING = 'utf-8',
     DEFAULT_END_KEY = undefined,
     DEFAULT_FILE = 'couchtato.js',
+    DEFAULT_NUM_PAGES = -1,
+    DEFAULT_PAGE_SIZE = 500,
     DEFAULT_START_KEY = undefined,
     DEFAULT_URL = 'http://localhost:5984/db',
-    DEFAULT_ENCODING = 'utf-8',
     fs = require('fs'),
     nomnom = require('nomnom'),
     path = require('path'),
@@ -27,6 +28,7 @@ doIterate = function (args) {
     options = {
         tasks: conf.read((args.file) ? path.join(process.cwd(), args.file) : confFile).tasks,
         url: args.url || DEFAULT_URL,
+        batchSize: args.batchSize || DEFAULT_BATCH_SIZE,
         pageSize: args.pageSize || DEFAULT_PAGE_SIZE,
         numPages: args.numPages || DEFAULT_NUM_PAGES,
         startKey: args.startKey || DEFAULT_START_KEY,
@@ -36,7 +38,7 @@ doIterate = function (args) {
     };
     couchtato = new Couchtato(
         options,
-        new (require('../lib/stool/' + (options.driver || 'cradle')).Stool)(options.url),
+        new (require('../lib/stool/' + (options.driver || 'cradle')).Stool)(options),
         new Report());
     couchtato.iterate();
 };
@@ -49,6 +51,10 @@ opts = {
     url: {
         string: '-u URL',
         help: 'CouchDB URL http(s)://user:pass@host:port/db'
+    },
+    batchSize: {
+        string: '-b BATCH_SIZE',
+        help: 'The number of documents to bulk save/remove, default: ' + DEFAULT_BATCH_SIZE
     },
     pageSize: {
         string: '-p PAGE_SIZE',

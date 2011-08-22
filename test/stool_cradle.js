@@ -3,9 +3,9 @@ var assert = require('assert'),
     vows = require('vows');
 
 vows.describe('Stool').addBatch({
-    'driver when constructor arg is string': {
+    'driver when constructor arg has url': {
         topic: function () {
-            return new Stool('http://localhost:5984/blah');
+            return new Stool({ url: 'http://localhost:5984/blah' });
         },
         'should return Craddle db': function (topic) {
             var driver = topic.driver();
@@ -15,30 +15,9 @@ vows.describe('Stool').addBatch({
             assert.isFunction(driver.remove);
         }
     },
-    'driver when constructor arg is an object': {
-        topic: function () {
-            return new Stool({ blah: 'blah' });
-        },
-        'should return the object itself': function (topic) {
-            var driver = topic.driver();
-            assert.isObject(driver);
-            assert.equal(driver.blah, 'blah');
-        }
-    },
-    'driver when constructor arg is non string and non object': {
-        'should throw error': function (topic) {
-            var stool;
-            try {
-                stool = new Stool(function () {});
-                assert.fail('An error should have been thrown.');
-            } catch (e) {
-                assert.equal(e.message, 'Unexpected Stool argument of type function');
-            }
-        }
-    },
     'iterate when database exists': {
         'should throw error when callback error is provided': function (topic) {
-            var _result, _options, _finishCallCount = 0,
+            var _result, _options, _finishCallCount = 0, _successCbCallCount = 0, _errorCbCallCount = 0,
                 db = {
                     all: function (options, cb) {
                         _options = options;
@@ -51,7 +30,13 @@ vows.describe('Stool').addBatch({
                 finish = function () {
                     _finishCallCount = 1;
                 },
-                stool = new Stool(db);
+                successCb = function (docs, err) {
+                    _successCbCallCount = 1;
+                },
+                errorCb = function (docs, res) {
+                    _errorCbCallCount = 1;
+                },
+                stool = new Stool({ db: db, batchSize: 1 });
             try {
                 stool.iterate(undefined, undefined, 2, -1, process);
                 assert.fail('An error should have been thrown.');
@@ -63,9 +48,11 @@ vows.describe('Stool').addBatch({
             assert.isUndefined(_options.startkey_docid);
             assert.isUndefined(_result);
             assert.equal(_finishCallCount, 0);
+            assert.equal(_successCbCallCount, 0);
+            assert.equal(_errorCbCallCount, 0);
         },
         'should call all once when result is empty': function (topic) {
-            var _result, _options, _finishCallCount = 0,
+            var _result, _options, _finishCallCount = 0, _successCbCallCount = 0, _errorCbCallCount = 0,
                 db = {
                     all: function (options, cb) {
                         _options = options;
@@ -78,16 +65,24 @@ vows.describe('Stool').addBatch({
                 finish = function () {
                     _finishCallCount = 1;
                 },
-                stool = new Stool(db);
+                successCb = function (docs, err) {
+                    _successCbCallCount = 1;
+                },
+                errorCb = function (docs, res) {
+                    _errorCbCallCount = 1;
+                },
+                stool = new Stool({ db: db, batchSize: 1 });
             stool.iterate(undefined, undefined, 2, -1, process, finish);
             assert.isTrue(_options.include_docs);
             assert.equal(_options.limit, 3);
             assert.isUndefined(_options.startkey_docid);
             assert.equal(_result.length, 0);
             assert.equal(_finishCallCount, 1);
+            assert.equal(_successCbCallCount, 0);
+            assert.equal(_errorCbCallCount, 0);
         },
         'should call all once when result is less than page size': function (topic) {
-            var _result, _options, _finishCallCount,
+            var _result, _options, _finishCallCount = 0, _successCbCallCount = 0, _errorCbCallCount = 0,
                 db = {
                     all: function (options, cb) {
                         _options = options;
@@ -100,7 +95,13 @@ vows.describe('Stool').addBatch({
                 finish = function () {
                     _finishCallCount = 1;
                 },
-                stool = new Stool(db);
+                successCb = function (docs, err) {
+                    _successCbCallCount = 1;
+                },
+                errorCb = function (docs, res) {
+                    _errorCbCallCount = 1;
+                },
+                stool = new Stool({ db: db, batchSize: 1 });
             stool.iterate(undefined, undefined, 2, -1, process, finish);
             assert.isTrue(_options.include_docs);
             assert.equal(_options.limit, 3);
@@ -109,9 +110,11 @@ vows.describe('Stool').addBatch({
             assert.equal(_result.length, 1);
             assert.equal(_result[0].doc._id, 'a');
             assert.equal(_finishCallCount, 1);
+            assert.equal(_successCbCallCount, 0);
+            assert.equal(_errorCbCallCount, 0);
         },
         'should call all once when result is exactly the page size': function (topic) {
-            var _result, _options, _finishCallCount = 0,
+            var _result, _options, _finishCallCount = 0, _successCbCallCount = 0, _errorCbCallCount = 0,
                 db = {
                     all: function (options, cb) {
                         _options = options;
@@ -124,7 +127,13 @@ vows.describe('Stool').addBatch({
                 finish = function () {
                     _finishCallCount = 1;
                 },
-                stool = new Stool(db);
+                successCb = function (docs, err) {
+                    _successCbCallCount = 1;
+                },
+                errorCb = function (docs, res) {
+                    _errorCbCallCount = 1;
+                },
+                stool = new Stool({ db: db, batchSize: 1 });
             stool.iterate(undefined, undefined, 2, -1, process, finish);
             assert.isTrue(_options.include_docs);
             assert.equal(_options.limit, 3);
@@ -134,9 +143,11 @@ vows.describe('Stool').addBatch({
             assert.equal(_result[0].doc._id, 'a');
             assert.equal(_result[1].doc._id, 'b');
             assert.equal(_finishCallCount, 1);
+            assert.equal(_successCbCallCount, 0);
+            assert.equal(_errorCbCallCount, 0);
         },
         'should call all twice when result is more than page size': function (topic) {
-            var _result, _options, dbCallCount = 0, _finishCallCount = 0,
+            var _result, _options, dbCallCount = 0, _finishCallCount = 0, _successCbCallCount = 0, _errorCbCallCount = 0,
                 db = {
                     all: function (options, cb) {
                         _options = options;
@@ -156,7 +167,13 @@ vows.describe('Stool').addBatch({
                 finish = function () {
                     _finishCallCount = 1;
                 },
-                stool = new Stool(db);
+                successCb = function (docs, err) {
+                    _successCbCallCount = 1;
+                },
+                errorCb = function (docs, res) {
+                    _errorCbCallCount = 1;
+                },
+                stool = new Stool({ db: db, batchSize: 1 });
             stool.iterate(undefined, 'z', 2, -1, process, finish);
             // options and result from the last call
             assert.isTrue(_options.include_docs);
@@ -167,9 +184,11 @@ vows.describe('Stool').addBatch({
             assert.equal(_result[0].doc._id, 'c');
             assert.equal(dbCallCount, 2);
             assert.equal(_finishCallCount, 1);
+            assert.equal(_successCbCallCount, 0);
+            assert.equal(_errorCbCallCount, 0);
         },
         'should call all once when num pages is 1 even though result is more than page size': function (topic) {
-            var _result, _options, dbCallCount = 0, _finishCallCount = 0,
+            var _result, _options, dbCallCount = 0, _finishCallCount = 0, _successCbCallCount = 0, _errorCbCallCount = 0,
                 db = {
                     all: function (options, cb) {
                         _options = options;
@@ -187,7 +206,13 @@ vows.describe('Stool').addBatch({
                 finish = function () {
                     _finishCallCount = 1;
                 },
-                stool = new Stool(db);
+                successCb = function (docs, err) {
+                    _successCbCallCount = 1;
+                },
+                errorCb = function (docs, res) {
+                    _errorCbCallCount = 1;
+                },
+                stool = new Stool({ db: db, batchSize: 1 });
             stool.iterate(undefined, undefined, 2, 1, process, finish);
             // options and result from the last call
             assert.isTrue(_options.include_docs);
@@ -198,89 +223,99 @@ vows.describe('Stool').addBatch({
             assert.equal(_result[0].doc._id, 'a');
             assert.equal(dbCallCount, 1);
             assert.equal(_finishCallCount, 1);
+            assert.equal(_successCbCallCount, 0);
+            assert.equal(_errorCbCallCount, 0);
         }
     },
     'save': {
         'should call error callback when an error occured': function (topic) {
-            var _id, _rev, _doc, _err,
+            var _docs, _err, callCount,
                 db = {
-                    'save': function (id, rev, doc, cb) {
-                        _id = id;
-                        _rev = rev;
-                        _doc = doc;
+                    'save': function (docs, cb) {
+                        _docs = docs;
                         cb({ 'message': 'some error' }, undefined);
                     }
                 },
-                stool = new Stool(db);
-            stool.save({ _id: 'abc', _rev: '123', blah: 'foobar' },
+                stool = new Stool({ db: db, batchSize: 1 });
+            callCount = stool.save({ _id: 'abc', _rev: '123', blah: 'foobar' },
                 undefined,
-                function (err) {
+                function (docs, err) {
                     _err = err;
                 });
-            assert.equal(_id, 'abc');
-            assert.equal(_rev, '123');
-            assert.equal(_doc.blah, 'foobar');
+            assert.equal(callCount, 1);
+            assert.equal(_docs.length, 1);
+            assert.equal(_docs[0]._id, 'abc');
+            assert.equal(_docs[0]._rev, '123');
+            assert.isUndefined(_docs[0]._deleted);
+            assert.equal(_docs[0].blah, 'foobar');
             assert.equal(_err.message, 'some error');
         },
         'should call success callback when no error occured': function (topic) {
-            var _id, _rev, _doc, _res,
+            var _docs, _res, callCount,
                 db = {
-                    'save': function (id, rev, doc, cb) {
-                        _id = id;
-                        _rev = rev;
-                        _doc = doc;
+                    'save': function (docs, cb) {
+                        _docs = docs;
                         cb(undefined, { 'message': 'success' });
                     }
                 },
-                stool = new Stool(db);
-            stool.save({ _id: 'abc', _rev: '123', blah: 'foobar' },
-                function (res) {
+                stool = new Stool({ db: db, batchSize: 1 });
+            callCount = stool.save({ _id: 'abc', _rev: '123', blah: 'foobar' },
+                function (docs, res) {
                     _res = res;
                 },
                 undefined);
-            assert.equal(_id, 'abc');
-            assert.equal(_rev, '123');
-            assert.equal(_doc.blah, 'foobar');
+            assert.equal(callCount, 1);
+            assert.equal(_docs.length, 1);
+            assert.equal(_docs[0]._id, 'abc');
+            assert.equal(_docs[0]._rev, '123');
+            assert.isUndefined(_docs[0]._deleted);
+            assert.equal(_docs[0].blah, 'foobar');
             assert.equal(_res.message, 'success');
         }
     },
     'remove': {
         'should call error callback when an error occured': function (topic) {
-            var _id, _rev, _err,
+            var _docs, _err, callCount,
                 db = {
-                    'remove': function (id, rev, cb) {
-                        _id = id;
-                        _rev = rev;
+                    'save': function (docs, cb) {
+                        _docs = docs;
                         cb({ 'message': 'some error' }, undefined);
                     }
                 },
-                stool = new Stool(db);
-            stool.remove({ _id: 'abc', _rev: '123', blah: 'foobar' },
+                stool = new Stool({ db: db, batchSize: 1 });
+            callCount = stool.remove({ _id: 'abc', _rev: '123', blah: 'foobar' },
                 undefined,
-                function (err) {
+                function (docs, err) {
                     _err = err;
                 });
-            assert.equal(_id, 'abc');
-            assert.equal(_rev, '123');
+            assert.equal(callCount, 1);
+            assert.equal(_docs.length, 1);
+            assert.equal(_docs[0]._id, 'abc');
+            assert.equal(_docs[0]._rev, '123');
+            assert.isTrue(_docs[0]._deleted);
+            assert.equal(_docs[0].blah, 'foobar');
             assert.equal(_err.message, 'some error');
         },
         'should call success callback when no error occured': function (topic) {
-            var _id, _rev, _res,
+            var _docs, _res, callCount,
                 db = {
-                    'remove': function (id, rev, cb) {
-                        _id = id;
-                        _rev = rev;
+                    'save': function (docs, cb) {
+                        _docs = docs;
                         cb(undefined, { 'message': 'success' });
                     }
                 },
-                stool = new Stool(db);
-            stool.remove({ _id: 'abc', _rev: '123', blah: 'foobar' },
-                function (res) {
+                stool = new Stool({ db: db, batchSize: 1 });
+            callCount = stool.remove({ _id: 'abc', _rev: '123', blah: 'foobar' },
+                function (docs, res) {
                     _res = res;
                 },
                 undefined);
-            assert.equal(_id, 'abc');
-            assert.equal(_rev, '123');
+            assert.equal(callCount, 1);
+            assert.equal(_docs.length, 1);
+            assert.equal(_docs[0]._id, 'abc');
+            assert.equal(_docs[0]._rev, '123');
+            assert.isTrue(_docs[0]._deleted);
+            assert.equal(_docs[0].blah, 'foobar');
             assert.equal(_res.message, 'success');
         }
     }
