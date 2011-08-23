@@ -9,7 +9,7 @@ Overview
 Couchtato is a command line tool that iterates all documents in a CouchDB database
 and applies a set of JavaScript functions against each document. These functions
 are defined in a Couchtato config file, which is basically a simple JavaScript file
-in the form of a NodeJS module. Couchtato also provides basic convenient functions
+in the form of a Node.js module. Couchtato also provides basic convenient functions
 for updating, deleting, and counting documents.
 
 Installation
