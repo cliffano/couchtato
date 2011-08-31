@@ -77,7 +77,8 @@ opts = {
         help: 'CouchDB driver module, default: ' + DEFAULT_DRIVER
     },
     version: {
-        abbr: 'v',
+        string: '-v',
+        flag: true,
         help: 'Couchtato version number',
         callback: function () {
             return JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json'))).version;
