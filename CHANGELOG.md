@@ -1,3 +1,6 @@
+### 0.0.5
+* Fixed version flag
+
 ### 0.0.4
 * Added bulk save/remove support
 * Upgraded log4js to 0.3.8, nomnom to 1.0.0
