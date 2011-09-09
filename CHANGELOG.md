@@ -1,16 +1,16 @@
 ### 0.0.5
-* Fixed version flag
+* Fix version flag
 
 ### 0.0.4
-* Added bulk save/remove support
-* Upgraded log4js to 0.3.8, nomnom to 1.0.0
+* Add bulk save/remove support
+* Upgrade log4js to 0.3.8, nomnom to 1.0.0
 
 ### 0.0.3
-* Added startkey and endkey range support
+* Add startkey and endkey range support
 
 ### 0.0.2
-* Fixed authentication username and password properties
-* Fixed number of pages command line arg
+* Fix authentication username and password properties
+* Fix number of pages command line arg
 
 ### 0.0.1
 * Initial version
