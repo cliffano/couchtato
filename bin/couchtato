@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
-var DEFAULT_BATCH_SIZE = 500,
+var DEFAULT_BATCH_SIZE = 1000,
     DEFAULT_DRIVER = 'cradle',
     DEFAULT_ENCODING = 'utf-8',
     DEFAULT_END_KEY = undefined,
     DEFAULT_FILE = 'couchtato.js',
     DEFAULT_NUM_PAGES = -1,
-    DEFAULT_PAGE_SIZE = 500,
+    DEFAULT_PAGE_SIZE = 1000,
     DEFAULT_START_KEY = undefined,
     DEFAULT_URL = 'http://localhost:5984/db',
     fs = require('fs'),

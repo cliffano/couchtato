@@ -1,6 +1,7 @@
 ### 0.0.5
 * Fix version flag
 * Fix commands-flags association
+* Change default batch size and page size to 1000
 
 ### 0.0.4
 * Add bulk save/remove support
