@@ -99,7 +99,7 @@ vows.describe('Conf').addBatch({
             return new Conf();
         },
         'should write file with sample conf': function (topic) {
-            var file = 'build/test/couchtato.js', conf;
+            var file = 'build/couchtato.js', conf;
             topic.init(file);
             assert.isTrue(fs.statSync(file).isFile());
             try {
