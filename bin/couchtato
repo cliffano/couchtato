@@ -18,7 +18,7 @@ var DEFAULT_BATCH_SIZE = 1000,
     base = process.cwd(),
     conf = new Conf(),
     confFile = path.join(base, 'couchtato.js'),
-    couchtato, args, globalOpts, iterateOpts, conf, options, doInit, doIterate;
+    couchtato, args, scriptOpts, iterateOpts, conf, options, doInit, doIterate;
 
 doInit = function (args) {
     conf.init((args.file) ? path.join(process.cwd(), args.file) : confFile);
@@ -43,7 +43,7 @@ doIterate = function (args) {
     couchtato.iterate();
 };
 
-globalOpts = {
+scriptOpts = {
     version: {
         string: '-v',
         flag: true,
@@ -90,7 +90,7 @@ iterateOpts = {
     }
 };
 
-nomnom.scriptName('couchtato').opts(globalOpts);
+nomnom.scriptName('couchtato').opts(scriptOpts);
 nomnom.command('init').callback(doInit);
 nomnom.command('iterate').opts(iterateOpts).callback(doIterate);
 nomnom.parseArgs();

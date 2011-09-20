@@ -181,4 +181,4 @@ vows.describe('Report').addBatch({
             assert.equal(topic.toString(summary), '\naaa\nbbb');
         }
     }
-}).export(module);
+}).exportTo(module);

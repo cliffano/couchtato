@@ -144,4 +144,4 @@ vows.describe('Couchtato').addBatch({
             assert.equal(_message, 'hello hello');
         }
     }
-}).export(module);
+}).exportTo(module);

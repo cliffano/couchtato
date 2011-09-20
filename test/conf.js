@@ -111,4 +111,4 @@ vows.describe('Conf').addBatch({
             }
         }
     }
-}).export(module);
+}).exportTo(module);

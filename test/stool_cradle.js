@@ -319,4 +319,4 @@ vows.describe('Stool').addBatch({
             assert.equal(_res.message, 'success');
         }
     }
-}).export(module);
+}).exportTo(module);
