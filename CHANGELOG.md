@@ -1,5 +1,6 @@
 ### 0.0.5
 * Fix version flag
+* Fix commands-flags association
 
 ### 0.0.4
 * Add bulk save/remove support
@@ -14,3 +15,4 @@
 
 ### 0.0.1
 * Initial version
+

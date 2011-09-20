@@ -18,7 +18,7 @@ var DEFAULT_BATCH_SIZE = 500,
     base = process.cwd(),
     conf = new Conf(),
     confFile = path.join(base, 'couchtato.js'),
-    couchtato, args, opts, conf, options, doInit, doIterate;
+    couchtato, args, globalOpts, iterateOpts, conf, options, doInit, doIterate;
 
 doInit = function (args) {
     conf.init((args.file) ? path.join(process.cwd(), args.file) : confFile);
@@ -43,13 +43,25 @@ doIterate = function (args) {
     couchtato.iterate();
 };
 
-opts = {
+globalOpts = {
+    version: {
+        string: '-v',
+        flag: true,
+        help: 'Couchtato version number',
+        callback: function () {
+            return JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json'))).version;
+        }
+    }
+};
+
+iterateOpts = {
     file: {
         string: '-f FILE',
         help: 'Configuration file, default: ' + DEFAULT_FILE
     },
     url: {
         string: '-u URL',
+        required: true,
         help: 'CouchDB URL http(s)://user:pass@host:port/db'
     },
     batchSize: {
@@ -75,19 +87,10 @@ opts = {
     driver: {
         string: '-d DRIVER',
         help: 'CouchDB driver module, default: ' + DEFAULT_DRIVER
-    },
-    version: {
-        string: '-v',
-        flag: true,
-        help: 'Couchtato version number',
-        callback: function () {
-            return JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json'))).version;
-        }
     }
 };
 
-nomnom.scriptName('couchtato');
-nomnom.globalOpts(opts);
+nomnom.scriptName('couchtato').opts(globalOpts);
 nomnom.command('init').callback(doInit);
-nomnom.command('iterate').callback(doIterate);
+nomnom.command('iterate').opts(iterateOpts).callback(doIterate);
 nomnom.parseArgs();
