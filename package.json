@@ -7,7 +7,7 @@
     "author": "Cliffano Subagio <blah@cliffano.com> (http://blog.cliffano.com)",
     "bin": { "couchtato": "./bin/couchtato" },
     "repository": { "type": "git", "url": "http://github.com/cliffano/couchtato.git" },
-    "bugs": { "web": "http://github.com/cliffano/couchtato/issues" },
+    "bugs": { "url": "http://github.com/cliffano/couchtato/issues" },
     "directories": { "bin": "./bin", "lib": "./lib" },
     "dependencies": { "cradle": "0.5.5", "log4js": "0.3.8", "nomnom": "1.0.0" },
     "devDependencies": { "vows": "0.5.9" },
