@@ -1,5 +1,6 @@
 ### 0.0.6
 * Upgrade cradle to 0.5.7, log4js to 0.3.9, nomnom to 1.5.1, vows to 0.5.13
+* Add disable logging support via COUCHTATO_LOG=OFF
 
 ### 0.0.5
 * Fix version flag
