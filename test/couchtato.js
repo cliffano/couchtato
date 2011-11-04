@@ -32,12 +32,11 @@ vows.describe('Couchtato').addBatch({
                     endKey: 'zzz'
                 },
                 stool = {
-                    iterate: function (startKeyDocId, endKeyDocId, pageSize, numPages,
-                            process, finish, successCb, errorCb) {
-                        _startKeyDocId = startKeyDocId;
-                        _endKeyDocId = endKeyDocId;
-                        _pageSize = pageSize;
-                        _numPages = numPages;
+                    iterate: function (opts, process, finish, successCb, errorCb) {
+                        _startKeyDocId = opts.startKeyDocId;
+                        _endKeyDocId = opts.endKeyDocId;
+                        _pageSize = opts.pageSize;
+                        _numPages = opts.numPages;
                         process([ { doc: { _id: 'a' } } ]);
                         successCb([ { id: '456', rev: 'a1' } ]);
                         errorCb([ { id: '789', rev: 'a2', _deleted: true } ], 'some error');

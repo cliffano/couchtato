@@ -35,8 +35,8 @@ vows.describe('Conf').addBatch({
                 assert.fail('An error should have been thrown.');
             } catch (e) {
                 assert.equal(e.message,
-                'Unable to read configuration - Configuration file extension must be \'js\', e.g. '
-                + path.join(process.cwd(),
+                'Unable to read configuration - Configuration file extension must be \'js\', e.g. ' +
+                    path.join(process.cwd(),
                 'fixtures/invalidext') + '.js');
             }
         },

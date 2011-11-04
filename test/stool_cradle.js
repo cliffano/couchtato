@@ -42,7 +42,12 @@ vows.describe('Stool').addBatch({
                 },
                 stool = new Stool({ db: db, batchSize: 1 });
             try {
-                stool.iterate(undefined, undefined, 2, -1, process);
+                stool.iterate({
+                    startKeyDocId: undefined,
+                    endKeyDocId: undefined,
+                    pageSize: 2,
+                    numPages: -1 },
+                    process);
                 assert.fail('An error should have been thrown.');
             } catch (e) {
                 assert.equal(e.message, 'Danger! - Sharks');
@@ -80,7 +85,12 @@ vows.describe('Stool').addBatch({
                     _errorCbCallCount = 1;
                 },
                 stool = new Stool({ db: db, batchSize: 1 });
-            stool.iterate(undefined, undefined, 2, -1, process, finish);
+            stool.iterate({
+                    startKeyDocId: undefined,
+                    endKeyDocId: undefined,
+                    pageSize: 2,
+                    numPages: -1 },
+                    process, finish);
             assert.isTrue(_options.include_docs);
             assert.equal(_options.limit, 3);
             assert.isUndefined(_options.startkey_docid);
@@ -114,7 +124,12 @@ vows.describe('Stool').addBatch({
                     _errorCbCallCount = 1;
                 },
                 stool = new Stool({ db: db, batchSize: 1 });
-            stool.iterate(undefined, undefined, 2, -1, process, finish);
+            stool.iterate({
+                    startKeyDocId: undefined,
+                    endKeyDocId: undefined,
+                    pageSize: 2,
+                    numPages: -1 },
+                    process, finish);
             assert.isTrue(_options.include_docs);
             assert.equal(_options.limit, 3);
             assert.isUndefined(_options.startkey_docid);
@@ -150,7 +165,12 @@ vows.describe('Stool').addBatch({
                     _errorCbCallCount = 1;
                 },
                 stool = new Stool({ db: db, batchSize: 1 });
-            stool.iterate(undefined, undefined, 2, -1, process, finish);
+            stool.iterate({
+                    startKeyDocId: undefined,
+                    endKeyDocId: undefined,
+                    pageSize: 2,
+                    numPages: -1 },
+                    process, finish);
             assert.isTrue(_options.include_docs);
             assert.equal(_options.limit, 3);
             assert.isUndefined(_options.startkey_docid);
@@ -198,7 +218,11 @@ vows.describe('Stool').addBatch({
                     _errorCbCallCount = 1;
                 },
                 stool = new Stool({ db: db, batchSize: 1 });
-            stool.iterate(undefined, 'z', 2, -1, process, finish);
+            stool.iterate({
+                startKeyDocId: undefined,
+                endKeyDocId: 'z',
+                pageSize: 2,
+                numPages: -1 }, process, finish);
             // options and result from the last call
             assert.isTrue(_options.include_docs);
             assert.equal(_options.limit, 3);
@@ -246,7 +270,12 @@ vows.describe('Stool').addBatch({
                     _errorCbCallCount = 1;
                 },
                 stool = new Stool({ db: db, batchSize: 1 });
-            stool.iterate(undefined, undefined, 2, 1, process, finish);
+            stool.iterate({
+                    startKeyDocId: undefined,
+                    endKeyDocId: undefined,
+                    pageSize: 2,
+                    numPages: 1 },
+                    process, finish);
             // options and result from the last call
             assert.isTrue(_options.include_docs);
             assert.equal(_options.limit, 3);
