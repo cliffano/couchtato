@@ -5,8 +5,19 @@ var assert = require('assert'),
 vows.describe('Couchtato').addBatch({
     'iterate': {
         'should call stool iterate and execute tasks': function (topic) {
-            var _startKeyDocId, _endKeyDocId, _pageSize, _numPages, _stool, _doc, _start, _url, _finish, _calls,
-                _successDocs, _errorDocs, _errorErr,
+            var _startKeyDocId,
+                _endKeyDocId,
+                _pageSize,
+                _numPages,
+                _stool,
+                _doc,
+                _start,
+                _url,
+                _finish,
+                _calls,
+                _successDocs,
+                _errorDocs,
+                _errorErr,
                 options = {
                     pageSize: 99,
                     numPages: -1,
@@ -21,7 +32,8 @@ vows.describe('Couchtato').addBatch({
                     endKey: 'zzz'
                 },
                 stool = {
-                    iterate: function (startKeyDocId, endKeyDocId, pageSize, numPages, process, finish, successCb, errorCb) {
+                    iterate: function (startKeyDocId, endKeyDocId, pageSize, numPages,
+                            process, finish, successCb, errorCb) {
                         _startKeyDocId = startKeyDocId;
                         _endKeyDocId = endKeyDocId;
                         _pageSize = pageSize;

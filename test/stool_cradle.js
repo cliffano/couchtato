@@ -17,7 +17,11 @@ vows.describe('Stool').addBatch({
     },
     'iterate when database exists': {
         'should throw error when callback error is provided': function (topic) {
-            var _result, _options, _finishCallCount = 0, _successCbCallCount = 0, _errorCbCallCount = 0,
+            var _result,
+                _options,
+                _finishCallCount = 0,
+                _successCbCallCount = 0,
+                _errorCbCallCount = 0,
                 db = {
                     all: function (options, cb) {
                         _options = options;
@@ -52,7 +56,11 @@ vows.describe('Stool').addBatch({
             assert.equal(_errorCbCallCount, 0);
         },
         'should call all once when result is empty': function (topic) {
-            var _result, _options, _finishCallCount = 0, _successCbCallCount = 0, _errorCbCallCount = 0,
+            var _result,
+                _options,
+                _finishCallCount = 0,
+                _successCbCallCount = 0,
+                _errorCbCallCount = 0,
                 db = {
                     all: function (options, cb) {
                         _options = options;
@@ -82,7 +90,11 @@ vows.describe('Stool').addBatch({
             assert.equal(_errorCbCallCount, 0);
         },
         'should call all once when result is less than page size': function (topic) {
-            var _result, _options, _finishCallCount = 0, _successCbCallCount = 0, _errorCbCallCount = 0,
+            var _result,
+                _options,
+                _finishCallCount = 0,
+                _successCbCallCount = 0,
+                _errorCbCallCount = 0,
                 db = {
                     all: function (options, cb) {
                         _options = options;
@@ -114,7 +126,11 @@ vows.describe('Stool').addBatch({
             assert.equal(_errorCbCallCount, 0);
         },
         'should call all once when result is exactly the page size': function (topic) {
-            var _result, _options, _finishCallCount = 0, _successCbCallCount = 0, _errorCbCallCount = 0,
+            var _result,
+                _options,
+                _finishCallCount = 0,
+                _successCbCallCount = 0,
+                _errorCbCallCount = 0,
                 db = {
                     all: function (options, cb) {
                         _options = options;
@@ -147,13 +163,21 @@ vows.describe('Stool').addBatch({
             assert.equal(_errorCbCallCount, 0);
         },
         'should call all twice when result is more than page size': function (topic) {
-            var _result, _options, dbCallCount = 0, _finishCallCount = 0, _successCbCallCount = 0, _errorCbCallCount = 0,
+            var _result,
+                _options,
+                dbCallCount = 0,
+                _finishCallCount = 0,
+                _successCbCallCount = 0,
+                _errorCbCallCount = 0,
                 db = {
                     all: function (options, cb) {
                         _options = options;
                         dbCallCount += 1;
                         if (dbCallCount === 1) {
-                            cb(undefined, [ { doc: { _id: 'a' } }, { doc: { _id: 'b' } }, { doc: { _id: 'c' } } ]);
+                            cb(undefined, [
+                                { doc: { _id: 'a' } },
+                                { doc: { _id: 'b' } },
+                                { doc: { _id: 'c' } } ]);
                         } else if (dbCallCount === 2) {
                             cb(undefined, [ { doc: { _id: 'c' } } ]);
                         } else {
@@ -187,14 +211,23 @@ vows.describe('Stool').addBatch({
             assert.equal(_successCbCallCount, 0);
             assert.equal(_errorCbCallCount, 0);
         },
-        'should call all once when num pages is 1 even though result is more than page size': function (topic) {
-            var _result, _options, dbCallCount = 0, _finishCallCount = 0, _successCbCallCount = 0, _errorCbCallCount = 0,
+        'should call all once when num pages is 1 even though result is more than page size':
+        function (topic) {
+            var _result,
+                _options,
+                dbCallCount = 0,
+                _finishCallCount = 0,
+                _successCbCallCount = 0,
+                _errorCbCallCount = 0,
                 db = {
                     all: function (options, cb) {
                         _options = options;
                         dbCallCount += 1;
                         if (dbCallCount === 1) {
-                            cb(undefined, [ { doc: { _id: 'a' } }, { doc: { _id: 'b' } }, { doc: { _id: 'c' } } ]);
+                            cb(undefined, [
+                                { doc: { _id: 'a' } },
+                                { doc: { _id: 'b' } },
+                                { doc: { _id: 'c' } } ]);
                         } else {
                             assert.fail('Should not call all once.');
                         }

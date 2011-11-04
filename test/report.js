@@ -21,7 +21,7 @@ vows.describe('Report').addBatch({
             assert.equal(topic.successes[0].docs[0].rev, 'a1');
             assert.equal(topic.successes[0].docs[1].id, '456');
             assert.equal(topic.successes[0].docs[1].rev, 'zz');
-        } 
+        }
     },
     'success called multiple times': {
         topic: function () {
@@ -45,7 +45,7 @@ vows.describe('Report').addBatch({
             assert.equal(topic.successes[2].docs[0].rev, 'x1');
             assert.equal(topic.successes[2].docs[1].id, '999');
             assert.equal(topic.successes[2].docs[1].rev, 'x2');
-        } 
+        }
     },
     'error called once': {
         topic: function () {
@@ -56,7 +56,8 @@ vows.describe('Report').addBatch({
             assert.isEmpty(topic.errors);
         },
         'should record a single error when called once': function (topic) {
-            topic.error([ { id: '123', rev: 'a1' }, { id: '456', rev: 'zz' } ], 'something went wrong');
+            topic.error([ { id: '123', rev: 'a1' }, { id: '456', rev: 'zz' } ],
+                'something went wrong');
             assert.equal(topic.errors.length, 1);
             assert.equal(topic.errors[0].key, 'save');
             assert.equal(topic.errors[0].docs[0].id, '123');
@@ -64,14 +65,15 @@ vows.describe('Report').addBatch({
             assert.equal(topic.errors[0].docs[1].id, '456');
             assert.equal(topic.errors[0].docs[1].rev, 'zz');
             assert.equal(topic.errors[0].error, 'something went wrong');
-        } 
+        }
     },
     'error called multiple times': {
         topic: function () {
             return new Report();
         },
         'should record all errors': function (topic) {
-            topic.error([ { id: '123', rev: 'g1' }, { id: '124', rev: 'g2' } ], 'something went wrong');
+            topic.error([ { id: '123', rev: 'g1' }, { id: '124', rev: 'g2' } ],
+                'something went wrong');
             topic.error([ { id: '456', rev: 'a1', _deleted: true } ], 'bzzzt');
             topic.error([ { id: '888', rev: 'x1' }, { id: '999', rev: 'x2' } ], 'uh oh');
             assert.equal(topic.errors.length, 3);
@@ -91,8 +93,8 @@ vows.describe('Report').addBatch({
             assert.equal(topic.errors[2].docs[1].id, '999');
             assert.equal(topic.errors[2].docs[1].rev, 'x2');
             assert.equal(topic.errors[2].error, 'uh oh');
-        } 
-    }, 
+        }
+    },
     'count': {
         topic: function () {
             return new Report();
@@ -137,7 +139,8 @@ vows.describe('Report').addBatch({
         topic: function () {
             return new Report();
         },
-        'should display undefined in summary when start and finish are undefined': function (topic) {
+        'should display undefined in summary when start and finish are undefined':
+        function (topic) {
             var summary = topic.summary();
             assert.equal(summary.length, 4);
             assert.equal(summary[1], 'Start date: undefined');
