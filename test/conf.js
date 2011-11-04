@@ -11,31 +11,31 @@ vows.describe('Conf').addBatch({
         },
         'should throw error if file path is a directory': function (topic) {
             try {
-                topic.read(path.join(process.cwd(), 'test/resources'));
+                topic.read(path.join(process.cwd(), 'fixtures'));
                 assert.fail('An error should have been thrown.');
             } catch (e) {
-                assert.equal(e.message, 'Unable to read configuration - ' + path.join(process.cwd(), 'test/resources') + ' is not a file');
+                assert.equal(e.message, 'Unable to read configuration - ' + path.join(process.cwd(), 'fixtures') + ' is not a file');
             }
         },
         'should throw error if file does not exist': function (topic) {
             try {
-                topic.read(path.join(process.cwd(), 'test/resources/inexistant.js'));
+                topic.read(path.join(process.cwd(), 'fixtures/inexistant.js'));
                 assert.fail('An error should have been thrown.');
             } catch (e) {
-                assert.equal(e.message, 'Unable to read configuration - Configuration file ' + path.join(process.cwd(), 'test/resources/inexistant.js') + ' does not exist');
+                assert.equal(e.message, 'Unable to read configuration - Configuration file ' + path.join(process.cwd(), 'fixtures/inexistant.js') + ' does not exist');
             }
         },
         'should throw error if file has invalid extension': function (topic) {
             try {
-                topic.read(path.join(process.cwd(), 'test/resources/invalidext.blah'));
+                topic.read(path.join(process.cwd(), 'fixtures/invalidext.blah'));
                 assert.fail('An error should have been thrown.');
             } catch (e) {
-                assert.equal(e.message, 'Unable to read configuration - Configuration file extension must be \'js\', e.g. ' + path.join(process.cwd(), 'test/resources/invalidext') + '.js');
+                assert.equal(e.message, 'Unable to read configuration - Configuration file extension must be \'js\', e.g. ' + path.join(process.cwd(), 'fixtures/invalidext') + '.js');
             }
         },
         'should throw error if file is blank': function (topic) {
             try {
-                topic.read(path.join(process.cwd(), 'test/resources/blank.js'));
+                topic.read(path.join(process.cwd(), 'fixtures/blank.js'));
                 assert.fail('An error should have been thrown.');
             } catch (e) {
                 assert.equal(e.message, 'Invalid configuration - Conf must contain tasks: exports.conf = { tasks: {} }');
@@ -43,7 +43,7 @@ vows.describe('Conf').addBatch({
         },
         'should throw error if file does not contain conf': function (topic) {
             try {
-                topic.read(path.join(process.cwd(), 'test/resources/noconf.js'));
+                topic.read(path.join(process.cwd(), 'fixtures/noconf.js'));
                 assert.fail('An error should have been thrown.');
             } catch (e) {
                 assert.equal(e.message, 'Invalid configuration - Conf must contain tasks: exports.conf = { tasks: {} }');
@@ -51,7 +51,7 @@ vows.describe('Conf').addBatch({
         },
         'should throw error if conf is not an object': function (topic) {
             try {
-                topic.read(path.join(process.cwd(), 'test/resources/nonobjectconf.js'));
+                topic.read(path.join(process.cwd(), 'fixtures/nonobjectconf.js'));
                 assert.fail('An error should have been thrown.');
             } catch (e) {
                 assert.equal(e.message, 'Invalid configuration - Conf must contain tasks: exports.conf = { tasks: {} }');
@@ -59,7 +59,7 @@ vows.describe('Conf').addBatch({
         },
         'should throw error if conf has no tasks': function (topic) {
             try {
-                topic.read(path.join(process.cwd(), 'test/resources/notasks.js'));
+                topic.read(path.join(process.cwd(), 'fixtures/notasks.js'));
                 assert.fail('An error should have been thrown.');
             } catch (e) {
                 assert.equal(e.message, 'Invalid configuration - Conf must contain tasks: exports.conf = { tasks: {} }');
@@ -67,7 +67,7 @@ vows.describe('Conf').addBatch({
         },
         'should throw error if tasks is not an object': function (topic) {
             try {
-                topic.read(path.join(process.cwd(), 'test/resources/nonobjecttasks.js'));
+                topic.read(path.join(process.cwd(), 'fixtures/nonobjecttasks.js'));
                 assert.fail('An error should have been thrown.');
             } catch (e) {
                 assert.equal(e.message, 'Invalid configuration - Conf must contain tasks: exports.conf = { tasks: {} }');
@@ -79,12 +79,12 @@ vows.describe('Conf').addBatch({
             return new Conf();
         },
         'should return empty object if tasks is empty': function (topic) {
-            var conf = topic.read(path.join(process.cwd(), 'test/resources/emptytasks.js'));
+            var conf = topic.read(path.join(process.cwd(), 'fixtures/emptytasks.js'));
             assert.isObject(conf.tasks);
             assert.isEmpty(conf.tasks);
         },
         'should return all tasks if they exist': function (topic) {
-            var conf = topic.read(path.join(process.cwd(), 'test/resources/hastasks.js')),
+            var conf = topic.read(path.join(process.cwd(), 'fixtures/hastasks.js')),
                 count = 0, task, i;
             for (task in conf.tasks) {
                 if (conf.tasks.hasOwnProperty(task)) {
