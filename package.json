@@ -14,6 +14,9 @@
   "bin": {
     "couchtato": "./bin/couchtato"
   },
+  "scripts": {
+    "test": "npm install -g bob; bob clean lint test coverage;"
+  },
   "repository": {
     "type": "git",
     "url": "http://github.com/cliffano/couchtato.git"
@@ -23,7 +26,8 @@
   },
   "directories": {
     "bin": "./bin",
-    "lib": "./lib"
+    "lib": "./lib",
+    "test": "./test"
   },
   "dependencies": {
     "cradle": "0.5.7",
@@ -31,7 +35,8 @@
     "nomnom": "1.5.1"
   },
   "devDependencies": {
-    "vows": "0.5.11"
+    "sandboxed-module": "http://nodeload.github.com/cliffano/node-sandboxed-module/tarball/master",
+    "vows": "0.6.1"
   },
   "engines": {
     "node": ">= 0.4.0"
@@ -41,10 +46,5 @@
       "type": "MIT",
       "url": "http://github.com/cliffano/couchtato/raw/master/LICENSE"
     }
-  ],
-  "bob": {
-    "lintstrict": {
-      "opts": "--config lint.conf"
-    }
-  }
+  ]
 }
