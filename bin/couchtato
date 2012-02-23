@@ -1,5 +1,10 @@
 #!/usr/bin/env node
 
+var cli = require('../lib/cli');
+cli.exec();
+/*
+#!/usr/bin/env node
+
 var DEFAULT_BATCH_SIZE = 1000,
     DEFAULT_DRIVER = 'cradle',
     DEFAULT_ENCODING = 'utf-8',
@@ -94,3 +99,4 @@ nomnom.scriptName('couchtato').opts(scriptOpts);
 nomnom.command('init').callback(doInit);
 nomnom.command('iterate').opts(iterateOpts).callback(doIterate);
 nomnom.parseArgs();
+*/
