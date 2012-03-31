@@ -1,7 +1,7 @@
 Couchtato
 ---------
 
-CouchDB document utility tool
+Couchtato is a CouchDB database iterator tool.
 
 Overview
 --------

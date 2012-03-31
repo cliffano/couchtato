@@ -1,6 +1,6 @@
 {
   "name": "couchtato",
-  "description": "CouchDB document utility tool.",
+  "description": "CouchDB database iterator tool.",
   "keywords": [
     "couchdb",
     "database",
