@@ -1,8 +1,6 @@
-### 0.0.6 (SNAPSHOT)
-* Upgrade cradle to 0.6.1, log4js to 0.3.9, nomnom to 1.5.1, vows to 0.5.13
-* Add disable logging support via COUCHTATO_LOG=OFF
+### 0.1.0 (SNAPSHOT)
 * Replace 'c' variable in couchtato.js tasks module with a more descriptive 'util'
-* Replace cradle with nano, replace nomnom and Config with cly
+* Replace cradle with nano, replace nomnom and Config with bagofholding
 
 ### 0.0.5
 * Fix version flag
