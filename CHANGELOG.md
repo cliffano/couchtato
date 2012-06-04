@@ -1,6 +1,7 @@
 ### 0.1.0 (SNAPSHOT)
 * Replace 'c' variable in couchtato.js tasks module with a more descriptive 'util'
 * Replace cradle with nano, replace nomnom and Config with bagofholding
+* Remove -d option, nano as a couchdb driver is fine
 
 ### 0.0.5
 * Fix version flag
