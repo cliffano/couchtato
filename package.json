@@ -12,9 +12,6 @@
   "bin": {
     "couchtato": "./bin/couchtato"
   },
-  "scripts": {
-    "test": "npm install -g bob; bob clean lint test coverage;"
-  },
   "repository": {
     "type": "git",
     "url": "http://github.com/cliffano/couchtato.git"
