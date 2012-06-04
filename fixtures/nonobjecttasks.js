@@ -1,3 +1,0 @@
-exports.conf = {
-    tasks: 'blah'
-};
