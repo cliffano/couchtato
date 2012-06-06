@@ -18,7 +18,7 @@ describe('cli', function () {
     mocks = {};
   });
 
-  describe('bar', function () {
+  describe('exec', function () {
 
     it('should foo when bar', function (done) {
     });
