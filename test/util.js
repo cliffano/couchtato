@@ -18,7 +18,8 @@ describe('util', function () {
     checks = {};
     mocks = {};
 
-    util = new (create(checks, mocks))();
+    checks.queue = [];
+    util = new (create(checks, mocks))({}, checks.queue);
   });
 
   describe('increment', function () {
@@ -74,12 +75,12 @@ describe('util', function () {
 
     it('should queue doc when save is called', function () {
       util.save({ foo: 1000 });
-      util.getQueue().length.should.equal(1);
-      util.getQueue()[0].foo.should.equal(1000);
+      checks.queue.length.should.equal(1);
+      checks.queue[0].foo.should.equal(1000);
       util.save({ bar: 2000 });
-      util.getQueue().length.should.equal(2);
-      util.getQueue()[0].foo.should.equal(1000);
-      util.getQueue()[1].bar.should.equal(2000);
+      checks.queue.length.should.equal(2);
+      checks.queue[0].foo.should.equal(1000);
+      checks.queue[1].bar.should.equal(2000);
     });
   });
 
@@ -94,30 +95,23 @@ describe('util', function () {
 
     it('should queue doc when remove is called', function () {
       util.remove({ foo: 1000 });
-      util.getQueue().length.should.equal(1);
-      util.getQueue()[0].foo.should.equal(1000);
+      checks.queue.length.should.equal(1);
+      checks.queue[0].foo.should.equal(1000);
       util.remove({ bar: 2000 });
-      util.getQueue().length.should.equal(2);
-      util.getQueue()[0].foo.should.equal(1000);
-      util.getQueue()[1].bar.should.equal(2000);
+      checks.queue.length.should.equal(2);
+      checks.queue[0].foo.should.equal(1000);
+      checks.queue[1].bar.should.equal(2000);
     });
 
     it('should mark queued doc as deleted when remove is called', function () {
       util.remove({});
-      util.getQueue().length.should.equal(1);
-      util.getQueue()[0]._deleted.should.equal(true);
-    });
-  });
-
-  describe('getQueue', function () {
-
-    it('should have empty queue when first constructed', function () {
-      util.getQueue().length.should.equal(0);
+      checks.queue.length.should.equal(1);
+      checks.queue[0]._deleted.should.equal(true);
     });
   });
 
   describe('log', function () {
-
+    // TODO
   });
 });
  
