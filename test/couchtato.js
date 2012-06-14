@@ -1,4 +1,5 @@
 var bag = require('bagofholding'),
+  _jscov = require('../lib/couchtato'),
   sandbox = require('sandboxed-module'),
   should = require('should'),
   checks, mocks,
@@ -61,7 +62,7 @@ describe('couchtato', function () {
               checks.db_paginate_pageCb = pageCb;
               checks.db_paginate_cb = cb;
             }
-          }
+          };
         }
       };
     });
