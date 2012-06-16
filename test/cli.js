@@ -58,6 +58,7 @@ describe('cli', function () {
 
     it('should contain iterate command and delegate to couchtato iterate when exec is called', function () {
       checks.bag_parse_commands.iterate.desc.should.equal('Iterate documents in CouchDB database');
+      checks.bag_parse_commands.iterate.options.length.should.equal(8);
       checks.bag_parse_commands.iterate.action({
         url: 'http://localhost:5984/somedb',
         batchSize: 1000,
@@ -74,6 +75,31 @@ describe('cli', function () {
       checks.couchtato_iterate_opts.startKey.should.equal('a');
       checks.couchtato_iterate_opts.endKey.should.equal('z');
       checks.couchtato_iterate_exit.should.be.a('function');
+
+      checks.bag_parse_commands.iterate.options[0].arg.should.equal('-c, --config <config>');
+      checks.bag_parse_commands.iterate.options[0].desc.should.equal('Configuration file | default: ./couchtato.js');
+      should.not.exist(checks.bag_parse_commands.iterate.options[0].action);
+      checks.bag_parse_commands.iterate.options[1].arg.should.equal('-u, --url <url>');
+      checks.bag_parse_commands.iterate.options[1].desc.should.equal('CouchDB URL http(s)://user:pass@host:port/db');
+      should.not.exist(checks.bag_parse_commands.iterate.options[1].action);
+      checks.bag_parse_commands.iterate.options[2].arg.should.equal('-b, --batch-size <batchSize>');
+      checks.bag_parse_commands.iterate.options[2].desc.should.equal('How many documents to save/remove per bulk update | default: 500');
+      (typeof checks.bag_parse_commands.iterate.options[2].action).should.equal('function');
+      checks.bag_parse_commands.iterate.options[3].arg.should.equal('-p, --page-size <pageSize>');
+      checks.bag_parse_commands.iterate.options[3].desc.should.equal('How many documents to retrieve per page | default: 10000');
+      (typeof checks.bag_parse_commands.iterate.options[3].action).should.equal('function');
+      checks.bag_parse_commands.iterate.options[4].arg.should.equal('-n, --num-pages <numPages>');
+      checks.bag_parse_commands.iterate.options[4].desc.should.equal('How many pages to retrieve | default: undefined (all)');
+      (typeof checks.bag_parse_commands.iterate.options[4].action).should.equal('function');
+      checks.bag_parse_commands.iterate.options[5].arg.should.equal('-s, --start-key <startKey>');
+      checks.bag_parse_commands.iterate.options[5].desc.should.equal('Key of first document to iterate | default: undefined (first document in the database)');
+      should.not.exist(checks.bag_parse_commands.iterate.options[5].action);
+      checks.bag_parse_commands.iterate.options[6].arg.should.equal('-e, --end-key <endKey>');
+      checks.bag_parse_commands.iterate.options[6].desc.should.equal('Key of last document to iterate | default: undefined (last document in the database)');
+      should.not.exist(checks.bag_parse_commands.iterate.options[6].action);
+      checks.bag_parse_commands.iterate.options[7].arg.should.equal('-i, --interval <interval>');
+      checks.bag_parse_commands.iterate.options[7].desc.should.equal('Interval between documents retrieval in milliseconds | default: 1000');
+      (typeof checks.bag_parse_commands.iterate.options[7].action).should.equal('function');
     });
   });
 });
