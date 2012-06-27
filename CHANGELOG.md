@@ -2,6 +2,7 @@
 * Replace 'c' variable in couchtato.js tasks module with a more descriptive 'util'
 * Replace cradle with nano, replace nomnom and Config with bagofholding
 * Remove -d option, nano as a couchdb driver is fine
+* Set min node engine to >= 0.6.0, max node engine to < 0.9.0 
 
 ### 0.0.5
 * Fix version flag
@@ -10,7 +11,6 @@
 
 ### 0.0.4
 * Add bulk save/remove support
-* Upgrade log4js to 0.3.8, nomnom to 1.0.0
 
 ### 0.0.3
 * Add startkey and endkey range support
