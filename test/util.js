@@ -22,6 +22,28 @@ describe('util', function () {
     util = new (create(checks, mocks))({}, checks.queue);
   });
 
+  describe('util', function () {
+
+    it('stat should be empty when no initial stat is specified', function () {
+      _.keys(util.stat).length.should.equal(0);
+    });
+
+    it('queue should be empty when no initial queue is specified', function () {
+      util.queue.length.should.equal(0);
+    });
+
+    it('stat should be initialised when specified', function () {
+      util = new (create(checks, mocks))({ foo: 1000 });
+      util.stat.foo.should.equal(1000);
+    });
+
+    it('queue should be initialised when specified', function () {
+      util = new (create(checks, mocks))(null, [ { foo: 'bar' } ]);
+      util.queue.length.should.equal(1);
+      util.queue[0].foo.should.equal('bar');
+    });
+  });
+
   describe('increment', function () {
 
     it('should set stat to increment value when key does not exist', function () {
@@ -49,18 +71,6 @@ describe('util', function () {
       util.stat.somekey.should.equal(2);
       util.count('somekey');
       util.stat.somekey.should.equal(3);
-    });
-  });
-
-  describe('getStat', function () {
-
-    it('should be empty when no initial stat is specified', function () {
-      _.keys(util.stat).length.should.equal(0);
-    });
-
-    it('should initialise stat when specified', function () {
-      util = new (create(checks, mocks))({ foo: 1000 });
-      util.stat.foo.should.equal(1000);
     });
   });
 
