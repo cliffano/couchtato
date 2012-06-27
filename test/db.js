@@ -76,5 +76,24 @@ describe('db', function () {
       });
     });
   });
+
+  describe('update', function () {
+    
+    it('should bulk update documents when update is called', function () {
+
+    });
+
+    it('should increment progress count when update is called', function () {
+
+    });
+  });
+
+  describe('done', function () {
+
+    it('should set done status to true on a constructed db when no update is performed', function () {
+      db = new (create(checks, mocks))('http://localhost:5984/somedb');
+      db.done().should.equal(true);
+    });
+  });
 });
  
