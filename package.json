@@ -26,13 +26,13 @@
   },
   "dependencies": {
     "async": "0.1.22",
-    "bagofholding": "0.0.6",
-    "fs.extra": "1.0.1",
-    "nano": "3.0.7",
+    "bagofholding": "0.0.10",
+    "fs.extra": "1.1.3",
+    "nano": "3.0.9",
     "underscore": "1.3.3"
   },
   "devDependencies": {
-    "mocha": "1.0.3",
+    "mocha": "1.2.1",
     "sandboxed-module": "0.1.3",
     "should": "0.6.3"
   },
