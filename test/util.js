@@ -5,6 +5,10 @@ var _ = require('underscore'),
   checks, mocks,
   util;
 
+// node by default checks for listeners > 10
+// sandboxed log4js adds a listener on each test
+process.setMaxListeners(20);
+
 describe('util', function () {
 
   function create(checks, mocks) {
@@ -121,7 +125,44 @@ describe('util', function () {
   });
 
   describe('log', function () {
-    // TODO
+    
+    it('should delegate log function to log4js logger info', function () {
+      checks.log4js_getlogger_info = [];
+      mocks.requires = {
+        'log4js': {
+          loadAppender: function (appender) {
+            checks.log4js_loadappender = appender;
+          },
+          addAppender: function (appender, logger) {
+            checks.log4js_addappender_appender = appender;
+            checks.log4js_addappender_logger = logger;
+          },
+          appenders: {
+            file: function (fileName) {
+              checks.log4js_appenders_file = fileName;
+              return {};
+            }
+          },
+          getLogger: function (logger) {
+            checks.log4js_getlogger = logger;
+            return {
+              setLevel: function (level) {
+                checks.log4js_getlogger_setlevel = level;
+              },
+              info: function (message) {
+                checks.log4js_getlogger_info.push(message);
+              }
+            };
+          }
+        }
+      };
+      util = new (create(checks, mocks))({}, checks.queue);
+      util.log('foo');
+      util.log('bar');
+      checks.log4js_getlogger_info.length.should.equal(2);
+      checks.log4js_getlogger_info[0].should.equal('foo');
+      checks.log4js_getlogger_info[1].should.equal('bar');
+    });
   });
 });
  
