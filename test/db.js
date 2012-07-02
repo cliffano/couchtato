@@ -17,6 +17,13 @@ describe('db', function () {
               checks.nano_use_dbname = dbName;
               var count = 0;
               return {
+                bulk: function (opts, cb) {
+                  checks.nano_bulk_opts = opts;
+                  cb(
+                    mocks.nano_bulk_err, 
+                    mocks.nano_bulk_results ? mocks.nano_bulk_results[count++] : undefined
+                  );                  
+                },
                 list: function (opts, cb) {
                   checks.nano_list_opts = opts;
                   cb(
@@ -88,13 +95,26 @@ describe('db', function () {
   });
 
   describe('update', function () {
-    
-    it('should bulk update documents when update is called', function () {
 
-    });
-
-    it('should increment progress count when update is called', function () {
-
+    it('should bulk update documents when update is called', function (done) {
+      mocks.nano_bulk_results = [
+        [ { ok: true, id: 'a', rev: '26-22c3d5cd7a4d07fb1f4d12fd651de3ca' },
+          { ok: true, id: 'b', rev: '34-c631c7cd79802c51f758fd41164cdb5b' } ]
+      ];
+      db = new (create(checks, mocks))('http://localhost:5984/somedb');
+      db.update([ { _id: 'a' }, { _id: 'b' }], function (err, result) {
+        checks.db_update_err = err;
+        checks.db_update_result = result;
+        done();
+      });
+      should.not.exist(checks.db_update_err);
+      checks.db_update_result.length.should.equal(2);
+      checks.db_update_result[0].id.should.equal('a');
+      checks.db_update_result[1].id.should.equal('b');
+      checks.nano_bulk_opts.docs.length.should.equal(2);
+      checks.nano_bulk_opts.docs[0]._id.should.equal('a');
+      checks.nano_bulk_opts.docs[1]._id.should.equal('b');
+      db.inProgress.should.equal(0);
     });
   });
 
