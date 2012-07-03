@@ -51,16 +51,23 @@ describe('couchtato', function () {
   describe('iterate', function () {
 
     beforeEach(function () {
+      checks.db_done_count = 0;
       mocks.requires = {
         './db': function (url) {
           return {
-            paginate: function (interval, startKey, endKey, pageSize, pageCb, cb) {
+            paginate: function (interval, startKey, endKey, pageSize, pageCb, endCb) {
               checks.db_paginate_interval = interval;
               checks.db_paginate_startKey = startKey;
               checks.db_paginate_endKey = endKey;
               checks.db_paginate_pageSize = pageSize;
               checks.db_paginate_pageCb = pageCb;
-              checks.db_paginate_cb = cb;
+              checks.db_paginate_endCb = endCb;
+            },
+            update: function (queuedDocs, cb) {
+              cb(mocks.db_update_err, mocks.db_update_result);
+            },
+            done: function () {
+              return mocks.db_done[checks.db_done_count++];
             }
           };
         }
@@ -73,12 +80,13 @@ describe('couchtato', function () {
         checks.couchtato_iterate_err = err;
         done();
       });
-      checks.db_paginate_cb(new Error('someerror'));
+      checks.db_paginate_endCb(new Error('someerror'));
       checks.couchtato_iterate_err.message.should.equal('someerror');
     });
 
-    it('should apply the tasks to each document when db pagination has no error', function (done) {
+    it('should apply the tasks to each document when db pagination has no error and task save also has no error', function (done) {
 
+      mocks.db_done = [ false, true ];
       checks.tasks_foo_docs = [];
       checks.tasks_bar_docs = [];
 
@@ -88,16 +96,20 @@ describe('couchtato', function () {
         },
         bar: function (util, doc) {
           checks.tasks_bar_docs.push(doc);
+          util.save(doc);
         }
       };
       couchtato = new (create(checks, mocks))();
-      couchtato.iterate(tasks, 'http://localhost:5984/db', {}, function (err) {
+      couchtato.iterate(tasks, 'http://localhost:5984/db', { batchSize: 1 }, function (err) {
         checks.couchtato_iterate_err = err;
         done();
       });
 
       checks.db_paginate_pageCb([ { _id: 'doc1' }, { _id: 'doc2' } ]);
-      checks.db_paginate_cb();
+      checks.db_paginate_endCb();
+
+      checks.console_log_messages.length.should.equal(1);
+      checks.console_log_messages[0].should.equal('retrieved 2 docs - doc1');
 
       // tasks are applied to each doc
       checks.tasks_foo_docs.length.should.equal(2);
