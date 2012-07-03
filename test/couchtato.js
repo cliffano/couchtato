@@ -51,6 +51,7 @@ describe('couchtato', function () {
   describe('iterate', function () {
 
     beforeEach(function () {
+      checks.db_update_count = 0;
       checks.db_done_count = 0;
       mocks.requires = {
         './db': function (url) {
@@ -64,7 +65,7 @@ describe('couchtato', function () {
               checks.db_paginate_endCb = endCb;
             },
             update: function (queuedDocs, cb) {
-              cb(mocks.db_update_err, mocks.db_update_result);
+              cb(mocks.db_update_err[checks.db_update_count], mocks.db_update_result[checks.db_update_count++]);
             },
             done: function () {
               return mocks.db_done[checks.db_done_count++];
@@ -86,7 +87,10 @@ describe('couchtato', function () {
 
     it('should apply the tasks to each document when db pagination has no error and task save also has no error', function (done) {
 
-      mocks.db_done = [ false, true ];
+      // simulate no error on first db update
+      mocks.db_update_err = [ null ];
+      mocks.db_update_result = [[ { id: 'doc1' }, { id: 'doc2' } ]];
+
       checks.tasks_foo_docs = [];
       checks.tasks_bar_docs = [];
 
@@ -108,8 +112,10 @@ describe('couchtato', function () {
       checks.db_paginate_pageCb([ { _id: 'doc1' }, { _id: 'doc2' } ]);
       checks.db_paginate_endCb();
 
-      checks.console_log_messages.length.should.equal(1);
+      checks.console_log_messages.length.should.equal(3);
       checks.console_log_messages[0].should.equal('retrieved 2 docs - doc1');
+      checks.console_log_messages[1].should.equal('updating 2 docs - doc1');
+      checks.console_log_messages[2].should.equal('bulk update 2 docs done - doc1');
 
       // tasks are applied to each doc
       checks.tasks_foo_docs.length.should.equal(2);
@@ -118,6 +124,102 @@ describe('couchtato', function () {
       checks.tasks_bar_docs.length.should.equal(2);
       checks.tasks_bar_docs[0]._id.should.equal('doc1');
       checks.tasks_bar_docs[1]._id.should.equal('doc2');
+
+      // opts set to default value
+      checks.db_paginate_interval.should.equal(1000);
+      should.not.exist(checks.db_paginate_startKey);
+      should.not.exist(checks.db_paginate_endKey);
+      checks.db_paginate_pageSize.should.equal(10000);
+
+      // no error
+      should.not.exist(checks.couchtato_iterate_err);
+    });
+
+    it('should log error message when task save has an error', function (done) {
+
+      // simulate error on
+      mocks.db_update_err = [new Error('somesaveerror')];
+      mocks.db_update_result = [ null ];
+
+      checks.tasks_bar_docs = [];
+
+      var tasks = {
+        bar: function (util, doc) {
+          checks.tasks_bar_docs.push(doc);
+          util.save(doc);
+        }
+      };
+      couchtato = new (create(checks, mocks))();
+      couchtato.iterate(tasks, 'http://localhost:5984/db', { batchSize: 1 }, function (err) {
+        checks.couchtato_iterate_err = err;
+        done();
+      });
+
+      checks.db_paginate_pageCb([ { _id: 'doc1' }, { _id: 'doc2' } ]);
+      checks.db_paginate_endCb();
+
+      checks.console_error_messages.length.should.equal(1);
+      checks.console_error_messages[0].should.equal('somesaveerror');
+
+      checks.console_log_messages.length.should.equal(2);
+      checks.console_log_messages[0].should.equal('retrieved 2 docs - doc1');
+      checks.console_log_messages[1].should.equal('updating 2 docs - doc1');
+
+      // tasks are applied to each doc
+      checks.tasks_bar_docs.length.should.equal(2);
+      checks.tasks_bar_docs[0]._id.should.equal('doc1');
+      checks.tasks_bar_docs[1]._id.should.equal('doc2');
+
+      // opts set to default value
+      checks.db_paginate_interval.should.equal(1000);
+      should.not.exist(checks.db_paginate_startKey);
+      should.not.exist(checks.db_paginate_endKey);
+      checks.db_paginate_pageSize.should.equal(10000);
+
+      // no error
+      should.not.exist(checks.couchtato_iterate_err);
+    });
+
+    it('should call db update on remaining queued documents', function (done) {
+
+      // simulate looping once while processing the remaining queued documents
+      mocks.db_done = [ false, true ];
+
+      // simulate no error on first db update
+      mocks.db_update_err = [ null ];
+      mocks.db_update_result = [[ { id: 'doc1' }, { id: 'doc2' } ]];
+
+      checks.tasks_bar_docs = [];
+
+      var tasks = {
+        bar: function (util, doc) {
+          checks.tasks_bar_docs.push(doc);
+          util.save(doc);
+        }
+      };
+      couchtato = new (create(checks, mocks))();
+      couchtato.iterate(tasks, 'http://localhost:5984/db', { batchSize: 10000 }, function (err) {
+        checks.couchtato_iterate_err = err;
+        done();
+      });
+
+      checks.db_paginate_pageCb([ { _id: 'doc1' }, { _id: 'doc2' } ]);
+      checks.db_paginate_endCb();
+
+      checks.console_log_messages.length.should.equal(1);
+      checks.console_log_messages[0].should.equal('retrieved 2 docs - doc1');
+
+      // tasks are applied to each doc
+      checks.tasks_bar_docs.length.should.equal(2);
+      checks.tasks_bar_docs[0]._id.should.equal('doc1');
+      checks.tasks_bar_docs[1]._id.should.equal('doc2');
+
+      // update remaining queued documents
+      (typeof checks.process_nextTick_cb).should.equal('function');
+
+      // writes dot to stdout stream
+      checks.stream_write_strings.length.should.equal(1);
+      checks.stream_write_strings[0].should.equal('.');
 
       // opts set to default value
       checks.db_paginate_interval.should.equal(1000);
