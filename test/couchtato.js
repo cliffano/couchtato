@@ -53,7 +53,13 @@ describe('couchtato', function () {
     beforeEach(function () {
       checks.db_update_count = 0;
       checks.db_done_count = 0;
+      checks.util_log_messages = [];
+      var _util = require('../lib/util');
+      _util.prototype.log = function (message) {
+        checks.util_log_messages.push(message);
+      };
       mocks.requires = {
+        './util': _util,
         './db': function (url) {
           return {
             paginate: function (interval, startKey, endKey, pageSize, pageCb, endCb) {
@@ -83,6 +89,10 @@ describe('couchtato', function () {
       });
       checks.db_paginate_endCb(new Error('someerror'));
       checks.couchtato_iterate_err.message.should.equal('someerror');
+
+      // report log
+      checks.util_log_messages.length.should.equal(1);
+      checks.util_log_messages[0].should.equal('\n------------------------\nRetrieved 0 documents in 0 pages\nProcessed 0 saves and 0 removes\n');
     });
 
     it('should apply the tasks to each document when db pagination has no error and task save also has no error', function (done) {
@@ -133,6 +143,10 @@ describe('couchtato', function () {
 
       // no error
       should.not.exist(checks.couchtato_iterate_err);
+
+      // report log
+      checks.util_log_messages.length.should.equal(1);
+      checks.util_log_messages[0].should.equal('\n------------------------\nRetrieved 2 documents in 1 pages\nProcessed 2 saves and 0 removes\n');
     });
 
     it('should log error message when task save has an error', function (done) {
@@ -178,6 +192,10 @@ describe('couchtato', function () {
 
       // no error
       should.not.exist(checks.couchtato_iterate_err);
+
+      // report log
+      checks.util_log_messages.length.should.equal(1);
+      checks.util_log_messages[0].should.equal('\n------------------------\nRetrieved 2 documents in 1 pages\nProcessed 2 saves and 0 removes\n');
     });
 
     it('should call db update on remaining queued documents', function (done) {
@@ -229,6 +247,10 @@ describe('couchtato', function () {
 
       // no error
       should.not.exist(checks.couchtato_iterate_err);
+
+      // report log
+      checks.util_log_messages.length.should.equal(1);
+      checks.util_log_messages[0].should.equal('\n------------------------\nRetrieved 2 documents in 1 pages\nProcessed 2 saves and 0 removes\n');
     });
   });
 });
