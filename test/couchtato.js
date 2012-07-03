@@ -213,6 +213,7 @@ describe('couchtato', function () {
         bar: function (util, doc) {
           checks.tasks_bar_docs.push(doc);
           util.save(doc);
+          util.count('testcount');
         }
       };
       couchtato = new (create(checks, mocks))();
@@ -250,7 +251,7 @@ describe('couchtato', function () {
 
       // report log
       checks.util_log_messages.length.should.equal(1);
-      checks.util_log_messages[0].should.equal('\n------------------------\nRetrieved 2 documents in 1 pages\nProcessed 2 saves and 0 removes\n');
+      checks.util_log_messages[0].should.equal('\n------------------------\nRetrieved 2 documents in 1 pages\nProcessed 2 saves and 0 removes\n- testcount: 2\n');
     });
   });
 });
