@@ -1,16 +1,11 @@
-Couchtato
+Couchtato [![http://travis-ci.org/cliffano/couchtato](https://secure.travis-ci.org/cliffano/couchtato.png?branch=master)](http://travis-ci.org/cliffano/couchtato)
 ---------
 
 Couchtato is a CouchDB database iterator tool.
 
-Overview
---------
+This is handy when you want to apply a set of JavaScript functions against all documents in a CouchDB database, or only some of them by specifying a start and/or an end document ID. On each JavaScript function, you can save a document, remove a document, log a message, or count the documents.
 
-Couchtato is a command line tool that iterates all documents in a CouchDB database
-and applies a set of JavaScript functions against each document. These functions
-are defined in a Couchtato config file, which is basically a simple JavaScript file
-in the form of a Node.js module. Couchtato also provides basic convenient functions
-for updating, deleting, and counting documents.
+Resource usage can be tuned by tweaking how many documents to retrieve per retrieval page, how many documents to update/remove per bulk update, and how many milliseconds interval between retrieval pages.
 
 Installation
 ------------
@@ -20,9 +15,9 @@ Installation
 Usage
 -----
 
-Create a sample couchtato.js config file.
+Create sample couchtato.js configuration file.
 
-    couchtato init
+    couchtato config
     
 Iterate through all documents in a CouchDB database.
 
@@ -51,89 +46,69 @@ Display help info.
 Config
 ------
 
-Couchtato gives you the flexibility to do anything you want to each document in the database. Anything? Anything!
-
-You only need to specify the task functions in the config file. Each function in exports.conf.tasks will be applied to each document one by one.
+Specify the task functions in couchtato.js config file. Each function in exports.conf.tasks will be applied to each retrieved document one by one.
 
     exports.conf = {
         "tasks": {
-            "log-all-docs": function (c, doc) {
-                console.log(doc);
+            "log-all-docs": function (util, doc) {
+                util.log(doc);
             },
-            "log-by-criteria": function (c, doc) {
+            "log-by-criteria": function (util, doc) {
                 if (doc.title.match(/^The/)) {
-                    console.log(doc);
+                    util.log(doc);
                 }
             },
-            "update-by-criteria": function (c, doc) {
-                if (doc.city === 'rome') {
-                    doc.venue = 'san giorgio';
-                    c.save(doc);
+            "update-by-criteria": function (util, doc) {
+                if (doc.status === 'new') {
+                    doc.owner = 'Bob McFred';
+                    util.save(doc);
                 }
             },
-            "delete-by-criteria": function (c, doc) {
-                if (doc.author === 'spam') {
-                    c.remove(doc);
+            "delete-by-criteria": function (util, doc) {
+                if (doc.status === 'spam') {
+                    util.remove(doc);
                 }
             },
-            "count-by-field": function (c, doc) {
-                // the final count values will be displayed at the end of the run
-                c.count(doc.city);
+            "count-by-field": function (util, doc) {
+                util.count(doc.status);
             },
-            "anything-you-want": function (c, doc) {
-                // you need to implement anythingYouWant function
-                anythingYouWant(doc);
+            "whatever": function (util, doc) {
+                // you need to implement whatever function
+                whatever(doc);
             }
         }
     }};
 
 Note that you can also require other NodeJS modules in the config file if you need to.
 
-The 'c' Variable
-----------------
+The util variable
+-----------------
 
-That 'c' in function (c, doc) is a utility variable, it provides you with the following convenient functions:
+That 'util' in function (util, doc) is a utility variable, it provides you with the following convenient functions:
 
-    # save the document in database
-    c.save(doc)
+    # save the document back to the database
+    util.save(doc)
     
-    # remove the document from database
-    c.remove(doc)
+    # remove the document from the database
+    util.remove(doc)
     
     # increment a counter associated with a particular key
-    # the result of all counters will be displayed in the summary report
-    c.count(key)
+    # all counters will be displayed in the summary report
+    util.count('somekey')
     
-    # log a message to both the console and couchtato.log file
+    # log a message to both the console and to couchtato.log file
     # if you only want to display a message on the console,
-    # simply use good ol' console.log(message)
-    c.log(message)
-
-If you need to access the native CouchDB driver used by Couchtato, use
-
-    c.stool.driver()
+    # simply use good old console.log(message)
+    util.log(message)
 
 Report
 ------
 
-Couchtato displays the log messages on the console and writes to couchtato.log file.
+A summary report will be displayed at the end of the run:
 
-A summary report will be displayed at the end of the run.
-
-    ------------------------------------------------
-    Start date: Fri May 27 2011 00:50:10 GMT+1000 (EST)
-    Finish date: Fri May 27 2011 00:50:24 GMT+1000 (EST)
-    10 successes, 0 errors
-    Counts:
-        - rome: 732
-        - tuscany: 6244
-        - florence: 1
-
-Extend
-------
-
-By default Couchtato uses cradle as its CouchDB driver module. If you want to use a different module,
-you have to implement an adapter like lib/stool/cradle.js , e.g. lib/stool/mydriver.js,
-then specify the driver module via command line.
-
-    couchtato iterate -u http://user:pass@host:port/db -d mydriver
+------------------------
+Retrieved 2601388 documents in 5203 pages
+Processed 10356 saves and 302 removes
+- New data count: 1012
+- Moderated data count: 4578
+- Flagged data count: 88
