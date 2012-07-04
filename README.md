@@ -102,9 +102,9 @@ Report
 
 A summary report will be displayed at the end of the run:
 
-------------------------
-Retrieved 2601388 documents in 5203 pages
-Processed 10356 saves and 302 removes
-- New data count: 1012
-- Moderated data count: 4578
-- Flagged data count: 88
+    ------------------------
+    Retrieved 2601388 documents in 5203 pages
+    Processed 10356 saves and 302 removes
+    - New data count: 1012
+    - Moderated data count: 4578
+    - Flagged data count: 88
