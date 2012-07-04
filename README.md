@@ -5,7 +5,7 @@ Couchtato is a CouchDB database iterator tool.
 
 This is handy when you want to apply a set of JavaScript functions against all documents in a CouchDB database, or only some of them by specifying a start and/or an end document ID. On each JavaScript function, you can save a document, remove a document, log a message, or count the documents.
 
-Resource usage can be tuned by tweaking how many documents to retrieve per retrieval page, how many documents to update/remove per bulk update, and how many milliseconds interval between retrieval pages.
+Performance and resource utilisation can be tuned by tweaking how many documents to retrieve per retrieval page, how many documents to update/remove per bulk update, and how many milliseconds interval between retrieval pages.
 
 Installation
 ------------
