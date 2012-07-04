@@ -15,33 +15,25 @@ Installation
 Usage
 -----
 
-Create sample couchtato.js configuration file.
+Create sample couchtato.js configuration file:
 
     couchtato config
     
-Iterate through all documents in a CouchDB database.
+Iterate through all documents in a CouchDB database:
 
     couchtato iterate -u http://user:pass@host:port/db
     
-Iterate through documents within a range of IDs.
+Iterate through documents within a range of IDs:
 
-    couchtato iterate -u http://user:pass@host:port/db -s mystartkey -e myendkey
+    couchtato iterate -u http://user:pass@host:port/db -s Astartkey -e Zendkey
 
-Only iterate the first 5 pages in the database where each page has 1000 documents.
+Only iterate the first 5 pages in the database where each page contains 1000 documents:
 
     couchtato iterate -u http://user:pass@host:port/db -n 5 -p 1000
     
-Save/remove docs in bulk of 20000 documents at a time.
+Save/remove docs in bulk of 20000 documents at a time:
 
     couchtato iterate -u http://user:pass@host:port/db -b 20000
-
-Use a custom config file name (by default it uses couchtato.js) .
-
-    couchtato iterate -u http://user:pass@host:port/db -f path/to/myconfigfile.js
-
-Display help info.
-
-    couchtato -h
 
 Config
 ------
