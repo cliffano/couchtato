@@ -83,10 +83,10 @@ describe('cli', function () {
       checks.bag_parse_commands.iterate.options[1].desc.should.equal('CouchDB URL http(s)://user:pass@host:port/db');
       should.not.exist(checks.bag_parse_commands.iterate.options[1].action);
       checks.bag_parse_commands.iterate.options[2].arg.should.equal('-b, --batch-size <batchSize>');
-      checks.bag_parse_commands.iterate.options[2].desc.should.equal('How many documents to save/remove per bulk update | default: 500');
+      checks.bag_parse_commands.iterate.options[2].desc.should.equal('How many documents to save/remove per bulk update | default: 1000');
       (typeof checks.bag_parse_commands.iterate.options[2].action).should.equal('function');
       checks.bag_parse_commands.iterate.options[3].arg.should.equal('-p, --page-size <pageSize>');
-      checks.bag_parse_commands.iterate.options[3].desc.should.equal('How many documents to retrieve per page | default: 10000');
+      checks.bag_parse_commands.iterate.options[3].desc.should.equal('How many documents to retrieve per page | default: 1000');
       (typeof checks.bag_parse_commands.iterate.options[3].action).should.equal('function');
       checks.bag_parse_commands.iterate.options[4].arg.should.equal('-n, --num-pages <numPages>');
       checks.bag_parse_commands.iterate.options[4].desc.should.equal('How many pages to retrieve | default: undefined (all)');

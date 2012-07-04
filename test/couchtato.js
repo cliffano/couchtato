@@ -139,7 +139,7 @@ describe('couchtato', function () {
       checks.db_paginate_interval.should.equal(1000);
       should.not.exist(checks.db_paginate_startKey);
       should.not.exist(checks.db_paginate_endKey);
-      checks.db_paginate_pageSize.should.equal(10000);
+      checks.db_paginate_pageSize.should.equal(1000);
 
       // no error
       should.not.exist(checks.couchtato_iterate_err);
@@ -188,7 +188,7 @@ describe('couchtato', function () {
       checks.db_paginate_interval.should.equal(1000);
       should.not.exist(checks.db_paginate_startKey);
       should.not.exist(checks.db_paginate_endKey);
-      checks.db_paginate_pageSize.should.equal(10000);
+      checks.db_paginate_pageSize.should.equal(1000);
 
       // no error
       should.not.exist(checks.couchtato_iterate_err);
@@ -217,7 +217,7 @@ describe('couchtato', function () {
         }
       };
       couchtato = new (create(checks, mocks))();
-      couchtato.iterate(tasks, 'http://localhost:5984/db', { batchSize: 10000 }, function (err) {
+      couchtato.iterate(tasks, 'http://localhost:5984/db', { batchSize: 1000 }, function (err) {
         checks.couchtato_iterate_err = err;
         done();
       });
@@ -244,7 +244,7 @@ describe('couchtato', function () {
       checks.db_paginate_interval.should.equal(1000);
       should.not.exist(checks.db_paginate_startKey);
       should.not.exist(checks.db_paginate_endKey);
-      checks.db_paginate_pageSize.should.equal(10000);
+      checks.db_paginate_pageSize.should.equal(1000);
 
       // no error
       should.not.exist(checks.couchtato_iterate_err);
