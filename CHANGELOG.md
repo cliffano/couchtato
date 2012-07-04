@@ -3,6 +3,7 @@
 * Replace cradle with nano, replace nomnom and Config with bagofholding
 * Remove -d option, nano as a couchdb driver is fine
 * Set min node engine to >= 0.6.0, max node engine to < 0.9.0 
+* Replace init command with config
 
 ### 0.0.5
 * Fix version flag
