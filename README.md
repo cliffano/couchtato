@@ -35,6 +35,10 @@ Save/remove docs in bulk of 20000 documents at a time:
 
     couchtato iterate -u http://user:pass@host:port/db -b 20000
 
+Pause for 5 seconds between each page retrieval:
+
+    couchtato iterate -u http://user:pass@host:port/db -i 5000
+
 Config
 ------
 
