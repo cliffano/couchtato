@@ -3,9 +3,9 @@ Couchtato [![http://travis-ci.org/cliffano/couchtato](https://secure.travis-ci.o
 
 Couchtato is a CouchDB database iterator tool.
 
-This is handy when you want to apply a set of JavaScript functions against all documents in a CouchDB database, or only some of them by specifying a start and/or an end document ID. On each JavaScript function, you can save a document, remove a document, log a message, or count the documents.
+This is handy when you want to apply a set of JavaScript functions against all documents in a CouchDB database or view, or only some of them by specifying a start and/or an end key(s). On each JavaScript function, you can save a document, remove a document, log a message, or count the documents.
 
-Performance and resource utilisation can be tuned by tweaking how many documents to retrieve per retrieval page, how many documents to update/remove per bulk update, and how many milliseconds interval between retrieval pages.
+Performance and resource utilisation can be tuned by tweaking how many documents to retrieve per retrieval page, how many documents to update/remove per bulk update, and how many milliseconds interval between page retrievals.
 
 Installation
 ------------
@@ -22,12 +22,16 @@ Create sample couchtato.js configuration file:
 Iterate through all documents in a CouchDB database:
 
     couchtato iterate -u http://user:pass@host:port/db
+
+Iterate through all documents in a CouchDB view:
+
+    couchtato iterate -u http://user:pass@host:port/db/design/view
     
 Iterate through documents within a range of IDs:
 
     couchtato iterate -u http://user:pass@host:port/db -s Astartkey -e Zendkey
 
-Only iterate the first 5 pages in the database where each page contains 1000 documents:
+Only iterate the first 5 pages where each page contains 1000 documents:
 
     couchtato iterate -u http://user:pass@host:port/db -n 5 -p 1000
     
