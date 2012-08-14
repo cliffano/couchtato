@@ -100,19 +100,19 @@ describe('db', function () {
 
       db = new (create(checks, mocks))('http://localhost:5984/somedb');
 
-      checks.db_docs = [];
-      function pageCb(docs) {
-        checks.db_docs = checks.db_docs.concat(docs);
+      checks.db_rows = [];
+      function pageCb(rows) {
+        checks.db_rows = checks.db_rows.concat(rows);
       }
 
       db.paginate(0, null, 'someendkey', 2, pageCb, function (err) {
         checks.db_paginate_err = err;
-        checks.db_docs.length.should.equal(5);
-        checks.db_docs[0]._id = 1;
-        checks.db_docs[1]._id = 2;
-        checks.db_docs[2]._id = 3;
-        checks.db_docs[3]._id = 3;
-        checks.db_docs[4]._id = 4;
+        checks.db_rows.length.should.equal(5);
+        checks.db_rows[0].doc._id.should.equal(1);
+        checks.db_rows[1].doc._id.should.equal(2);
+        checks.db_rows[2].doc._id.should.equal(3);
+        checks.db_rows[3].doc._id.should.equal(3);
+        checks.db_rows[4].doc._id.should.equal(4);
         should.not.exist(checks.nano_list_err);
         done();
       });
@@ -134,19 +134,19 @@ describe('db', function () {
 
       db = new (create(checks, mocks))('http://localhost:5984/somedb/somedesign/someview');
 
-      checks.db_docs = [];
-      function pageCb(docs) {
-        checks.db_docs = checks.db_docs.concat(docs);
+      checks.db_rows = [];
+      function pageCb(rows) {
+        checks.db_rows = checks.db_rows.concat(rows);
       }
 
       db.paginate(0, null, 'someendkey', 2, pageCb, function (err) {
         checks.db_paginate_err = err;
-        checks.db_docs.length.should.equal(5);
-        checks.db_docs[0]._id = 1;
-        checks.db_docs[1]._id = 2;
-        checks.db_docs[2]._id = 3;
-        checks.db_docs[3]._id = 3;
-        checks.db_docs[4]._id = 4;
+        checks.db_rows.length.should.equal(5);
+        checks.db_rows[0].doc._id.should.equal(1);
+        checks.db_rows[1].doc._id.should.equal(2);
+        checks.db_rows[2].doc._id.should.equal(3);
+        checks.db_rows[3].doc._id.should.equal(3);
+        checks.db_rows[4].doc._id.should.equal(4);
         should.not.exist(checks.nano_view_err);
         done();
       });

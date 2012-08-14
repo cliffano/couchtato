@@ -119,7 +119,7 @@ describe('couchtato', function () {
         done();
       });
 
-      checks.db_paginate_pageCb([ { _id: 'doc1' }, { _id: 'doc2' } ]);
+      checks.db_paginate_pageCb([ { doc: { _id: 'doc1' }}, { doc: { _id: 'doc2' }} ]);
       checks.db_paginate_endCb();
 
       checks.console_log_messages.length.should.equal(3);
@@ -169,7 +169,7 @@ describe('couchtato', function () {
         done();
       });
 
-      checks.db_paginate_pageCb([ { _id: 'doc1' }, { _id: 'doc2' } ]);
+      checks.db_paginate_pageCb([ { doc: { _id: 'doc1' }}, { doc: { _id: 'doc2' }} ]);
       checks.db_paginate_endCb();
 
       checks.console_error_messages.length.should.equal(1);
@@ -222,7 +222,7 @@ describe('couchtato', function () {
         done();
       });
 
-      checks.db_paginate_pageCb([ { _id: 'doc1' }, { _id: 'doc2' } ]);
+      checks.db_paginate_pageCb([ { doc: { _id: 'doc1' }}, { doc: { _id: 'doc2' }} ]);
       checks.db_paginate_endCb();
 
       checks.console_log_messages.length.should.equal(1);
