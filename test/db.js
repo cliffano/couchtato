@@ -30,6 +30,15 @@ describe('db', function () {
                     mocks.nano_list_err, 
                     mocks.nano_list_results ? mocks.nano_list_results[count++] : undefined
                   );
+                },
+                view: function (design, view, opts, cb) {
+                  checks.nano_view_design = design;
+                  checks.nano_view_view = view;
+                  checks.nano_view_opts = opts;
+                  cb(
+                    mocks.nano_view_err, 
+                    mocks.nano_view_results ? mocks.nano_view_results[count++] : undefined
+                  );
                 }
               };
             }
@@ -47,7 +56,7 @@ describe('db', function () {
 
   describe('paginate', function () {
 
-    it('should pass error to callback when an error occured while retrieving a page of documents', function (done) {
+    it('should pass error to callback when an error occured while retrieving a page of documents from a database', function (done) {
       mocks.nano_list_err = new Error('someerror');
       db = new (create(checks, mocks))('http://localhost:5984/somedb');
       db.paginate(1000, null, undefined, 10000, function() {}, function (err) {
@@ -55,13 +64,33 @@ describe('db', function () {
         done();
       });
       checks.db_paginate_err.message.should.equal('someerror');
+      should.not.exist(checks.nano_list_opts.startkey);
       should.not.exist(checks.nano_list_opts.startkey_docid);
       checks.nano_list_opts.limit.should.equal(10001);
       checks.nano_list_opts.include_docs.should.equal(true);
+      should.not.exist(checks.nano_list_opts.endkey);
       should.not.exist(checks.nano_list_opts.endkey_docid);
     });
 
-    it('should pass all documents to page callback when there is no error', function (done) {
+    it('should pass error to callback when an error occured while retrieving a page of documents from a view', function (done) {
+      mocks.nano_view_err = new Error('someerror');
+      db = new (create(checks, mocks))('http://localhost:5984/somedb/somedesign/someview');
+      db.paginate(1000, null, undefined, 10000, function() {}, function (err) {
+        checks.db_paginate_err = err;
+        done();
+      });
+      checks.nano_view_design.should.equal('somedesign');
+      checks.nano_view_view.should.equal('someview');
+      checks.db_paginate_err.message.should.equal('someerror');
+      should.not.exist(checks.nano_view_opts.startkey);
+      should.not.exist(checks.nano_view_opts.startkey_docid);
+      checks.nano_view_opts.limit.should.equal(10001);
+      checks.nano_view_opts.include_docs.should.equal(true);
+      should.not.exist(checks.nano_view_opts.endkey);
+      should.not.exist(checks.nano_view_opts.endkey_docid);
+    });
+
+    it('should pass all documents to page callback when there is no error while iterating database', function (done) {
 
       // simulate first page result to include the first doc of second page result
       mocks.nano_list_results = [
@@ -87,10 +116,46 @@ describe('db', function () {
         should.not.exist(checks.nano_list_err);
         done();
       });
+      should.not.exist(checks.nano_list_opts.startkey);
       should.not.exist(checks.nano_list_opts.startkey_docid);
       checks.nano_list_opts.limit.should.equal(3);
       checks.nano_list_opts.include_docs.should.equal(true);
+      checks.nano_list_opts.endkey.should.equal('someendkey');
       checks.nano_list_opts.endkey_docid.should.equal('someendkey');
+    });
+
+    it('should pass all documents to page callback when there is no error while iterating view', function (done) {
+
+      // simulate first page result to include the first doc of second page result
+      mocks.nano_view_results = [
+        { rows: [ { doc: { _id: 1 } }, { doc: { _id: 2 } }, { doc: { _id: 3 } } ] },
+        { rows: [ { doc: { _id: 3 } }, { doc: { _id: 4 } } ] }
+      ];
+
+      db = new (create(checks, mocks))('http://localhost:5984/somedb/somedesign/someview');
+
+      checks.db_docs = [];
+      function pageCb(docs) {
+        checks.db_docs = checks.db_docs.concat(docs);
+      }
+
+      db.paginate(0, null, 'someendkey', 2, pageCb, function (err) {
+        checks.db_paginate_err = err;
+        checks.db_docs.length.should.equal(5);
+        checks.db_docs[0]._id = 1;
+        checks.db_docs[1]._id = 2;
+        checks.db_docs[2]._id = 3;
+        checks.db_docs[3]._id = 3;
+        checks.db_docs[4]._id = 4;
+        should.not.exist(checks.nano_view_err);
+        done();
+      });
+      should.not.exist(checks.nano_view_opts.startkey);
+      should.not.exist(checks.nano_view_opts.startkey_docid);
+      checks.nano_view_opts.limit.should.equal(3);
+      checks.nano_view_opts.include_docs.should.equal(true);
+      checks.nano_view_opts.endkey.should.equal('someendkey');
+      checks.nano_view_opts.endkey_docid.should.equal('someendkey');
     });
   });
 
