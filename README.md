@@ -26,7 +26,11 @@ Iterate through all documents in a CouchDB database:
 Iterate through all documents in a CouchDB view:
 
     couchtato iterate -u http://user:pass@host:port/db/design/view
-    
+
+Use custom configuration file:
+
+    couchtato iterate -u http://user:pass@host:port/db -c ../somecouchtato.js
+
 Iterate through documents within a range of IDs:
 
     couchtato iterate -u http://user:pass@host:port/db -s Astartkey -e Zendkey
@@ -46,7 +50,7 @@ Pause for 5 seconds between each page retrieval:
 Config
 ------
 
-Specify the task functions in couchtato.js config file. Each function in exports.conf.tasks will be applied to each retrieved document one by one.
+Specify the task functions in config file. Each function in exports.conf.tasks will be applied to each retrieved document one by one.
 
     exports.conf = {
         "tasks": {

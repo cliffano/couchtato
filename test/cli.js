@@ -31,7 +31,8 @@ describe('cli', function () {
             }
           };
         },
-        '/somedir/couchtato/couchtato': { conf: { tasks: { all_docs: function () {} } } }
+        '/somedir/couchtato/couchtato': { conf: { tasks: { all_docs: function () {} } } },
+        '/somedir/foobar.js': { conf: { tasks: { all_docs: function () {} } } }
       },
       globals: {
         process: bag.mock.process(checks, mocks)
@@ -76,8 +77,8 @@ describe('cli', function () {
       checks.couchtato_iterate_opts.endKey.should.equal('z');
       checks.couchtato_iterate_exit.should.be.a('function');
 
-      checks.bag_parse_commands.iterate.options[0].arg.should.equal('-c, --config <config>');
-      checks.bag_parse_commands.iterate.options[0].desc.should.equal('Configuration file | default: ./couchtato.js');
+      checks.bag_parse_commands.iterate.options[0].arg.should.equal('-c, --config-file <configFile>');
+      checks.bag_parse_commands.iterate.options[0].desc.should.equal('Configuration file | default: couchtato.js');
       should.not.exist(checks.bag_parse_commands.iterate.options[0].action);
       checks.bag_parse_commands.iterate.options[1].arg.should.equal('-u, --url <url>');
       checks.bag_parse_commands.iterate.options[1].desc.should.equal('CouchDB URL http(s)://user:pass@host:port/db');
@@ -100,6 +101,28 @@ describe('cli', function () {
       checks.bag_parse_commands.iterate.options[7].arg.should.equal('-i, --interval <interval>');
       checks.bag_parse_commands.iterate.options[7].desc.should.equal('Interval between documents retrieval in milliseconds | default: 1000');
       (typeof checks.bag_parse_commands.iterate.options[7].action).should.equal('function');
+    });
+
+    it('should use custom configuration file when specified and it exists', function () {
+      try {
+        checks.bag_parse_commands.iterate.action({
+          url: 'http://localhost:5984/somedb',
+          configFile: '../foobar.js'
+        });
+      } catch (e) {
+        should.fail('An error should not have been thrown since custom configuration should exist.');
+      }
+    });
+
+    it('should throw error when custom configuration file is specified but it does not exist', function () {
+      try {
+        checks.bag_parse_commands.iterate.action({
+          url: 'http://localhost:5984/somedb',
+          configFile: '../somefilethatdoesnotexist.js'
+        });
+        should.fail('An error should have been thrown since custom configuration should not exist.');
+      } catch (e) {
+      }
     });
   });
 });
