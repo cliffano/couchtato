@@ -83,7 +83,7 @@ Specify the task functions in config file. Each function in exports.conf.tasks w
         }
     }};
 
-Note that you can also require other NodeJS modules in the config file if you need to.
+Note that you can also require other Node.js modules in the config file if you need to.
 
 The util variable
 -----------------
