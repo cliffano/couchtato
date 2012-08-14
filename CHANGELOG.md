@@ -1,5 +1,6 @@
 ### 0.1.1 (SNAPSHOT)
 * Add iterate view support
+* Improve performance by removing unnecessary dataset traversal
 
 ### 0.1.0
 * Replace 'c' variable in couchtato.js tasks module with a more descriptive 'util'
