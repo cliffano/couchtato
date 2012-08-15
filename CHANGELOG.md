@@ -1,4 +1,7 @@
-### 0.1.1 (SNAPSHOT)
+### 0.1.2 (SNAPSHOT)
+*
+
+### 0.1.1
 * Add iterate view support
 * Improve performance by removing unnecessary dataset traversal
 * Re-add custom config file support
