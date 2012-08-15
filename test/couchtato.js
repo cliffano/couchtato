@@ -62,11 +62,12 @@ describe('couchtato', function () {
         './util': _util,
         './db': function (url) {
           return {
-            paginate: function (interval, startKey, endKey, pageSize, pageCb, endCb) {
+            paginate: function (interval, startKey, endKey, pageSize, numPages, pageCb, endCb) {
               checks.db_paginate_interval = interval;
               checks.db_paginate_startKey = startKey;
               checks.db_paginate_endKey = endKey;
               checks.db_paginate_pageSize = pageSize;
+              checks.db_paginate_numPages = numPages;
               checks.db_paginate_pageCb = pageCb;
               checks.db_paginate_endCb = endCb;
             },
@@ -140,6 +141,7 @@ describe('couchtato', function () {
       should.not.exist(checks.db_paginate_startKey);
       should.not.exist(checks.db_paginate_endKey);
       checks.db_paginate_pageSize.should.equal(1000);
+      should.not.exist(checks.db_paginate_numPages);
 
       // no error
       should.not.exist(checks.couchtato_iterate_err);
@@ -189,6 +191,7 @@ describe('couchtato', function () {
       should.not.exist(checks.db_paginate_startKey);
       should.not.exist(checks.db_paginate_endKey);
       checks.db_paginate_pageSize.should.equal(1000);
+      should.not.exist(checks.db_paginate_numPages);
 
       // no error
       should.not.exist(checks.couchtato_iterate_err);
@@ -245,6 +248,7 @@ describe('couchtato', function () {
       should.not.exist(checks.db_paginate_startKey);
       should.not.exist(checks.db_paginate_endKey);
       checks.db_paginate_pageSize.should.equal(1000);
+      should.not.exist(checks.db_paginate_numPages);
 
       // no error
       should.not.exist(checks.couchtato_iterate_err);
