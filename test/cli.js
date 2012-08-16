@@ -110,7 +110,7 @@ describe('cli', function () {
           configFile: '../foobar.js'
         });
       } catch (e) {
-        should.fail('An error should not have been thrown since custom configuration should exist.');
+        should.fail('An error should not have been thrown since custom configuration should exist.' + e.message);
       }
     });
 
