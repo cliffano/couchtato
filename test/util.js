@@ -46,6 +46,16 @@ describe('util', function () {
       util.queue.length.should.equal(1);
       util.queue[0].foo.should.equal('bar');
     });
+
+    it('should set driver to undefined when driver is not specified', function () {
+      util = new (create(checks, mocks))();
+      should.not.exist(util.driver);
+    });
+
+    it('should set driver when specified', function () {
+      util = new (create(checks, mocks))(null, null, { foo: 'bar' });
+      util.driver.foo.should.equal('bar');
+    });
   });
 
   describe('increment', function () {
