@@ -1,5 +1,5 @@
 ### 0.1.2 (SNAPSHOT)
-*
+* Expose database driver via util.driver, available in task functions
 
 ### 0.1.1
 * Add iterate view support
