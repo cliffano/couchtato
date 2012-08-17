@@ -1,4 +1,7 @@
-### 0.1.2 (SNAPSHOT)
+### 0.1.3 (SNAPSHOT)
+*
+
+### 0.1.2
 * Expose database driver via util.driver, available in task functions
 
 ### 0.1.1
