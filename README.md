@@ -83,7 +83,15 @@ Specify the task functions in config file. Each function in exports.conf.tasks w
         }
     }};
 
-Database driver is available via util.driver from the task function, it returns nano(url).use(db) .
+Database driver is available via util.driver from the task function, it returns nano(url).use(db) :
+
+    exports.conf = {
+        "tasks": {
+            "use-database-driver": function (util, doc) {
+                util.driver.something();
+            }
+        }
+    }};
 
 Note that you can also require other Node.js modules in the config file if you need to.
 
