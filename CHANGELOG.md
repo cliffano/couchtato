@@ -1,4 +1,7 @@
-### 0.1.3 (SNAPSHOT)
+### 0.1.4 (SNAPSHOT)
+*
+
+### 0.1.3
 * Add -x option to exclude summary report from log output
 
 ### 0.1.2
