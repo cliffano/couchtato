@@ -103,8 +103,8 @@ describe('cli', function () {
       checks.bag_parse_commands.iterate.options[7].arg.should.equal('-i, --interval <interval>');
       checks.bag_parse_commands.iterate.options[7].desc.should.equal('Interval between documents retrieval in milliseconds | default: 1000');
       (typeof checks.bag_parse_commands.iterate.options[7].action).should.equal('function');
-      checks.bag_parse_commands.iterate.options[8].arg.should.equal('-x, --exclude-summary');
-      checks.bag_parse_commands.iterate.options[8].desc.should.equal('Exclude summary report from log output');
+      checks.bag_parse_commands.iterate.options[8].arg.should.equal('-q, --quiet');
+      checks.bag_parse_commands.iterate.options[8].desc.should.equal('Hide progress and summary info from log output');
       should.not.exist(checks.bag_parse_commands.iterate.options[8].action);
     });
 

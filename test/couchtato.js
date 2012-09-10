@@ -201,7 +201,7 @@ describe('couchtato', function () {
       checks.util_log_messages[0].should.equal('\n------------------------\nRetrieved 2 documents in 1 pages\nProcessed 2 saves and 0 removes\n');
     });
 
-    it('should log summary report when exclude summary option is false', function (done) {
+    it('should log summary report when quiet option is false', function (done) {
 
       // simulate error on
       mocks.db_update_err = [new Error('somesaveerror')];
@@ -216,7 +216,7 @@ describe('couchtato', function () {
         }
       };
       couchtato = new (create(checks, mocks))();
-      couchtato.iterate(tasks, 'http://localhost:5984/db', { batchSize: 1, excludeSummary: false }, function (err) {
+      couchtato.iterate(tasks, 'http://localhost:5984/db', { batchSize: 1, quiet: false }, function (err) {
         checks.couchtato_iterate_err = err;
         done();
       });
@@ -229,7 +229,7 @@ describe('couchtato', function () {
       checks.util_log_messages[0].should.equal('\n------------------------\nRetrieved 2 documents in 1 pages\nProcessed 2 saves and 0 removes\n');      
     });
 
-    it('should not log summary report when exclude summary option is true', function (done) {
+    it('should not log summary report when quiet option is true', function (done) {
 
       // simulate error on
       mocks.db_update_err = [new Error('somesaveerror')];
@@ -244,7 +244,7 @@ describe('couchtato', function () {
         }
       };
       couchtato = new (create(checks, mocks))();
-      couchtato.iterate(tasks, 'http://localhost:5984/db', { batchSize: 1, excludeSummary: true }, function (err) {
+      couchtato.iterate(tasks, 'http://localhost:5984/db', { batchSize: 1, quiet: true }, function (err) {
         checks.couchtato_iterate_err = err;
         done();
       });

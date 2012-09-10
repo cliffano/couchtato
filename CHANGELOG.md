@@ -1,5 +1,5 @@
 ### 0.1.4 (SNAPSHOT)
-*
+* Replace -x option with -q (quiet), which excludes both progress and summary info
 
 ### 0.1.3
 * Add -x option to exclude summary report from log output
