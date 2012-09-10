@@ -67,7 +67,7 @@ describe('cli', function () {
         numPages: 5,
         startKey: 'a',
         endKey: 'z',
-        excludeSummary: true
+        quiet: true
       });
       checks.couchtato_iterate_tasks.all_docs.should.be.a('function');
       checks.couchtato_iterate_url.should.equal('http://localhost:5984/somedb');
@@ -76,7 +76,7 @@ describe('cli', function () {
       checks.couchtato_iterate_opts.numPages.should.equal(5);
       checks.couchtato_iterate_opts.startKey.should.equal('a');
       checks.couchtato_iterate_opts.endKey.should.equal('z');
-      checks.couchtato_iterate_opts.excludeSummary.should.equal(true);
+      checks.couchtato_iterate_opts.quiet.should.equal(true);
       checks.couchtato_iterate_exit.should.be.a('function');
 
       checks.bag_parse_commands.iterate.options[0].arg.should.equal('-c, --config-file <configFile>');
