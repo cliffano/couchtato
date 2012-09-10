@@ -1,4 +1,7 @@
-### 0.1.4 (SNAPSHOT)
+### 0.1.5 (SNAPSHOT)
+*
+
+### 0.1.4
 * Replace -x option with -q (quiet), which excludes both progress and summary info
 
 ### 0.1.3
