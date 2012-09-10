@@ -47,6 +47,10 @@ Pause for 5 seconds between each page retrieval:
 
     couchtato iterate -u http://user:pass@host:port/db -i 5000
 
+Hide the summary report:
+
+    couchtato iterate -u http://user:pass@host:port/db -h
+
 Config
 ------
 
@@ -126,3 +130,5 @@ A summary report will be displayed at the end of the run:
     - New data count: 1012
     - Moderated data count: 4578
     - Flagged data count: 88
+
+Summary report can be excluded from the log output by using -x/--exclude-summary option.

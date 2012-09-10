@@ -201,6 +201,61 @@ describe('couchtato', function () {
       checks.util_log_messages[0].should.equal('\n------------------------\nRetrieved 2 documents in 1 pages\nProcessed 2 saves and 0 removes\n');
     });
 
+    it('should log summary report when exclude summary option is false', function (done) {
+
+      // simulate error on
+      mocks.db_update_err = [new Error('somesaveerror')];
+      mocks.db_update_result = [ null ];
+
+      checks.tasks_bar_docs = [];
+
+      var tasks = {
+        bar: function (util, doc) {
+          checks.tasks_bar_docs.push(doc);
+          util.save(doc);
+        }
+      };
+      couchtato = new (create(checks, mocks))();
+      couchtato.iterate(tasks, 'http://localhost:5984/db', { batchSize: 1, excludeSummary: false }, function (err) {
+        checks.couchtato_iterate_err = err;
+        done();
+      });
+
+      checks.db_paginate_pageCb([ { doc: { _id: 'doc1' }}, { doc: { _id: 'doc2' }} ]);
+      checks.db_paginate_endCb();
+
+      // report log
+      checks.util_log_messages.length.should.equal(1);
+      checks.util_log_messages[0].should.equal('\n------------------------\nRetrieved 2 documents in 1 pages\nProcessed 2 saves and 0 removes\n');      
+    });
+
+    it('should not log summary report when exclude summary option is true', function (done) {
+
+      // simulate error on
+      mocks.db_update_err = [new Error('somesaveerror')];
+      mocks.db_update_result = [ null ];
+
+      checks.tasks_bar_docs = [];
+
+      var tasks = {
+        bar: function (util, doc) {
+          checks.tasks_bar_docs.push(doc);
+          util.save(doc);
+        }
+      };
+      couchtato = new (create(checks, mocks))();
+      couchtato.iterate(tasks, 'http://localhost:5984/db', { batchSize: 1, excludeSummary: true }, function (err) {
+        checks.couchtato_iterate_err = err;
+        done();
+      });
+
+      checks.db_paginate_pageCb([ { doc: { _id: 'doc1' }}, { doc: { _id: 'doc2' }} ]);
+      checks.db_paginate_endCb();
+
+      // report log
+      checks.util_log_messages.length.should.equal(0);
+    });
+
     it('should call db update on remaining queued documents', function (done) {
 
       // simulate looping once while processing the remaining queued documents

@@ -59,14 +59,15 @@ describe('cli', function () {
 
     it('should contain iterate command and delegate to couchtato iterate when exec is called', function () {
       checks.bag_parse_commands.iterate.desc.should.equal('Iterate documents in CouchDB database');
-      checks.bag_parse_commands.iterate.options.length.should.equal(8);
+      checks.bag_parse_commands.iterate.options.length.should.equal(9);
       checks.bag_parse_commands.iterate.action({
         url: 'http://localhost:5984/somedb',
         batchSize: 1000,
         pageSize: 10000,
         numPages: 5,
         startKey: 'a',
-        endKey: 'z'
+        endKey: 'z',
+        excludeSummary: true
       });
       checks.couchtato_iterate_tasks.all_docs.should.be.a('function');
       checks.couchtato_iterate_url.should.equal('http://localhost:5984/somedb');
@@ -75,6 +76,7 @@ describe('cli', function () {
       checks.couchtato_iterate_opts.numPages.should.equal(5);
       checks.couchtato_iterate_opts.startKey.should.equal('a');
       checks.couchtato_iterate_opts.endKey.should.equal('z');
+      checks.couchtato_iterate_opts.excludeSummary.should.equal(true);
       checks.couchtato_iterate_exit.should.be.a('function');
 
       checks.bag_parse_commands.iterate.options[0].arg.should.equal('-c, --config-file <configFile>');
@@ -101,6 +103,9 @@ describe('cli', function () {
       checks.bag_parse_commands.iterate.options[7].arg.should.equal('-i, --interval <interval>');
       checks.bag_parse_commands.iterate.options[7].desc.should.equal('Interval between documents retrieval in milliseconds | default: 1000');
       (typeof checks.bag_parse_commands.iterate.options[7].action).should.equal('function');
+      checks.bag_parse_commands.iterate.options[8].arg.should.equal('-x, --exclude-summary');
+      checks.bag_parse_commands.iterate.options[8].desc.should.equal('Exclude summary report from log output');
+      should.not.exist(checks.bag_parse_commands.iterate.options[8].action);
     });
 
     it('should use custom configuration file when specified and it exists', function () {

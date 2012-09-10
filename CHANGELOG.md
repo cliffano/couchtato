@@ -1,5 +1,5 @@
 ### 0.1.3 (SNAPSHOT)
-*
+* Add -x option to exclude summary report from log output
 
 ### 0.1.2
 * Expose database driver via util.driver, available in task functions
