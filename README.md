@@ -51,8 +51,8 @@ Hide progress and summary info:
 
     couchtato iterate -u http://user:pass@host:port/db -q
 
-Config
-------
+Configuration
+-------------
 
 Specify the task functions in config file. Each function in exports.conf.tasks will be applied to each retrieved document one by one.
 
