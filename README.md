@@ -1,5 +1,6 @@
 Couchtato [![http://travis-ci.org/cliffano/couchtato](https://secure.travis-ci.org/cliffano/couchtato.png?branch=master)](http://travis-ci.org/cliffano/couchtato)
 ---------
+<img align="right" src="https://raw.github.com/cliffano/couchtato/master/avatar.jpg" alt="Avatar"/>
 
 Couchtato is a CouchDB database iterator tool.
 
