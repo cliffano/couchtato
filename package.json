@@ -16,6 +16,7 @@
   "bin": {
     "couchtato": "./bin/couchtato"
   },
+  "preferGlobal": true,
   "repository": {
     "type": "git",
     "url": "http://github.com/cliffano/couchtato.git"
