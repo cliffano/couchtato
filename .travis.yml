@@ -1,7 +1,7 @@
 language: node_js
 node_js:
-  - 0.9
+  - "0.11"
+  - "0.10"
   - 0.8
-  - 0.6
-before_install: "npm install -g bob"
-script: "bob clean lint test coverage"
+before_install: "npm install -g bob --loglevel error"
+script: "bob build"
