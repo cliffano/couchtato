@@ -1,6 +1,4 @@
 .bob
 .DS_Store
-examples/couchtato.log
 node_modules
 npm-debug.log
-couchtato.log
