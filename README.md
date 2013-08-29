@@ -1,6 +1,14 @@
-Couchtato [![http://travis-ci.org/cliffano/couchtato](https://secure.travis-ci.org/cliffano/couchtato.png?branch=master)](http://travis-ci.org/cliffano/couchtato)
----------
 <img align="right" src="https://raw.github.com/cliffano/couchtato/master/avatar.jpg" alt="Avatar"/>
+
+[![Build Status](https://secure.travis-ci.org/cliffano/couchtato.png?branch=master)](http://travis-ci.org/cliffano/couchtato)
+[![Dependencies Status](https://david-dm.org/cliffano/couchtato.png)](http://david-dm.org/cliffano/couchtato)
+[![Published Version](https://badge.fury.io/js/couchtato.png)](http://badge.fury.io/js/couchtato)
+<br/>
+[![npm Badge](https://nodei.co/npm/couchtato.png)](http://npmjs.org/package/couchtato)
+
+
+Couchtato
+---------
 
 Couchtato is a CouchDB database iterator tool.
 
@@ -133,3 +141,8 @@ A summary report will be displayed at the end of the run:
     - Flagged data count: 88
 
 Summary report can be excluded from the log output by using -q/--quiet option.
+
+Colophon
+--------
+
+* [Couchtato – A CouchDB Document Utility Tool Written In Node.js](http://blog.shinetech.com/2011/06/30/couchtato-a-couchdb-document-utility-tool-written-in-nodejs/)
