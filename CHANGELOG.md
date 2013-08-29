@@ -1,5 +1,5 @@
 ### 0.1.5 (SNAPSHOT)
-*
+* Use bagofcli for command handling
 
 ### 0.1.4
 * Replace -x option with -q (quiet), which excludes both progress and summary info
