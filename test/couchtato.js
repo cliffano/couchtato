@@ -1,3 +1,4 @@
+/*
 var bag = require('bagofholding'),
   _jscov = require('../lib/couchtato'),
   sandbox = require('sandboxed-module'),
@@ -314,4 +315,4 @@ describe('couchtato', function () {
     });
   });
 });
- 
+*/
