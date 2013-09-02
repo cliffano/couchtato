@@ -11,7 +11,6 @@ buster.testCase('couchtato - config', {
     this.mockFsx = this.mock(fsx);
   },
   'should delegate to fsx copy when config is called': function (done) {
-    this.mockConsole.expects('log').once().withExactArgs('Creating sample configuration file: couchtato.js');
     this.mockFsx.expects('copy').once().callsArgWith(2, null, 'someresult');
     var couchtato = new Couchtato();
     couchtato.config(function (err, result) {

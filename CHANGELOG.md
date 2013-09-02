@@ -1,5 +1,5 @@
 ### 0.1.6
-*
+* Fix duplicated config command logging
 
 ### 0.1.5
 * Improve help output by using bagofcli
