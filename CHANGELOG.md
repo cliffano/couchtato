@@ -1,6 +1,7 @@
 ### 0.1.5 (SNAPSHOT)
 * Improve help output by using bagofcli
 * Unit tests no longer generate log file
+* Fix out of memory error due to waiting incorrectly for in-progress bulk updates
 
 ### 0.1.4
 * Replace -x option with -q (quiet), which excludes both progress and summary info
