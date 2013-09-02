@@ -1,318 +1,200 @@
-/*
-var bag = require('bagofholding'),
-  _jscov = require('../lib/couchtato'),
-  sandbox = require('sandboxed-module'),
-  should = require('should'),
-  checks, mocks,
-  couchtato;
+var buster = require('buster'),
+  Couchtato = require('../lib/couchtato'),
+  Db = require('../lib/db'),
+  fsx = require('fs.extra'),
+  log4js = require('log4js'),
+  Util = require('../lib/util');
 
-describe('couchtato', function () {
-
-  function create(checks, mocks) {
-    return sandbox.require('../lib/couchtato', {
-      requires: mocks.requires,
-      globals: {
-        console: bag.mock.console(checks),
-        process: bag.mock.process(checks, mocks)
-      },
-      locals: {
-        __dirname: '/somedir/couchtato/lib'
-      }
+buster.testCase('couchtato - config', {
+  setUp: function () {
+    this.mockFsx = this.mock(fsx);
+  },
+  'should delegate to fsx copy when config is called': function (done) {
+    this.mockFsx.expects('copy').once().callsArgWith(2, null, 'someresult');
+    var couchtato = new Couchtato();
+    couchtato.config(function (err, result) {
+      assert.isNull(err);
+      assert.equals(result, 'someresult');
+      done();
     });
   }
-
-  beforeEach(function () {
-    checks = {};
-    mocks = {};
-  });
-
-  describe('config', function () {
-
-    it('should copy sample couchtato.js file to current directory when config is called', function (done) {
-      mocks.requires = {
-        'fs.extra': {
-          copy: function (source, target, cb) {
-            checks.fsx_copy_source = source;
-            checks.fsx_copy_target = target;
-            cb();
-          }
-        }
-      };
-      couchtato = new (create(checks, mocks))();
-      couchtato.config(function () {
-        done();
-      }); 
-      checks.fsx_copy_source.should.equal('/somedir/couchtato/examples/couchtato.js');
-      checks.fsx_copy_target.should.equal('couchtato.js');
-      checks.console_log_messages.length.should.equal(1);
-      checks.console_log_messages[0].should.equal('Creating sample configuration file: couchtato.js');
-    });
-  });
-
-  describe('iterate', function () {
-
-    beforeEach(function () {
-      checks.db_update_count = 0;
-      checks.db_done_count = 0;
-      checks.util_log_messages = [];
-      var _util = require('../lib/util');
-      _util.prototype.log = function (message) {
-        checks.util_log_messages.push(message);
-      };
-      mocks.requires = {
-        './util': _util,
-        './db': function (url) {
-          return {
-            paginate: function (interval, startKey, endKey, pageSize, numPages, pageCb, endCb) {
-              checks.db_paginate_interval = interval;
-              checks.db_paginate_startKey = startKey;
-              checks.db_paginate_endKey = endKey;
-              checks.db_paginate_pageSize = pageSize;
-              checks.db_paginate_numPages = numPages;
-              checks.db_paginate_pageCb = pageCb;
-              checks.db_paginate_endCb = endCb;
-            },
-            update: function (queuedDocs, cb) {
-              cb(mocks.db_update_err[checks.db_update_count], mocks.db_update_result[checks.db_update_count++]);
-            },
-            done: function () {
-              return mocks.db_done[checks.db_done_count++];
-            }
-          };
-        }
-      };
-    });
-
-    it('should pass error to callback when db pagination has an error', function (done) {
-      couchtato = new (create(checks, mocks))();
-      couchtato.iterate({}, 'http://localhost:5984/db', {}, function (err) {
-        checks.couchtato_iterate_err = err;
-        done();
-      });
-      checks.db_paginate_endCb(new Error('someerror'));
-      checks.couchtato_iterate_err.message.should.equal('someerror');
-
-      // report log
-      checks.util_log_messages.length.should.equal(1);
-      checks.util_log_messages[0].should.equal('\n------------------------\nRetrieved 0 documents in 0 pages\nProcessed 0 saves and 0 removes\n');
-    });
-
-    it('should apply the tasks to each document when db pagination has no error and task save also has no error', function (done) {
-
-      // simulate no error on first db update
-      mocks.db_update_err = [ null ];
-      mocks.db_update_result = [[ { id: 'doc1' }, { id: 'doc2' } ]];
-
-      checks.tasks_foo_docs = [];
-      checks.tasks_bar_docs = [];
-
-      var tasks = {
-        foo: function (util, doc) {
-          checks.tasks_foo_docs.push(doc);
-        },
-        bar: function (util, doc) {
-          checks.tasks_bar_docs.push(doc);
-          util.save(doc);
-        }
-      };
-      couchtato = new (create(checks, mocks))();
-      couchtato.iterate(tasks, 'http://localhost:5984/db', { batchSize: 1 }, function (err) {
-        checks.couchtato_iterate_err = err;
-        done();
-      });
-
-      checks.db_paginate_pageCb([ { doc: { _id: 'doc1' }}, { doc: { _id: 'doc2' }} ]);
-      checks.db_paginate_endCb();
-
-      checks.console_log_messages.length.should.equal(3);
-      checks.console_log_messages[0].should.equal('retrieved 2 docs - doc1');
-      checks.console_log_messages[1].should.equal('updating 2 docs - doc1');
-      checks.console_log_messages[2].should.equal('bulk update 2 docs done - doc1');
-
-      // tasks are applied to each doc
-      checks.tasks_foo_docs.length.should.equal(2);
-      checks.tasks_foo_docs[0]._id.should.equal('doc1');
-      checks.tasks_foo_docs[1]._id.should.equal('doc2');
-      checks.tasks_bar_docs.length.should.equal(2);
-      checks.tasks_bar_docs[0]._id.should.equal('doc1');
-      checks.tasks_bar_docs[1]._id.should.equal('doc2');
-
-      // opts set to default value
-      checks.db_paginate_interval.should.equal(1000);
-      should.not.exist(checks.db_paginate_startKey);
-      should.not.exist(checks.db_paginate_endKey);
-      checks.db_paginate_pageSize.should.equal(1000);
-      should.not.exist(checks.db_paginate_numPages);
-
-      // no error
-      should.not.exist(checks.couchtato_iterate_err);
-
-      // report log
-      checks.util_log_messages.length.should.equal(1);
-      checks.util_log_messages[0].should.equal('\n------------------------\nRetrieved 2 documents in 1 pages\nProcessed 2 saves and 0 removes\n');
-    });
-
-    it('should log error message when task save has an error', function (done) {
-
-      // simulate error on
-      mocks.db_update_err = [new Error('somesaveerror')];
-      mocks.db_update_result = [ null ];
-
-      checks.tasks_bar_docs = [];
-
-      var tasks = {
-        bar: function (util, doc) {
-          checks.tasks_bar_docs.push(doc);
-          util.save(doc);
-        }
-      };
-      couchtato = new (create(checks, mocks))();
-      couchtato.iterate(tasks, 'http://localhost:5984/db', { batchSize: 1 }, function (err) {
-        checks.couchtato_iterate_err = err;
-        done();
-      });
-
-      checks.db_paginate_pageCb([ { doc: { _id: 'doc1' }}, { doc: { _id: 'doc2' }} ]);
-      checks.db_paginate_endCb();
-
-      checks.console_error_messages.length.should.equal(1);
-      checks.console_error_messages[0].should.equal('somesaveerror');
-
-      checks.console_log_messages.length.should.equal(2);
-      checks.console_log_messages[0].should.equal('retrieved 2 docs - doc1');
-      checks.console_log_messages[1].should.equal('updating 2 docs - doc1');
-
-      // tasks are applied to each doc
-      checks.tasks_bar_docs.length.should.equal(2);
-      checks.tasks_bar_docs[0]._id.should.equal('doc1');
-      checks.tasks_bar_docs[1]._id.should.equal('doc2');
-
-      // opts set to default value
-      checks.db_paginate_interval.should.equal(1000);
-      should.not.exist(checks.db_paginate_startKey);
-      should.not.exist(checks.db_paginate_endKey);
-      checks.db_paginate_pageSize.should.equal(1000);
-      should.not.exist(checks.db_paginate_numPages);
-
-      // no error
-      should.not.exist(checks.couchtato_iterate_err);
-
-      // report log
-      checks.util_log_messages.length.should.equal(1);
-      checks.util_log_messages[0].should.equal('\n------------------------\nRetrieved 2 documents in 1 pages\nProcessed 2 saves and 0 removes\n');
-    });
-
-    it('should log summary report when quiet option is false', function (done) {
-
-      // simulate error on
-      mocks.db_update_err = [new Error('somesaveerror')];
-      mocks.db_update_result = [ null ];
-
-      checks.tasks_bar_docs = [];
-
-      var tasks = {
-        bar: function (util, doc) {
-          checks.tasks_bar_docs.push(doc);
-          util.save(doc);
-        }
-      };
-      couchtato = new (create(checks, mocks))();
-      couchtato.iterate(tasks, 'http://localhost:5984/db', { batchSize: 1, quiet: false }, function (err) {
-        checks.couchtato_iterate_err = err;
-        done();
-      });
-
-      checks.db_paginate_pageCb([ { doc: { _id: 'doc1' }}, { doc: { _id: 'doc2' }} ]);
-      checks.db_paginate_endCb();
-
-      // report log
-      checks.util_log_messages.length.should.equal(1);
-      checks.util_log_messages[0].should.equal('\n------------------------\nRetrieved 2 documents in 1 pages\nProcessed 2 saves and 0 removes\n');      
-    });
-
-    it('should not log summary report when quiet option is true', function (done) {
-
-      // simulate error on
-      mocks.db_update_err = [new Error('somesaveerror')];
-      mocks.db_update_result = [ null ];
-
-      checks.tasks_bar_docs = [];
-
-      var tasks = {
-        bar: function (util, doc) {
-          checks.tasks_bar_docs.push(doc);
-          util.save(doc);
-        }
-      };
-      couchtato = new (create(checks, mocks))();
-      couchtato.iterate(tasks, 'http://localhost:5984/db', { batchSize: 1, quiet: true }, function (err) {
-        checks.couchtato_iterate_err = err;
-        done();
-      });
-
-      checks.db_paginate_pageCb([ { doc: { _id: 'doc1' }}, { doc: { _id: 'doc2' }} ]);
-      checks.db_paginate_endCb();
-
-      // report log
-      checks.util_log_messages.length.should.equal(0);
-    });
-
-    it('should call db update on remaining queued documents', function (done) {
-
-      // simulate looping once while processing the remaining queued documents
-      mocks.db_done = [ false, true ];
-
-      // simulate no error on first db update
-      mocks.db_update_err = [ null ];
-      mocks.db_update_result = [[ { id: 'doc1' }, { id: 'doc2' } ]];
-
-      checks.tasks_bar_docs = [];
-
-      var tasks = {
-        bar: function (util, doc) {
-          checks.tasks_bar_docs.push(doc);
-          util.save(doc);
-          util.count('testcount');
-        }
-      };
-      couchtato = new (create(checks, mocks))();
-      couchtato.iterate(tasks, 'http://localhost:5984/db', { batchSize: 1000 }, function (err) {
-        checks.couchtato_iterate_err = err;
-        done();
-      });
-
-      checks.db_paginate_pageCb([ { doc: { _id: 'doc1' }}, { doc: { _id: 'doc2' }} ]);
-      checks.db_paginate_endCb();
-
-      checks.console_log_messages.length.should.equal(1);
-      checks.console_log_messages[0].should.equal('retrieved 2 docs - doc1');
-
-      // tasks are applied to each doc
-      checks.tasks_bar_docs.length.should.equal(2);
-      checks.tasks_bar_docs[0]._id.should.equal('doc1');
-      checks.tasks_bar_docs[1]._id.should.equal('doc2');
-
-      // update remaining queued documents
-      (typeof checks.process_nextTick_cb).should.equal('function');
-
-      // writes dot to stdout stream
-      checks.stream_write_strings.length.should.equal(1);
-      checks.stream_write_strings[0].should.equal('.');
-
-      // opts set to default value
-      checks.db_paginate_interval.should.equal(1000);
-      should.not.exist(checks.db_paginate_startKey);
-      should.not.exist(checks.db_paginate_endKey);
-      checks.db_paginate_pageSize.should.equal(1000);
-      should.not.exist(checks.db_paginate_numPages);
-
-      // no error
-      should.not.exist(checks.couchtato_iterate_err);
-
-      // report log
-      checks.util_log_messages.length.should.equal(1);
-      checks.util_log_messages[0].should.equal('\n------------------------\nRetrieved 2 documents in 1 pages\nProcessed 2 saves and 0 removes\n- testcount: 2\n');
-    });
-  });
 });
-*/
+
+buster.testCase('couchtato - iterate page', {
+  setUp: function () {
+    this.mockLog4js = this.mock(log4js);
+    this.spySetLevel = this.spy();
+    this.spyInfo = this.spy();
+    this.mockLog4js.expects('loadAppender').once().withExactArgs('file');
+    this.stub(log4js, 'appenders', {
+      file: function (file) {
+        assert.equals(file, 'couchtato.log');
+      }
+    });
+    this.mockLog4js.expects('addAppender').once();
+    this.mockLog4js.expects('getLogger').once().withExactArgs('').returns({ setLevel: this.spySetLevel, info: this.spyInfo });
+    this.spySetLevel.calledWith('INFO');
+
+    this.mockConsole = this.mock(console);
+    this.couchtato = new Couchtato();
+    this.tasks = {
+      sometask: function (util, doc) {
+      }
+    };
+  },
+  'should log error message when an error occurs while trying to bulk update documents': function () {
+    this.mockConsole.expects('log').once().withExactArgs('retrieved %d doc%s - %s', 1, '', 'someid1');
+    this.mockConsole.expects('log').once().withExactArgs('updating %d doc%s - %s', 2, 's', 'someid1');
+    this.mockConsole.expects('error').once().withExactArgs('some error');
+
+    var rows = [
+        { doc: { _id: 'someid1' }},
+        { doc: { _id: 'someid2' }}
+      ];
+
+    this.stub(Util.prototype, 'getQueue', function () {
+      return [rows[0].doc, rows[1].doc];
+    });
+    this.stub(Db.prototype, 'update', function (docs, cb) {
+      assert.equals(docs[0]._id, 'someid1');
+      assert.equals(docs[1]._id, 'someid2');
+      cb(new Error('some error'));
+    });
+    this.stub(Db.prototype, 'paginate', function (interval, startKey, endKey, pageSize, numPages, pageCb, endCb) {
+      pageCb(rows);
+    });
+    this.couchtato.iterate(this.tasks, 'http://someurl', { quiet: false, batchSize: 1, pageSize: 1 }, function (err, result) {});
+  },
+  'should log success message when bulk update documents complete': function () {
+    this.mockConsole.expects('log').once().withExactArgs('retrieved %d doc%s - %s', 2, 's', 'someid1');
+    this.mockConsole.expects('log').once().withExactArgs('updating %d doc%s - %s', 2, 's', 'someid1');
+    this.mockConsole.expects('log').once().withExactArgs('bulk update %d doc%s done - %s', 2, 's', 'someid1');
+
+    var rows = [
+        { doc: { _id: 'someid1' }},
+        { doc: { _id: 'someid2' }}
+      ];
+
+    this.stub(Util.prototype, 'getQueue', function () {
+      return [rows[0].doc, rows[1].doc];
+    });
+    this.stub(Db.prototype, 'update', function (docs, cb) {
+      assert.equals(docs[0]._id, 'someid1');
+      assert.equals(docs[1]._id, 'someid2');
+      cb(null, [{ id: rows[0].doc._id }, { id: rows[1].doc._id }]);
+    });
+    this.stub(Db.prototype, 'paginate', function (interval, startKey, endKey, pageSize, numPages, pageCb, endCb) {
+      pageCb(rows);
+    });
+    this.couchtato.iterate(this.tasks, 'http://someurl', { quiet: false, batchSize: 1 }, function (err, result) {});
+  },
+  'should not bulk update when queue docs has not reached batch size': function () {
+    var rows = [
+        { doc: { _id: 'someid1' }},
+        { doc: { _id: 'someid2' }}
+      ];
+
+    this.stub(Util.prototype, 'getQueue', function () {
+      return [rows[0].doc, rows[1].doc];
+    });
+    this.stub(Db.prototype, 'update', function (docs, cb) {
+      assert.equals(docs[0]._id, 'someid1');
+      assert.equals(docs[1]._id, 'someid2');
+      cb(null, [{ id: rows[0].doc._id }, { id: rows[1].doc._id }]);
+    });
+    this.stub(Db.prototype, 'paginate', function (interval, startKey, endKey, pageSize, numPages, pageCb, endCb) {
+      pageCb(rows);
+    });
+    this.couchtato.iterate(this.tasks, 'http://someurl', { quiet: true }, function (err, result) {});
+  },
+  'should bulk update 1 doc at a time when batch size is 1': function () {
+    this.mockConsole.expects('log').once().withExactArgs('retrieved %d doc%s - %s', 1, '', 'someid1');
+    this.mockConsole.expects('log').once().withExactArgs('updating %d doc%s - %s', 1, '', 'someid1');
+    this.mockConsole.expects('log').once().withExactArgs('bulk update %d doc%s done - %s', 1, '', 'someid1');
+
+    var rows = [
+        { doc: { _id: 'someid1' }}
+      ];
+
+    this.stub(Util.prototype, 'getQueue', function () {
+      return [rows[0].doc];
+    });
+    this.stub(Db.prototype, 'update', function (docs, cb) {
+      assert.equals(docs[0]._id, 'someid1');
+      cb(null, [{ id: rows[0].doc._id }]);
+    });
+    this.stub(Db.prototype, 'paginate', function (interval, startKey, endKey, pageSize, numPages, pageCb, endCb) {
+      pageCb(rows);
+    });
+    this.couchtato.iterate(this.tasks, 'http://someurl', { quiet: false, batchSize: 1, pageSize: 0 }, function (err, result) {});
+  }
+});
+
+buster.testCase('couchtato - iterate end', {
+  setUp: function () {
+    this.mockLog4js = this.mock(log4js);
+    this.spySetLevel = this.spy();
+    this.spyInfo = this.spy();
+    this.mockLog4js.expects('loadAppender').once().withExactArgs('file');
+    this.stub(log4js, 'appenders', {
+      file: function (file) {
+        assert.equals(file, 'couchtato.log');
+      }
+    });
+    this.mockLog4js.expects('addAppender').once();
+    this.mockLog4js.expects('getLogger').once().withExactArgs('').returns({ setLevel: this.spySetLevel, info: this.spyInfo });
+    this.spySetLevel.calledWith('INFO');
+
+    this.mockConsole = this.mock(console);
+    this.couchtato = new Couchtato();
+  },
+  'should pass error to callback when pagination ends with an error': function (done) {
+    this.stub(Util.prototype, 'getQueue', function () {
+      return [];
+    });
+    this.stub(Db.prototype, 'paginate', function (interval, startKey, endKey, pageSize, numPages, pageCb, endCb) {
+      endCb(new Error('some error'));
+    });
+    this.couchtato.iterate([], 'http://someurl', { quiet: true }, function (err, result) {
+      assert.equals(err.message, 'some error');
+      done(err);
+    });
+  },
+  'should bulk update the rest of the queue when pagination ends without any error': function (done) {
+    this.stub(Util.prototype, 'log', function (report) {
+      assert.equals(report,
+        '\n------------------------\n' +
+        'Retrieved 1 documents in 2 pages\n' +
+        'Processed 3 saves and 4 removes\n' +
+        '- somekey: 5\n');
+    });
+    this.stub(Db.prototype, 'paginate', function (interval, startKey, endKey, pageSize, numPages, pageCb, endCb) {
+      endCb(new Error('some error'));
+    });
+    var tickCount = 0;
+    this.stub(Db.prototype, 'done', function () {
+      if (tickCount++ === 0) {
+        return false;
+      } else {
+        return true;
+      }
+    });
+    this.stub(Util.prototype, 'getStat', function () {
+      return {
+        _couchtato_docs: 1,
+        _couchtato_pages: 2,
+        _couchtato_save: 3,
+        _couchtato_remove: 4,
+        somekey: 5
+      };
+    });
+    this.stub(Util.prototype, 'getQueue', function () {
+      return [{ _id: 'someid1' }];
+    });
+    this.stub(Db.prototype, 'update', function (docs, cb) {
+      assert.equals(docs[0]._id, 'someid1');
+      cb(null, [{ id: 'someid1' }]);
+    });
+    this.couchtato.iterate([], 'http://someurl', { quiet: false }, done);
+  }
+});

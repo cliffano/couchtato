@@ -42,6 +42,8 @@ buster.testCase('util - util', {
     util.count('somekey1');
     assert.equals(util.stat.somekey1, 3);
     assert.equals(util.stat.somekey2, 1);
+    assert.equals(util.getStat().somekey1, 3);
+    assert.equals(util.getStat().somekey2, 1);
   },
   'should count, and add doc to queue when save is called': function () {
     var util = new Util();
@@ -49,6 +51,8 @@ buster.testCase('util - util', {
     assert.equals(util.stat._couchtato_save, 1);
     assert.equals(util.queue.length, 1);
     assert.equals(util.queue[0]._id, 'someid');
+    assert.equals(util.getQueue().length, 1);
+    assert.equals(util.getQueue()[0]._id, 'someid');
   },
   'should count, add doc to queue, and set document deleted property when remove is called': function () {
     var util = new Util();
@@ -62,5 +66,15 @@ buster.testCase('util - util', {
     var util = new Util();
     util.log('some message');
     assert.isTrue(this.spyInfo.calledWith('some message'));
+  },
+  'should empty queue when reset is called': function () {
+    var util = new Util();
+
+    util.save({ _id: 'someid' });
+    assert.equals(util.getQueue().length, 1);
+    assert.equals(util.getQueue()[0]._id, 'someid');
+
+    util.resetQueue();
+    assert.equals(util.getQueue().length, 0);
   }
 });
