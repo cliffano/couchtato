@@ -1,4 +1,7 @@
-### 0.1.5 (SNAPSHOT)
+### 0.1.6
+*
+
+### 0.1.5
 * Improve help output by using bagofcli
 * Unit tests no longer generate log file
 * Fix out of memory error due to waiting incorrectly for in-progress bulk updates
