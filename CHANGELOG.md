@@ -1,5 +1,6 @@
 ### 0.1.6
 * Fix duplicated config command logging
+* Upgrade deps to latest, use ranged version deps
 
 ### 0.1.5
 * Improve help output by using bagofcli
