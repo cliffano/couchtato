@@ -11,7 +11,7 @@
       "options": [
         { "arg": "-c, --config-file <configFile>", "desc": "Configuration file | default: couchtato.js" },
         { "arg": "-u, --url <url>", "desc": "CouchDB URL http(s)://user:pass@host:port/db" },
-        { "arg": "-b, --batch-size <batchSize>", "desc": "How many documents to save/remove per bulk update | default: 1000" },
+        { "arg": "-b, --batch-size <batchSize>", "desc": "Minimum number of documents to save/remove per bulk update | default: 1000" },
         { "arg": "-p, --page-size <pageSize>", "desc": "How many documents to retrieve per page | default: 1000" },
         { "arg": "-n, --num-pages <numPages>", "desc": "How many pages to retrieve | default: undefined (all)" },
         { "arg": "-s, --start-key <startKey>", "desc": "Key of first document to iterate | default: undefined (first document in the database)" },
