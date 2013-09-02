@@ -1,3 +1,6 @@
+### 0.1.7
+*
+
 ### 0.1.6
 * Fix duplicated config command logging
 * Upgrade deps to latest, use ranged version deps
