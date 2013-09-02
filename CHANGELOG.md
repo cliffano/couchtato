@@ -1,5 +1,6 @@
 ### 0.1.5 (SNAPSHOT)
-* Use bagofcli for command handling
+* Improve help output by using bagofcli
+* Unit tests no longer generate log file
 
 ### 0.1.4
 * Replace -x option with -q (quiet), which excludes both progress and summary info

@@ -1,179 +1,66 @@
-/*
-var _ = require('underscore'),
-  bag = require('bagofholding'),
-  sandbox = require('sandboxed-module'),
-  should = require('should'),
-  checks, mocks,
-  util;
+var buster = require('buster'),
+  log4js = require('log4js'),
+  Util = new require('../lib/util');
 
-// node by default checks for listeners > 10
-// sandboxed log4js adds a listener on each test
-process.setMaxListeners(20);
+buster.testCase('util - util', {
+  setUp: function () {
+    this.mockLog4js = this.mock(log4js);
+    this.spySetLevel = this.spy();
+    this.spyInfo = this.spy();
 
-describe('util', function () {
-
-  function create(checks, mocks) {
-    return sandbox.require('../lib/util', {
-      requires: mocks ? mocks.requires : {},
-      globals: {}
+    this.mockLog4js.expects('loadAppender').once().withExactArgs('file');
+    this.stub(log4js, 'appenders', {
+      file: function (file) {
+        assert.equals(file, 'couchtato.log');
+      }
     });
+    this.mockLog4js.expects('addAppender').once();
+    this.mockLog4js.expects('getLogger').once().withExactArgs('').returns({ setLevel: this.spySetLevel, info: this.spyInfo });
+    this.spySetLevel.calledWith('INFO');
+  },
+  'should set driver': function () {
+    var util = new Util(null, null, 'somedriver');
+    assert.equals(util.driver, 'somedriver');
+  },
+  'should increment key stat when increment is called': function () {
+    var util = new Util();
+    util.count('somekey');
+    util.count('somekey');
+    assert.equals(util.stat.somekey, 2);
+  },
+  'should increment key stat when increment is called and stat already has initial value': function () {
+    var util = new Util({ somekey: 3 });
+    util.count('somekey');
+    util.count('somekey');
+    assert.equals(util.stat.somekey, 5);
+  },
+  'should increment key counter when count is called': function () {
+    var util = new Util();
+    util.count('somekey1');
+    util.count('somekey2');
+    util.count('somekey1');
+    util.count('somekey1');
+    assert.equals(util.stat.somekey1, 3);
+    assert.equals(util.stat.somekey2, 1);
+  },
+  'should count, and add doc to queue when save is called': function () {
+    var util = new Util();
+    util.save({ _id: 'someid' });
+    assert.equals(util.stat._couchtato_save, 1);
+    assert.equals(util.queue.length, 1);
+    assert.equals(util.queue[0]._id, 'someid');
+  },
+  'should count, add doc to queue, and set document deleted property when remove is called': function () {
+    var util = new Util();
+    util.remove({ _id: 'someid' });
+    assert.equals(util.stat._couchtato_remove, 1);
+    assert.equals(util.queue.length, 1);
+    assert.equals(util.queue[0]._id, 'someid');
+    assert.isTrue(util.queue[0]._deleted);
+  },
+  'should log message using log4js when log is called': function () {
+    var util = new Util();
+    util.log('some message');
+    assert.isTrue(this.spyInfo.calledWith('some message'));
   }
-
-  beforeEach(function () {
-    checks = {};
-    mocks = {};
-
-    checks.queue = [];
-    util = new (create(checks, mocks))({}, checks.queue);
-  });
-
-  describe('util', function () {
-
-    it('stat should be empty when no initial stat is specified', function () {
-      _.keys(util.stat).length.should.equal(0);
-    });
-
-    it('queue should be empty when no initial queue is specified', function () {
-      util.queue.length.should.equal(0);
-    });
-
-    it('stat should be initialised when specified', function () {
-      util = new (create(checks, mocks))({ foo: 1000 });
-      util.stat.foo.should.equal(1000);
-    });
-
-    it('queue should be initialised when specified', function () {
-      util = new (create(checks, mocks))(null, [ { foo: 'bar' } ]);
-      util.queue.length.should.equal(1);
-      util.queue[0].foo.should.equal('bar');
-    });
-
-    it('should set driver to undefined when driver is not specified', function () {
-      util = new (create(checks, mocks))();
-      should.not.exist(util.driver);
-    });
-
-    it('should set driver when specified', function () {
-      util = new (create(checks, mocks))(null, null, { foo: 'bar' });
-      util.driver.foo.should.equal('bar');
-    });
-  });
-
-  describe('increment', function () {
-
-    it('should set stat to increment value when key does not exist', function () {
-      util.increment('somekey', 1000);
-      util.stat.somekey.should.equal(1000);
-    });
-
-    it('should increment stat by specified increment value when key already exists', function () {
-      util.increment('somekey', 10);
-      util.increment('somekey', 1000);
-      util.stat.somekey.should.equal(1010);
-    });
-  });
-
-  describe('count', function () {
-    
-    it('should set stat to 1 when key does not exist', function () {
-      util.count('somekey');
-      util.stat.somekey.should.equal(1);
-    });
-
-    it('should increment stat by 1 when key already exists', function () {
-      util.count('somekey');
-      util.count('somekey');
-      util.stat.somekey.should.equal(2);
-      util.count('somekey');
-      util.stat.somekey.should.equal(3);
-    });
-  });
-
-  describe('save', function () {
-
-    it('should add save count when save is called', function () {
-      util.save({});
-      util.stat._couchtato_save.should.equal(1);
-      util.save({});
-      util.stat._couchtato_save.should.equal(2);
-    });
-
-    it('should queue doc when save is called', function () {
-      util.save({ foo: 1000 });
-      checks.queue.length.should.equal(1);
-      checks.queue[0].foo.should.equal(1000);
-      util.save({ bar: 2000 });
-      checks.queue.length.should.equal(2);
-      checks.queue[0].foo.should.equal(1000);
-      checks.queue[1].bar.should.equal(2000);
-    });
-  });
-
-  describe('remove', function () {
-
-    it('should add remove count when remove is called', function () {
-      util.remove({});
-      util.stat._couchtato_remove.should.equal(1);
-      util.remove({});
-      util.stat._couchtato_remove.should.equal(2);
-    });
-
-    it('should queue doc when remove is called', function () {
-      util.remove({ foo: 1000 });
-      checks.queue.length.should.equal(1);
-      checks.queue[0].foo.should.equal(1000);
-      util.remove({ bar: 2000 });
-      checks.queue.length.should.equal(2);
-      checks.queue[0].foo.should.equal(1000);
-      checks.queue[1].bar.should.equal(2000);
-    });
-
-    it('should mark queued doc as deleted when remove is called', function () {
-      util.remove({});
-      checks.queue.length.should.equal(1);
-      checks.queue[0]._deleted.should.equal(true);
-    });
-  });
-
-  describe('log', function () {
-    
-    it('should delegate log function to log4js logger info', function () {
-      checks.log4js_getlogger_info = [];
-      mocks.requires = {
-        'log4js': {
-          loadAppender: function (appender) {
-            checks.log4js_loadappender = appender;
-          },
-          addAppender: function (appender, logger) {
-            checks.log4js_addappender_appender = appender;
-            checks.log4js_addappender_logger = logger;
-          },
-          appenders: {
-            file: function (fileName) {
-              checks.log4js_appenders_file = fileName;
-              return {};
-            }
-          },
-          getLogger: function (logger) {
-            checks.log4js_getlogger = logger;
-            return {
-              setLevel: function (level) {
-                checks.log4js_getlogger_setlevel = level;
-              },
-              info: function (message) {
-                checks.log4js_getlogger_info.push(message);
-              }
-            };
-          }
-        }
-      };
-      util = new (create(checks, mocks))({}, checks.queue);
-      util.log('foo');
-      util.log('bar');
-      checks.log4js_getlogger_info.length.should.equal(2);
-      checks.log4js_getlogger_info[0].should.equal('foo');
-      checks.log4js_getlogger_info[1].should.equal('bar');
-    });
-  });
 });
-*/
