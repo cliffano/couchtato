@@ -176,9 +176,9 @@ buster.testCase('couchtato - iterate end', {
     var tickCount = 0;
     this.stub(Db.prototype, 'done', function () {
       if (tickCount++ === 0) {
-        return false;
-      } else {
         return true;
+      } else {
+        return false;
       }
     });
     this.stub(Util.prototype, 'getStat', function () {
