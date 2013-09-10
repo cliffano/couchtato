@@ -142,6 +142,13 @@ A summary report will be displayed at the end of the run:
 
 Summary report can be excluded from the log output by using -q/--quiet option.
 
+FAQ
+---
+
+Q: Why am I getting 'exports' is undefined Microsoft JScript runtime error on Windows?
+
+A: Since Couchtato's default config file is called couchtato.js, Windows tried to execute couchtato.js instead of couchtato command, which then resulted in the above error. A workaround to this problem is to rename couchtato.js to config.js, and then use -c/--config-file flag, e.g. `couchtato --config-file config.js iterate --url http://user:pass@host:port/db` .
+
 Colophon
 --------
 
