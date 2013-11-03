@@ -1,5 +1,7 @@
-var buster = require('buster'),
-  Db = require('../lib/db');
+var buster = require('buster-node'),
+  Db = require('../lib/db'),
+  referee = require('referee'),
+  assert = referee.assert;
 
 buster.testCase('db - paginate', {
   setUp: function () {

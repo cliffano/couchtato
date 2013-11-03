@@ -1,6 +1,8 @@
-var buster = require('buster'),
+var buster = require('buster-node'),
   log4js = require('log4js'),
-  Util = new require('../lib/util');
+  referee = require('referee'),
+  Util = new require('../lib/util'),
+  assert = referee.assert;
 
 buster.testCase('util - util', {
   setUp: function () {

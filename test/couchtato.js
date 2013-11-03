@@ -1,9 +1,11 @@
-var buster = require('buster'),
+var buster = require('buster-node'),
   Couchtato = require('../lib/couchtato'),
   Db = require('../lib/db'),
   fsx = require('fs.extra'),
   log4js = require('log4js'),
-  Util = require('../lib/util');
+  referee = require('referee'),
+  Util = require('../lib/util'),
+  assert = referee.assert;
 
 buster.testCase('couchtato - config', {
   setUp: function () {
