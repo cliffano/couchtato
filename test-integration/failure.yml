@@ -1,0 +1,4 @@
+- description: Command help should display help information
+  command: ../../../../../bin/couchtato --help
+  exitcode: 0
+  output: 'Usage: couchtato'
