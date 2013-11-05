@@ -2,3 +2,18 @@
   command: ../../../../../bin/couchtato --help
   exitcode: 0
   output: 'Usage: couchtato'
+
+- description: Command init should create sample configuration file
+  command: ../../../../../bin/couchtato config
+  exitcode: 0
+  output: 'Creating example couchtato.js config'
+
+- description: Command iterate should fail when host does not exist
+  command: ../../../../../bin/couchtato iterate --url http://someinexistinghost
+  exitcode: 1
+  output: 'error happened in your connection'
+
+- description: Command iterate should fail when database does not exist
+  command: ../../../../../bin/couchtato iterate --url http://registry.npmjs.org/someinexistingdatabase
+  exitcode: 1
+  output: 'document not found'
