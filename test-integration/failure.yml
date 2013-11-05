@@ -13,7 +13,7 @@
   exitcode: 1
   output: 'error happened in your connection'
 
-- description: Command iterate should fail when database does not exist
+- description: Command iterate should fail when document does not exist
   command: ../../../../../bin/couchtato iterate --url http://registry.npmjs.org/someinexistingdatabase
   exitcode: 1
   output: 'document not found'

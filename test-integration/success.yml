@@ -1,0 +1,22 @@
+- description: Command help should display help information
+  command: ../../../../../bin/couchtato --help
+  exitcode: 0
+  output: 'Usage: couchtato'
+
+- description: Command init should create sample configuration file
+  command: ../../../../../bin/couchtato config
+  exitcode: 0
+  output: 'Creating example couchtato.js config'
+
+- description: Command iterate should succeed when database exists
+  command: ../../../../../bin/couchtato iterate --url http://isaacs.iriscouch.com/registry --start-key couchtato --end-key couchtatp
+  exitcode: 0
+  output: 'name: ''couchtato'''
+
+- description: Prepare custom config file
+  command: cp ../../../../../test-integration/fixtures/log_id.js ./
+  exitcode: 0
+
+- description: Command iterate should paginate documents
+  command: ../../../../../bin/couchtato iterate --config-file log_id.js --url http://isaacs.iriscouch.com/registry --start-key a --end-key b --num-pages 5 --page-size 100 --batch-size 200 --interval 100 --quiet
+  exitcode: 0
