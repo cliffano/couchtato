@@ -33,9 +33,9 @@
     "async": "~0.2.9",
     "bagofcli": "~0.0.8",
     "fs.extra": "~1.2.1",
-    "lodash": "~2.2.1",
+    "lodash": "~2.4.1",
     "log4js": "~0.6.9",
-    "nano": "~4.1.4"
+    "nano": "~4.3.0"
   },
   "devDependencies": {
     "buster-node": "~0.7.0",
