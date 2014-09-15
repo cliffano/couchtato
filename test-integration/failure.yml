@@ -1,19 +1,22 @@
+- params:
+    couchtato: ../../../../../bin/couchtato
+
 - description: Command help should display help information
-  command: ../../../../../bin/couchtato --help
+  command: '{couchtato} --help'
   exitcode: 0
   output: 'Usage: couchtato'
 
 - description: Command init should create sample configuration file
-  command: ../../../../../bin/couchtato config
+  command: '{couchtato} config'
   exitcode: 0
   output: 'Creating example couchtato.js config'
 
 - description: Command iterate should fail when host does not exist
-  command: ../../../../../bin/couchtato iterate --url http://someinexistinghost
+  command: '{couchtato} iterate --url http://someinexistinghost'
   exitcode: 1
   output: 'error happened in your connection'
 
 - description: Command iterate should fail when document does not exist
-  command: ../../../../../bin/couchtato iterate --url http://registry.npmjs.org/someinexistingdatabase
+  command: '{couchtato} iterate --url http://registry.npmjs.org/someinexistingdatabase'
   exitcode: 1
   output: 'document not found'
