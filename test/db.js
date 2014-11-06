@@ -6,6 +6,7 @@ var buster = require('buster-node'),
 buster.testCase('db - paginate', {
   setUp: function () {
     this.pageCb = function (rows) {};
+    this.mock({});
   },
   'should pass error when an error occurs while paginating the data': function (done) {
     var mockNano = {
@@ -71,6 +72,9 @@ buster.testCase('db - paginate', {
 });
 
 buster.testCase('db - update', {
+  setUp: function () {
+    this.mock({});
+  },
   'should call nano bulk update': function (done) {
     this.db = new Db('http://someurl/somedb/somedesign/someview', { db: {
       bulk: function (data, cb) {
@@ -84,6 +88,7 @@ buster.testCase('db - update', {
 
 buster.testCase('db - done', {
   setUp: function () {
+    this.mock({});
     this.db = new Db('http://someurl/somedb');
   },
   'should be false when there are documents in progress': function () {
