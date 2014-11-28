@@ -153,4 +153,8 @@ A: Since Couchtato's default config file is called couchtato.js, Windows tried t
 Colophon
 --------
 
+[Developer's Guide](http://cliffano.github.io/developers_guide.html#nodejs)
+
+Articles:
+
 * [Couchtato – A CouchDB Document Utility Tool Written In Node.js](http://blog.shinetech.com/2011/06/30/couchtato-a-couchdb-document-utility-tool-written-in-nodejs/)
