@@ -155,6 +155,14 @@ Colophon
 
 [Developer's Guide](http://cliffano.github.io/developers_guide.html#nodejs)
 
+Build reports:
+
+* [Code complexity report](http://cliffano.github.io/couchtato/bob/complexity/plato/index.html)
+* [Unit tests report](http://cliffano.github.io/couchtato/bob/test/buster.out)
+* [Test coverage report](http://cliffano.github.io/couchtato/bob/coverage/buster-istanbul/lcov-report/lib/index.html)
+* [Integration tests report](http://cliffano.github.io/couchtato/bob/test-integration/cmdt.out)
+* [API Documentation](http://cliffano.github.io/couchtato/bob/doc/dox-foundation/index.html)
+
 Articles:
 
 * [Couchtato – A CouchDB Document Utility Tool Written In Node.js](http://blog.shinetech.com/2011/06/30/couchtato-a-couchdb-document-utility-tool-written-in-nodejs/)
