@@ -166,3 +166,7 @@ Build reports:
 Articles:
 
 * [Couchtato – A CouchDB Document Utility Tool Written In Node.js](http://blog.shinetech.com/2011/06/30/couchtato-a-couchdb-document-utility-tool-written-in-nodejs/)
+
+Related Projects:
+
+* [couchpenter](http://github.com/cliffano/couchpenter) - CouchDB database and document setup tool
