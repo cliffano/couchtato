@@ -1,7 +1,7 @@
 <img align="right" src="https://raw.github.com/cliffano/couchtato/master/avatar.jpg" alt="Avatar"/>
 
-[![Build Status](https://secure.travis-ci.org/cliffano/couchtato.png?branch=master)](http://travis-ci.org/cliffano/couchtato)
-[![Dependencies Status](https://david-dm.org/cliffano/couchtato.png)](http://david-dm.org/cliffano/couchtato)
+[![Build Status](https://img.shields.io/travis/cliffano/couchtato.svg)](http://travis-ci.org/cliffano/couchtato)
+[![Dependencies Status](https://img.shields.io/david/cliffano/couchtato.svg)](http://david-dm.org/cliffano/couchtato)
 [![Coverage Status](https://coveralls.io/repos/cliffano/couchtato/badge.png?branch=master)](https://coveralls.io/r/cliffano/couchtato?branch=master)
 [![Published Version](https://badge.fury.io/js/couchtato.png)](http://badge.fury.io/js/couchtato)
 <br/>
