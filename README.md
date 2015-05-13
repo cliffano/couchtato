@@ -2,8 +2,8 @@
 
 [![Build Status](https://img.shields.io/travis/cliffano/couchtato.svg)](http://travis-ci.org/cliffano/couchtato)
 [![Dependencies Status](https://img.shields.io/david/cliffano/couchtato.svg)](http://david-dm.org/cliffano/couchtato)
-[![Coverage Status](https://coveralls.io/repos/cliffano/couchtato/badge.png?branch=master)](https://coveralls.io/r/cliffano/couchtato?branch=master)
-[![Published Version](https://badge.fury.io/js/couchtato.png)](http://badge.fury.io/js/couchtato)
+[![Coverage Status](https://img.shields.io/coveralls/cliffano/couchtato.svg)](https://coveralls.io/r/cliffano/couchtato?branch=master)
+[![Published Version](https://img.shields.io/npm/v/couchtato.svg)](http://www.npmjs.com/package/couchtato)
 <br/>
 [![npm Badge](https://nodei.co/npm/couchtato.png)](http://npmjs.org/package/couchtato)
 
