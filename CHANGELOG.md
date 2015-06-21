@@ -1,4 +1,7 @@
-### 0.2.0-pre
+### 0.2.1-pre
+*
+
+### 0.2.0
 * Change test lib to buster-node + referee
 * Set min node engine to >= v0.10.0
 * Add test-integration to CI build
