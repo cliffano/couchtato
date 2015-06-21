@@ -1,0 +1,1 @@
+[ 'lib/cli.js', 'lib/couchtato.js', 'lib/db.js', 'lib/util.js' ]

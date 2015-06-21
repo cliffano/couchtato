@@ -1,0 +1,810 @@
+[2015-06-21 12:44:20.977] [INFO] [default] - { _id: 'couchtato',
+  _rev: '29-4df262da0853d91a05d2aec402a92702',
+  name: 'couchtato',
+  description: 'CouchDB documents iterator tool.',
+  'dist-tags': { latest: '0.1.6' },
+  versions: 
+   { '0.0.1': 
+      { name: 'couchtato',
+        description: 'CouchDB document iterator.',
+        keywords: [Object],
+        version: '0.0.1',
+        homepage: 'http://github.com/cliffano/couchtato',
+        author: [Object],
+        bin: [Object],
+        repository: [Object],
+        bugs: [Object],
+        directories: [Object],
+        dependencies: [Object],
+        engines: [Object],
+        licenses: [Object],
+        devDependencies: {},
+        _id: 'couchtato@0.0.1',
+        _engineSupported: true,
+        _npmVersion: '1.0.6',
+        _nodeVersion: 'v0.4.5',
+        _defaultsLoaded: true,
+        dist: [Object],
+        scripts: {} },
+     '0.0.2': 
+      { name: 'couchtato',
+        description: 'CouchDB documents iterator.',
+        keywords: [Object],
+        version: '0.0.2',
+        homepage: 'http://github.com/cliffano/couchtato',
+        author: [Object],
+        bin: [Object],
+        repository: [Object],
+        bugs: [Object],
+        directories: [Object],
+        dependencies: [Object],
+        engines: [Object],
+        licenses: [Object],
+        _id: 'couchtato@0.0.2',
+        devDependencies: {},
+        _engineSupported: true,
+        _npmVersion: '1.0.10',
+        _nodeVersion: 'v0.4.8',
+        _defaultsLoaded: true,
+        dist: [Object],
+        scripts: {} },
+     '0.0.3': 
+      { name: 'couchtato',
+        description: 'CouchDB document utility tool.',
+        keywords: [Object],
+        version: '0.0.3',
+        homepage: 'http://github.com/cliffano/couchtato',
+        author: [Object],
+        bin: [Object],
+        repository: [Object],
+        bugs: [Object],
+        directories: [Object],
+        dependencies: [Object],
+        devDependencies: [Object],
+        engines: [Object],
+        licenses: [Object],
+        _npmJsonOpts: [Object],
+        _id: 'couchtato@0.0.3',
+        _engineSupported: true,
+        _npmVersion: '1.0.15',
+        _nodeVersion: 'v0.4.9',
+        _defaultsLoaded: true,
+        dist: [Object],
+        scripts: {},
+        maintainers: [Object] },
+     '0.0.4': 
+      { name: 'couchtato',
+        description: 'CouchDB document utility tool.',
+        keywords: [Object],
+        version: '0.0.4',
+        homepage: 'http://github.com/cliffano/couchtato',
+        author: [Object],
+        bin: [Object],
+        repository: [Object],
+        bugs: [Object],
+        directories: [Object],
+        dependencies: [Object],
+        devDependencies: [Object],
+        engines: [Object],
+        licenses: [Object],
+        _npmJsonOpts: [Object],
+        _id: 'couchtato@0.0.4',
+        _engineSupported: true,
+        _npmVersion: '1.0.15',
+        _nodeVersion: 'v0.4.9',
+        _defaultsLoaded: true,
+        dist: [Object],
+        scripts: {},
+        maintainers: [Object] },
+     '0.0.5': 
+      { name: 'couchtato',
+        description: 'CouchDB document utility tool.',
+        keywords: [Object],
+        version: '0.0.5',
+        homepage: 'http://github.com/cliffano/couchtato',
+        author: [Object],
+        bin: [Object],
+        repository: [Object],
+        bugs: [Object],
+        directories: [Object],
+        dependencies: [Object],
+        devDependencies: [Object],
+        engines: [Object],
+        licenses: [Object],
+        bob: [Object],
+        _npmJsonOpts: [Object],
+        _id: 'couchtato@0.0.5',
+        _engineSupported: true,
+        _npmVersion: '1.0.30',
+        _nodeVersion: 'v0.4.12',
+        _defaultsLoaded: true,
+        dist: [Object],
+        maintainers: [Object] },
+     '0.1.0': 
+      { name: 'couchtato',
+        description: 'CouchDB documents iterator tool.',
+        keywords: [Object],
+        version: '0.1.0',
+        homepage: 'http://github.com/cliffano/couchtato',
+        author: [Object],
+        bin: [Object],
+        repository: [Object],
+        bugs: [Object],
+        directories: [Object],
+        dependencies: [Object],
+        devDependencies: [Object],
+        engines: [Object],
+        licenses: [Object],
+        _npmUser: [Object],
+        _id: 'couchtato@0.1.0',
+        optionalDependencies: {},
+        _engineSupported: true,
+        _npmVersion: '1.1.0-3',
+        _nodeVersion: 'v0.6.10',
+        _defaultsLoaded: true,
+        dist: [Object],
+        maintainers: [Object] },
+     '0.1.1': 
+      { name: 'couchtato',
+        description: 'CouchDB documents iterator tool.',
+        keywords: [Object],
+        version: '0.1.1',
+        homepage: 'http://github.com/cliffano/couchtato',
+        author: [Object],
+        contributors: [Object],
+        main: './lib/couchtato',
+        bin: [Object],
+        repository: [Object],
+        bugs: [Object],
+        directories: [Object],
+        dependencies: [Object],
+        devDependencies: [Object],
+        scripts: {},
+        engines: [Object],
+        licenses: [Object],
+        _npmUser: [Object],
+        _id: 'couchtato@0.1.1',
+        optionalDependencies: {},
+        _engineSupported: true,
+        _npmVersion: '1.1.12',
+        _nodeVersion: 'v0.6.14',
+        _defaultsLoaded: true,
+        dist: [Object],
+        maintainers: [Object] },
+     '0.1.2': 
+      { name: 'couchtato',
+        description: 'CouchDB documents iterator tool.',
+        keywords: [Object],
+        version: '0.1.2',
+        homepage: 'http://github.com/cliffano/couchtato',
+        author: [Object],
+        contributors: [Object],
+        main: './lib/couchtato',
+        bin: [Object],
+        repository: [Object],
+        bugs: [Object],
+        directories: [Object],
+        dependencies: [Object],
+        devDependencies: [Object],
+        scripts: {},
+        engines: [Object],
+        licenses: [Object],
+        _npmUser: [Object],
+        _id: 'couchtato@0.1.2',
+        optionalDependencies: {},
+        _engineSupported: true,
+        _npmVersion: '1.1.0-3',
+        _nodeVersion: 'v0.6.10',
+        _defaultsLoaded: true,
+        dist: [Object],
+        maintainers: [Object] },
+     '0.1.3': 
+      { name: 'couchtato',
+        description: 'CouchDB documents iterator tool.',
+        keywords: [Object],
+        version: '0.1.3',
+        homepage: 'http://github.com/cliffano/couchtato',
+        author: [Object],
+        contributors: [Object],
+        main: './lib/couchtato',
+        bin: [Object],
+        repository: [Object],
+        bugs: [Object],
+        directories: [Object],
+        dependencies: [Object],
+        devDependencies: [Object],
+        scripts: {},
+        engines: [Object],
+        licenses: [Object],
+        _npmUser: [Object],
+        _id: 'couchtato@0.1.3',
+        optionalDependencies: {},
+        _engineSupported: true,
+        _npmVersion: '1.1.12',
+        _nodeVersion: 'v0.6.14',
+        _defaultsLoaded: true,
+        dist: [Object],
+        maintainers: [Object] },
+     '0.1.4': 
+      { name: 'couchtato',
+        description: 'CouchDB documents iterator tool.',
+        keywords: [Object],
+        version: '0.1.4',
+        homepage: 'http://github.com/cliffano/couchtato',
+        author: [Object],
+        contributors: [Object],
+        main: './lib/couchtato',
+        bin: [Object],
+        repository: [Object],
+        bugs: [Object],
+        directories: [Object],
+        dependencies: [Object],
+        devDependencies: [Object],
+        scripts: {},
+        engines: [Object],
+        licenses: [Object],
+        _npmUser: [Object],
+        _id: 'couchtato@0.1.4',
+        optionalDependencies: {},
+        _engineSupported: true,
+        _npmVersion: '1.1.12',
+        _nodeVersion: 'v0.6.14',
+        _defaultsLoaded: true,
+        dist: [Object],
+        maintainers: [Object] },
+     '0.1.5': 
+      { name: 'couchtato',
+        description: 'CouchDB documents iterator tool.',
+        keywords: [Object],
+        version: '0.1.5',
+        homepage: 'http://github.com/cliffano/couchtato',
+        author: [Object],
+        contributors: [Object],
+        main: './lib/couchtato',
+        bin: [Object],
+        preferGlobal: true,
+        repository: [Object],
+        bugs: [Object],
+        directories: [Object],
+        dependencies: [Object],
+        devDependencies: [Object],
+        scripts: {},
+        engines: [Object],
+        licenses: [Object],
+        _id: 'couchtato@0.1.5',
+        dist: [Object],
+        _from: '.',
+        _npmVersion: '1.3.5',
+        _npmUser: [Object],
+        maintainers: [Object] },
+     '0.1.6': 
+      { name: 'couchtato',
+        description: 'CouchDB documents iterator tool.',
+        keywords: [Object],
+        version: '0.1.6',
+        homepage: 'http://github.com/cliffano/couchtato',
+        author: [Object],
+        contributors: [Object],
+        main: './lib/couchtato',
+        bin: [Object],
+        preferGlobal: true,
+        repository: [Object],
+        bugs: [Object],
+        directories: [Object],
+        dependencies: [Object],
+        devDependencies: [Object],
+        scripts: {},
+        engines: [Object],
+        licenses: [Object],
+        _id: 'couchtato@0.1.6',
+        dist: [Object],
+        _from: '.',
+        _npmVersion: '1.3.5',
+        _npmUser: [Object],
+        maintainers: [Object] } },
+  maintainers: [ { name: 'cliffano', email: 'cliffano@gmail.com' } ],
+  time: 
+   { modified: '2013-09-02T13:13:00.568Z',
+     created: '2011-06-07T13:06:43.787Z',
+     '0.0.1': '2011-06-07T13:06:45.978Z',
+     '0.0.2': '2011-06-18T01:08:30.762Z',
+     '0.0.3': '2011-08-14T13:17:14.077Z',
+     '0.0.4': '2011-08-22T13:16:38.245Z',
+     '0.0.5': '2011-09-20T13:29:27.998Z',
+     '0.1.0': '2012-07-04T15:01:03.452Z',
+     '0.1.1': '2012-08-15T08:07:48.300Z',
+     '0.1.2': '2012-08-17T03:14:08.038Z',
+     '0.1.3': '2012-09-10T05:16:04.928Z',
+     '0.1.4': '2012-09-10T07:33:34.624Z',
+     '0.1.5': '2013-09-02T11:51:29.406Z',
+     '0.1.6': '2013-09-02T13:13:00.568Z' },
+  author: 
+   { name: 'Cliffano Subagio',
+     email: 'blah@cliffano.com',
+     url: 'http://blog.cliffano.com' },
+  repository: { type: 'git', url: 'http://github.com/cliffano/couchtato.git' },
+  readme: '<img align="right" src="https://raw.github.com/cliffano/couchtato/master/avatar.jpg" alt="Avatar"/>\n\n[![Build Status](https://secure.travis-ci.org/cliffano/couchtato.png?branch=master)](http://travis-ci.org/cliffano/couchtato)\n[![Dependencies Status](https://david-dm.org/cliffano/couchtato.png)](http://david-dm.org/cliffano/couchtato)\n[![Published Version](https://badge.fury.io/js/couchtato.png)](http://badge.fury.io/js/couchtato)\n<br/>\n[![npm Badge](https://nodei.co/npm/couchtato.png)](http://npmjs.org/package/couchtato)\n\n\nCouchtato\n---------\n\nCouchtato is a CouchDB database iterator tool.\n\nThis is handy when you want to apply a set of JavaScript functions against all documents in a CouchDB database or view, or only some of them by specifying a start and/or an end key(s). On each JavaScript function, you can save a document, remove a document, log a message, or count the documents.\n\nPerformance and resource utilisation can be tuned by tweaking how many documents to retrieve per retrieval page, how many documents to update/remove per bulk update, and how many milliseconds interval between page retrievals.\n\nInstallation\n------------\n\n    npm install -g couchtato\n    \nUsage\n-----\n\nCreate sample couchtato.js configuration file:\n\n    couchtato config\n    \nIterate through all documents in a CouchDB database:\n\n    couchtato iterate -u http://user:pass@host:port/db\n\nIterate through all documents in a CouchDB view:\n\n    couchtato iterate -u http://user:pass@host:port/db/design/view\n\nUse custom configuration file:\n\n    couchtato iterate -u http://user:pass@host:port/db -c ../somecouchtato.js\n\nIterate through documents within a range of IDs:\n\n    couchtato iterate -u http://user:pass@host:port/db -s Astartkey -e Zendkey\n\nOnly iterate the first 5 pages where each page contains 1000 documents:\n\n    couchtato iterate -u http://user:pass@host:port/db -n 5 -p 1000\n    \nSave/remove docs in bulk of 20000 documents at a time:\n\n    couchtato iterate -u http://user:pass@host:port/db -b 20000\n\nPause for 5 seconds between each page retrieval:\n\n    couchtato iterate -u http://user:pass@host:port/db -i 5000\n\nHide progress and summary info:\n\n    couchtato iterate -u http://user:pass@host:port/db -q\n\nConfiguration\n-------------\n\nSpecify the task functions in config file. Each function in exports.conf.tasks will be applied to each retrieved document one by one.\n\n    exports.conf = {\n        "tasks": {\n            "log-all-docs": function (util, doc) {\n                util.log(doc);\n            },\n            "log-by-criteria": function (util, doc) {\n                if (doc.title.match(/^The/)) {\n                    util.log(doc);\n                }\n            },\n            "update-by-criteria": function (util, doc) {\n                if (doc.status === \'new\') {\n                    doc.owner = \'Bob McFred\';\n                    util.save(doc);\n                }\n            },\n            "delete-by-criteria": function (util, doc) {\n                if (doc.status === \'spam\') {\n                    util.remove(doc);\n                }\n            },\n            "count-by-field": function (util, doc) {\n                util.count(doc.status);\n            },\n            "whatever": function (util, doc) {\n                // you need to implement whatever function\n                whatever(doc);\n            }\n        }\n    }};\n\nDatabase driver is available via util.driver from the task function, it returns nano(url).use(db) :\n\n    exports.conf = {\n        "tasks": {\n            "use-database-driver": function (util, doc) {\n                util.driver.something();\n            }\n        }\n    }};\n\nNote that you can also require other Node.js modules in the config file if you need to.\n\nThe util variable\n-----------------\n\nThat \'util\' in function (util, doc) is a utility variable, it provides you with the following convenient functions:\n\n    # save the document back to the database\n    util.save(doc)\n    \n    # remove the document from the database\n    util.remove(doc)\n    \n    # increment a counter associated with a particular key\n    # all counters will be displayed in the summary report\n    util.count(\'somekey\')\n    \n    # log a message to both the console and to couchtato.log file\n    # if you only want to display a message on the console,\n    # simply use good old console.log(message)\n    util.log(message)\n\nReport\n------\n\nA summary report will be displayed at the end of the run:\n\n    ------------------------\n    Retrieved 2601388 documents in 5203 pages\n    Processed 10356 saves and 302 removes\n    - New data count: 1012\n    - Moderated data count: 4578\n    - Flagged data count: 88\n\nSummary report can be excluded from the log output by using -q/--quiet option.\n\nColophon\n--------\n\n* [Couchtato – A CouchDB Document Utility Tool Written In Node.js](http://blog.shinetech.com/2011/06/30/couchtato-a-couchdb-document-utility-tool-written-in-nodejs/)',
+  readmeFilename: 'README.md',
+  _attachments: 
+   { 'couchtato-0.0.4.tgz': 
+      { content_type: 'application/octet-stream',
+        revpos: 0,
+        digest: 'md5-53jj5Lk1VO232d14dw7ybA==',
+        length: 10015,
+        stub: true },
+     'couchtato-0.0.5.tgz': 
+      { content_type: 'application/octet-stream',
+        revpos: 0,
+        digest: 'md5-Z5lUGnkSxRBiCvnQ8nrYqg==',
+        length: 10246,
+        stub: true },
+     'couchtato-0.0.2.tgz': 
+      { content_type: 'application/octet-stream',
+        revpos: 0,
+        digest: 'md5-l4wXjmLEzFqAF8TQpJai+A==',
+        length: 9077,
+        stub: true },
+     'couchtato-0.0.1.tgz': 
+      { content_type: 'application/octet-stream',
+        revpos: 0,
+        digest: 'md5-43VHziPCqDVkgCCrNajJHQ==',
+        length: 8833,
+        stub: true },
+     'couchtato-0.0.3.tgz': 
+      { content_type: 'application/octet-stream',
+        revpos: 0,
+        digest: 'md5-EsiPqazddPC2x4FBMumt9Q==',
+        length: 9445,
+        stub: true },
+     'couchtato-0.1.0.tgz': 
+      { content_type: 'application/octet-stream',
+        revpos: 0,
+        digest: 'md5-b2u94JuRw3jv8geWWujI0A==',
+        length: 10922,
+        stub: true },
+     'couchtato-0.1.3.tgz': 
+      { content_type: 'application/octet-stream',
+        revpos: 0,
+        digest: 'md5-pg1nmhwrbil4FW+qtyjwXA==',
+        length: 12397,
+        stub: true },
+     'couchtato-0.1.2.tgz': 
+      { content_type: 'application/octet-stream',
+        revpos: 0,
+        digest: 'md5-AtOd0czSC6oeX0gmmtVCXg==',
+        length: 12025,
+        stub: true },
+     'couchtato-0.1.5.tgz': 
+      { content_type: 'application/octet-stream',
+        revpos: 0,
+        digest: 'md5-QoVC7E/5i/qsPjb0pbZN8Q==',
+        length: 7544,
+        stub: true },
+     'couchtato-0.1.6.tgz': 
+      { content_type: 'application/octet-stream',
+        revpos: 0,
+        digest: 'md5-gROk2pxXtx00PNEr1OE36w==',
+        length: 7566,
+        stub: true },
+     'couchtato-0.1.4.tgz': 
+      { content_type: 'application/octet-stream',
+        revpos: 0,
+        digest: 'md5-kgpHYKniAtT6BAukFeX9sA==',
+        length: 12456,
+        stub: true },
+     'couchtato-0.1.1.tgz': 
+      { content_type: 'application/octet-stream',
+        revpos: 0,
+        digest: 'md5-2Uo0XX9ZJ5Vy/gObqjUhTw==',
+        length: 11843,
+        stub: true } } }
+[2015-06-21 12:44:27.565] [INFO] [default] - a
+[2015-06-21 12:44:27.567] [INFO] [default] - a-big-triangle
+[2015-06-21 12:44:27.568] [INFO] [default] - a-construct-fn
+[2015-06-21 12:44:27.568] [INFO] [default] - a-csv
+[2015-06-21 12:44:27.568] [INFO] [default] - a-frame
+[2015-06-21 12:44:27.568] [INFO] [default] - a-french-javascript-developer
+[2015-06-21 12:44:27.568] [INFO] [default] - a-kind-of-magic
+[2015-06-21 12:44:27.568] [INFO] [default] - a-star
+[2015-06-21 12:44:27.568] [INFO] [default] - a-star-search
+[2015-06-21 12:44:27.568] [INFO] [default] - a-sync
+[2015-06-21 12:44:27.568] [INFO] [default] - a-taste-of-node
+[2015-06-21 12:44:27.568] [INFO] [default] - a-test-package-for-registry-key
+[2015-06-21 12:44:27.568] [INFO] [default] - a-wild-version-appears
+[2015-06-21 12:44:27.569] [INFO] [default] - a.config
+[2015-06-21 12:44:27.569] [INFO] [default] - a.require
+[2015-06-21 12:44:27.569] [INFO] [default] - a1
+[2015-06-21 12:44:27.569] [INFO] [default] - a127
+[2015-06-21 12:44:27.569] [INFO] [default] - a127-magic
+[2015-06-21 12:44:27.569] [INFO] [default] - a2
+[2015-06-21 12:44:27.570] [INFO] [default] - a2p3
+[2015-06-21 12:44:27.570] [INFO] [default] - a2r-osc
+[2015-06-21 12:44:27.570] [INFO] [default] - a2s
+[2015-06-21 12:44:27.570] [INFO] [default] - a2vh
+[2015-06-21 12:44:27.570] [INFO] [default] - a2z
+[2015-06-21 12:44:27.571] [INFO] [default] - a3
+[2015-06-21 12:44:27.571] [INFO] [default] - a5
+[2015-06-21 12:44:27.571] [INFO] [default] - a_mock
+[2015-06-21 12:44:27.571] [INFO] [default] - a_test
+[2015-06-21 12:44:27.571] [INFO] [default] - a_watcher
+[2015-06-21 12:44:27.571] [INFO] [default] - aa
+[2015-06-21 12:44:27.571] [INFO] [default] - aa-bmq
+[2015-06-21 12:44:27.571] [INFO] [default] - aa-io
+[2015-06-21 12:44:27.571] [INFO] [default] - aa-io-client
+[2015-06-21 12:44:27.572] [INFO] [default] - aa-mysql
+[2015-06-21 12:44:27.572] [INFO] [default] - aa-thunkify
+[2015-06-21 12:44:27.572] [INFO] [default] - aaa
+[2015-06-21 12:44:27.572] [INFO] [default] - aaas
+[2015-06-21 12:44:27.572] [INFO] [default] - aabb
+[2015-06-21 12:44:27.572] [INFO] [default] - aabb-2d
+[2015-06-21 12:44:27.572] [INFO] [default] - aabb-3d
+[2015-06-21 12:44:27.572] [INFO] [default] - aabbbc
+[2015-06-21 12:44:27.572] [INFO] [default] - aac
+[2015-06-21 12:44:27.573] [INFO] [default] - aahpushit
+[2015-06-21 12:44:27.573] [INFO] [default] - aahyhaamodule
+[2015-06-21 12:44:27.573] [INFO] [default] - aalk
+[2015-06-21 12:44:27.573] [INFO] [default] - aang-template-brunch
+[2015-06-21 12:44:27.573] [INFO] [default] - aao-js
+[2015-06-21 12:44:27.573] [INFO] [default] - aap
+[2015-06-21 12:44:27.573] [INFO] [default] - aardvark
+[2015-06-21 12:44:27.573] [INFO] [default] - aarlogic_gps_3t
+[2015-06-21 12:44:27.573] [INFO] [default] - aaronblohowiak-plugify-js
+[2015-06-21 12:44:27.573] [INFO] [default] - aaronblohowiak-uglify-js
+[2015-06-21 12:44:27.573] [INFO] [default] - aaronshaf-bible-data
+[2015-06-21 12:44:27.573] [INFO] [default] - aasm-js
+[2015-06-21 12:44:27.573] [INFO] [default] - ab
+[2015-06-21 12:44:27.573] [INFO] [default] - ab-file-manager
+[2015-06-21 12:44:27.574] [INFO] [default] - ab-js-utils
+[2015-06-21 12:44:27.574] [INFO] [default] - ab-test
+[2015-06-21 12:44:27.574] [INFO] [default] - ab-test-service
+[2015-06-21 12:44:27.574] [INFO] [default] - ab-tool
+[2015-06-21 12:44:27.574] [INFO] [default] - ab.js
+[2015-06-21 12:44:27.574] [INFO] [default] - abaaso
+[2015-06-21 12:44:27.574] [INFO] [default] - ababot-scripts
+[2015-06-21 12:44:27.574] [INFO] [default] - abac
+[2015-06-21 12:44:27.574] [INFO] [default] - abac-backend
+[2015-06-21 12:44:27.575] [INFO] [default] - abac-mongodb
+[2015-06-21 12:44:27.576] [INFO] [default] - abaco
+[2015-06-21 12:44:27.576] [INFO] [default] - abaculus
+[2015-06-21 12:44:27.576] [INFO] [default] - abacus
+[2015-06-21 12:44:27.576] [INFO] [default] - abase
+[2015-06-21 12:44:27.577] [INFO] [default] - abasta
+[2015-06-21 12:44:27.577] [INFO] [default] - abba
+[2015-06-21 12:44:27.577] [INFO] [default] - abbr
+[2015-06-21 12:44:27.577] [INFO] [default] - abbr-touch.js
+[2015-06-21 12:44:27.577] [INFO] [default] - abbrev
+[2015-06-21 12:44:27.577] [INFO] [default] - abbyy-ocr
+[2015-06-21 12:44:27.577] [INFO] [default] - abc
+[2015-06-21 12:44:27.577] [INFO] [default] - abc-generator
+[2015-06-21 12:44:27.577] [INFO] [default] - abc-gruntfile-helper
+[2015-06-21 12:44:27.577] [INFO] [default] - abc-tpl-kissypie
+[2015-06-21 12:44:27.577] [INFO] [default] - abc-web
+[2015-06-21 12:44:27.577] [INFO] [default] - abc-web-core
+[2015-06-21 12:44:27.577] [INFO] [default] - abcdefghijson
+[2015-06-21 12:44:27.577] [INFO] [default] - abcenter
+[2015-06-21 12:44:27.578] [INFO] [default] - abcnode
+[2015-06-21 12:44:27.578] [INFO] [default] - abctest
+[2015-06-21 12:44:27.578] [INFO] [default] - abdero-fetcher
+[2015-06-21 12:44:27.578] [INFO] [default] - abdicate
+[2015-06-21 12:44:27.578] [INFO] [default] - abdominal
+[2015-06-21 12:44:27.578] [INFO] [default] - abe
+[2015-06-21 12:44:27.578] [INFO] [default] - abee
+[2015-06-21 12:44:27.578] [INFO] [default] - aberr
+[2015-06-21 12:44:27.578] [INFO] [default] - abevigoda
+[2015-06-21 12:44:27.578] [INFO] [default] - abhi-git-example
+[2015-06-21 12:44:27.578] [INFO] [default] - abhisek-npmtest
+[2015-06-21 12:44:27.578] [INFO] [default] - abhispeak
+[2015-06-21 12:44:27.579] [INFO] [default] - abide
+[2015-06-21 12:44:27.579] [INFO] [default] - abie
+[2015-06-21 12:44:27.582] [INFO] [default] - abif
+[2015-06-21 12:44:27.583] [INFO] [default] - ability
+[2015-06-21 12:44:33.623] [INFO] [default] - abiogenesis
+[2015-06-21 12:44:33.623] [INFO] [default] - abird.co
+[2015-06-21 12:44:33.623] [INFO] [default] - able-bodied
+[2015-06-21 12:44:33.623] [INFO] [default] - ablejs
+[2015-06-21 12:44:33.624] [INFO] [default] - ableton-live-locators
+[2015-06-21 12:44:33.624] [INFO] [default] - ablock
+[2015-06-21 12:44:33.624] [INFO] [default] - abn
+[2015-06-21 12:44:33.624] [INFO] [default] - abner
+[2015-06-21 12:44:33.624] [INFO] [default] - abnf
+[2015-06-21 12:44:33.624] [INFO] [default] - abnormal
+[2015-06-21 12:44:33.624] [INFO] [default] - aboard
+[2015-06-21 12:44:33.624] [INFO] [default] - about
+[2015-06-21 12:44:33.624] [INFO] [default] - aboveboard
+[2015-06-21 12:44:33.625] [INFO] [default] - abovefold
+[2015-06-21 12:44:33.625] [INFO] [default] - abracadabra
+[2015-06-21 12:44:33.625] [INFO] [default] - abraxas
+[2015-06-21 12:44:33.625] [INFO] [default] - abridge
+[2015-06-21 12:44:33.625] [INFO] [default] - abrogate
+[2015-06-21 12:44:33.625] [INFO] [default] - abs-require
+[2015-06-21 12:44:33.625] [INFO] [default] - abs-svg-path
+[2015-06-21 12:44:33.626] [INFO] [default] - absolurl
+[2015-06-21 12:44:33.626] [INFO] [default] - absolute
+[2015-06-21 12:44:33.626] [INFO] [default] - absolute-path
+[2015-06-21 12:44:33.626] [INFO] [default] - absolution
+[2015-06-21 12:44:33.626] [INFO] [default] - abstemious
+[2015-06-21 12:44:33.626] [INFO] [default] - abstract
+[2015-06-21 12:44:33.626] [INFO] [default] - abstract-blob-store
+[2015-06-21 12:44:33.626] [INFO] [default] - abstract-data
+[2015-06-21 12:44:33.626] [INFO] [default] - abstract-data-types
+[2015-06-21 12:44:33.626] [INFO] [default] - abstract-env
+[2015-06-21 12:44:33.626] [INFO] [default] - abstract-factory
+[2015-06-21 12:44:33.627] [INFO] [default] - abstract-leveldown
+[2015-06-21 12:44:33.630] [INFO] [default] - abstract-socket
+[2015-06-21 12:44:33.630] [INFO] [default] - abstract-store
+[2015-06-21 12:44:33.630] [INFO] [default] - abstractsocket
+[2015-06-21 12:44:33.630] [INFO] [default] - abstruse
+[2015-06-21 12:44:33.631] [INFO] [default] - absu
+[2015-06-21 12:44:33.631] [INFO] [default] - absurd
+[2015-06-21 12:44:33.631] [INFO] [default] - abu
+[2015-06-21 12:44:33.631] [INFO] [default] - abuse-cfg
+[2015-06-21 12:44:33.631] [INFO] [default] - abut
+[2015-06-21 12:44:33.631] [INFO] [default] - abyssa
+[2015-06-21 12:44:33.631] [INFO] [default] - ac
+[2015-06-21 12:44:33.631] [INFO] [default] - ac-koa
+[2015-06-21 12:44:33.631] [INFO] [default] - ac-koa-hipchat
+[2015-06-21 12:44:33.631] [INFO] [default] - ac-node
+[2015-06-21 12:44:33.631] [INFO] [default] - ac-node-hipchat
+[2015-06-21 12:44:33.631] [INFO] [default] - academic
+[2015-06-21 12:44:33.631] [INFO] [default] - acall.js
+[2015-06-21 12:44:33.631] [INFO] [default] - acc-lang-parser
+[2015-06-21 12:44:33.631] [INFO] [default] - accel-mma84
+[2015-06-21 12:44:33.632] [INFO] [default] - accela-construct
+[2015-06-21 12:44:33.632] [INFO] [default] - accept
+[2015-06-21 12:44:33.632] [INFO] [default] - accept-encoding
+[2015-06-21 12:44:33.632] [INFO] [default] - accept-language
+[2015-06-21 12:44:33.632] [INFO] [default] - accept-language-parser
+[2015-06-21 12:44:33.632] [INFO] [default] - accept-locale
+[2015-06-21 12:44:33.632] [INFO] [default] - accept-promises
+[2015-06-21 12:44:33.632] [INFO] [default] - acceptance
+[2015-06-21 12:44:33.632] [INFO] [default] - accepts
+[2015-06-21 12:44:33.632] [INFO] [default] - access
+[2015-06-21 12:44:33.632] [INFO] [default] - access-control
+[2015-06-21 12:44:33.632] [INFO] [default] - access-controls
+[2015-06-21 12:44:33.632] [INFO] [default] - access-log
+[2015-06-21 12:44:33.633] [INFO] [default] - access-logger
+[2015-06-21 12:44:33.633] [INFO] [default] - access-token
+[2015-06-21 12:44:33.633] [INFO] [default] - access2couch
+[2015-06-21 12:44:33.633] [INFO] [default] - accessible
+[2015-06-21 12:44:33.633] [INFO] [default] - accesslog
+[2015-06-21 12:44:33.633] [INFO] [default] - accessor_sqlite
+[2015-06-21 12:44:33.633] [INFO] [default] - accessorizer
+[2015-06-21 12:44:33.633] [INFO] [default] - accessors
+[2015-06-21 12:44:33.633] [INFO] [default] - accets
+[2015-06-21 12:44:33.633] [INFO] [default] - accidental-value
+[2015-06-21 12:44:33.633] [INFO] [default] - acclimate-variables
+[2015-06-21 12:44:33.633] [INFO] [default] - accompaniment
+[2015-06-21 12:44:33.633] [INFO] [default] - accord
+[2015-06-21 12:44:33.633] [INFO] [default] - accord-cli
+[2015-06-21 12:44:33.633] [INFO] [default] - accord-joshrowley
+[2015-06-21 12:44:33.633] [INFO] [default] - accord-parallel
+[2015-06-21 12:44:33.634] [INFO] [default] - account
+[2015-06-21 12:44:33.634] [INFO] [default] - account-couch
+[2015-06-21 12:44:33.634] [INFO] [default] - account-logger
+[2015-06-21 12:44:33.634] [INFO] [default] - account-security
+[2015-06-21 12:44:33.634] [INFO] [default] - account-test
+[2015-06-21 12:44:33.634] [INFO] [default] - accountant
+[2015-06-21 12:44:33.634] [INFO] [default] - accountdown
+[2015-06-21 12:44:33.634] [INFO] [default] - accountdown-basic
+[2015-06-21 12:44:33.634] [INFO] [default] - accounting
+[2015-06-21 12:44:33.634] [INFO] [default] - accountmanager
+[2015-06-21 12:44:33.634] [INFO] [default] - accrue
+[2015-06-21 12:44:33.634] [INFO] [default] - accu-mediator
+[2015-06-21 12:44:33.634] [INFO] [default] - accu-router
+[2015-06-21 12:44:33.634] [INFO] [default] - accum
+[2015-06-21 12:44:33.635] [INFO] [default] - accum-transform
+[2015-06-21 12:44:33.635] [INFO] [default] - accumasync
+[2015-06-21 12:44:33.635] [INFO] [default] - accumulate
+[2015-06-21 12:44:33.636] [INFO] [default] - accumulator
+[2015-06-21 12:44:33.636] [INFO] [default] - accuracy
+[2015-06-21 12:44:33.636] [INFO] [default] - accurate-timer
+[2015-06-21 12:44:38.313] [INFO] [default] - accursed
+[2015-06-21 12:44:38.315] [INFO] [default] - accusation
+[2015-06-21 12:44:38.315] [INFO] [default] - ace
+[2015-06-21 12:44:38.315] [INFO] [default] - ace-browserify
+[2015-06-21 12:44:38.316] [INFO] [default] - ace-log
+[2015-06-21 12:44:38.316] [INFO] [default] - ace-sdk-js
+[2015-06-21 12:44:38.316] [INFO] [default] - ace_offline
+[2015-06-21 12:44:38.316] [INFO] [default] - acequia
+[2015-06-21 12:44:38.316] [INFO] [default] - acetic
+[2015-06-21 12:44:38.316] [INFO] [default] - acf
+[2015-06-21 12:44:38.316] [INFO] [default] - ach
+[2015-06-21 12:44:38.316] [INFO] [default] - achain.js
+[2015-06-21 12:44:38.316] [INFO] [default] - achelous
+[2015-06-21 12:44:38.316] [INFO] [default] - achilles
+[2015-06-21 12:44:38.316] [INFO] [default] - achilles-couchdb
+[2015-06-21 12:44:38.316] [INFO] [default] - acid
+[2015-06-21 12:44:38.316] [INFO] [default] - acidity
+[2015-06-21 12:44:38.317] [INFO] [default] - acidpm
+[2015-06-21 12:44:38.317] [INFO] [default] - ack
+[2015-06-21 12:44:38.317] [INFO] [default] - ack-types
+[2015-06-21 12:44:38.317] [INFO] [default] - ackee
+[2015-06-21 12:44:38.317] [INFO] [default] - acknowledgment
+[2015-06-21 12:44:38.317] [INFO] [default] - acl
+[2015-06-21 12:44:38.317] [INFO] [default] - acl-checker
+[2015-06-21 12:44:38.317] [INFO] [default] - acl-firebase
+[2015-06-21 12:44:38.317] [INFO] [default] - acl-knex
+[2015-06-21 12:44:38.317] [INFO] [default] - acl-medved
+[2015-06-21 12:44:38.317] [INFO] [default] - acl_knex
+[2015-06-21 12:44:38.318] [INFO] [default] - aclass
+[2015-06-21 12:44:38.318] [INFO] [default] - acmcc-node-spritesheet
+[2015-06-21 12:44:38.318] [INFO] [default] - acme
+[2015-06-21 12:44:38.318] [INFO] [default] - acolyte
+[2015-06-21 12:44:38.318] [INFO] [default] - aconit
+[2015-06-21 12:44:38.318] [INFO] [default] - aconvert
+[2015-06-21 12:44:38.318] [INFO] [default] - acore
+[2015-06-21 12:44:38.318] [INFO] [default] - acorn
+[2015-06-21 12:44:38.318] [INFO] [default] - acorn-jsx
+[2015-06-21 12:44:38.318] [INFO] [default] - acorn-semicolon
+[2015-06-21 12:44:38.319] [INFO] [default] - acoustid
+[2015-06-21 12:44:38.319] [INFO] [default] - acp
+[2015-06-21 12:44:38.319] [INFO] [default] - acpi
+[2015-06-21 12:44:38.319] [INFO] [default] - acquarella
+[2015-06-21 12:44:38.319] [INFO] [default] - acquire
+[2015-06-21 12:44:38.319] [INFO] [default] - acquire.js
+[2015-06-21 12:44:38.319] [INFO] [default] - acquittal
+[2015-06-21 12:44:38.319] [INFO] [default] - acre
+[2015-06-21 12:44:38.319] [INFO] [default] - acrobat
+[2015-06-21 12:44:38.319] [INFO] [default] - acs
+[2015-06-21 12:44:38.319] [INFO] [default] - acs-api
+[2015-06-21 12:44:38.319] [INFO] [default] - acs-cli
+[2015-06-21 12:44:38.319] [INFO] [default] - acs-dev
+[2015-06-21 12:44:38.320] [INFO] [default] - acs-login-url
+[2015-06-21 12:44:38.320] [INFO] [default] - acs-node
+[2015-06-21 12:44:38.320] [INFO] [default] - acs-qe
+[2015-06-21 12:44:38.320] [INFO] [default] - acsjin
+[2015-06-21 12:44:38.320] [INFO] [default] - act
+[2015-06-21 12:44:38.320] [INFO] [default] - actest
+[2015-06-21 12:44:38.320] [INFO] [default] - actin
+[2015-06-21 12:44:38.320] [INFO] [default] - action
+[2015-06-21 12:44:38.320] [INFO] [default] - action-at-a-distance
+[2015-06-21 12:44:38.320] [INFO] [default] - action-controller
+[2015-06-21 12:44:38.320] [INFO] [default] - action-dispatcher
+[2015-06-21 12:44:38.321] [INFO] [default] - action3d
+[2015-06-21 12:44:38.322] [INFO] [default] - actionhero
+[2015-06-21 12:44:38.322] [INFO] [default] - actionhero-mongoskin
+[2015-06-21 12:44:38.322] [INFO] [default] - actionhero-oauth2-client
+[2015-06-21 12:44:38.322] [INFO] [default] - actionhero-oauth2-provider
+[2015-06-21 12:44:38.322] [INFO] [default] - actionhero_client
+[2015-06-21 12:44:38.323] [INFO] [default] - actionline
+[2015-06-21 12:44:38.323] [INFO] [default] - actionman
+[2015-06-21 12:44:38.323] [INFO] [default] - actionmap
+[2015-06-21 12:44:38.323] [INFO] [default] - actionmessage
+[2015-06-21 12:44:38.323] [INFO] [default] - actionnpm
+[2015-06-21 12:44:38.323] [INFO] [default] - actionpack
+[2015-06-21 12:44:38.323] [INFO] [default] - actionrouter
+[2015-06-21 12:44:38.323] [INFO] [default] - actions
+[2015-06-21 12:44:38.323] [INFO] [default] - actions-api
+[2015-06-21 12:44:38.323] [INFO] [default] - actionserver
+[2015-06-21 12:44:38.324] [INFO] [default] - activator
+[2015-06-21 12:44:38.324] [INFO] [default] - active-client
+[2015-06-21 12:44:38.324] [INFO] [default] - active-golf
+[2015-06-21 12:44:38.324] [INFO] [default] - active-markdown
+[2015-06-21 12:44:38.324] [INFO] [default] - active-menu
+[2015-06-21 12:44:38.324] [INFO] [default] - active-model
+[2015-06-21 12:44:38.324] [INFO] [default] - active-sender
+[2015-06-21 12:44:38.324] [INFO] [default] - active-tags
+[2015-06-21 12:44:38.324] [INFO] [default] - active-user
+[2015-06-21 12:44:38.324] [INFO] [default] - active-x-obfuscator
+[2015-06-21 12:44:38.324] [INFO] [default] - active911
+[2015-06-21 12:44:38.324] [INFO] [default] - active_record
+[2015-06-21 12:44:38.324] [INFO] [default] - activecampaign
+[2015-06-21 12:44:38.324] [INFO] [default] - activecampaign-api-nodejs
+[2015-06-21 12:44:38.324] [INFO] [default] - activecollab
+[2015-06-21 12:44:38.325] [INFO] [default] - activedirectory
+[2015-06-21 12:44:38.325] [INFO] [default] - activen.js
+[2015-06-21 12:44:38.325] [INFO] [default] - activenode-monitor
+[2015-06-21 12:44:38.325] [INFO] [default] - activeobject
+[2015-06-21 12:44:38.325] [INFO] [default] - activepush
+[2015-06-21 12:44:38.325] [INFO] [default] - activerecord
+[2015-06-21 12:44:38.325] [INFO] [default] - activespaces
+[2015-06-21 12:44:43.123] [INFO] [default] - activesupport
+[2015-06-21 12:44:43.123] [INFO] [default] - activeuser
+[2015-06-21 12:44:43.124] [INFO] [default] - activities
+[2015-06-21 12:44:43.124] [INFO] [default] - activity
+[2015-06-21 12:44:43.124] [INFO] [default] - activity-analyzer
+[2015-06-21 12:44:43.124] [INFO] [default] - activity-engine
+[2015-06-21 12:44:43.124] [INFO] [default] - activity-list
+[2015-06-21 12:44:43.124] [INFO] [default] - activity-mocks
+[2015-06-21 12:44:43.124] [INFO] [default] - activity-phraser
+[2015-06-21 12:44:43.125] [INFO] [default] - activity-streams-mongoose
+[2015-06-21 12:44:43.125] [INFO] [default] - activitybox
+[2015-06-21 12:44:43.125] [INFO] [default] - activitystreams
+[2015-06-21 12:44:43.125] [INFO] [default] - actor
+[2015-06-21 12:44:43.125] [INFO] [default] - actorify
+[2015-06-21 12:44:43.125] [INFO] [default] - actorpubsub-js
+[2015-06-21 12:44:43.125] [INFO] [default] - actors
+[2015-06-21 12:44:43.125] [INFO] [default] - acts-as
+[2015-06-21 12:44:43.125] [INFO] [default] - actual
+[2015-06-21 12:44:43.125] [INFO] [default] - actually-require-component
+[2015-06-21 12:44:43.125] [INFO] [default] - actually-this-is-a-number
+[2015-06-21 12:44:43.125] [INFO] [default] - acunu-analytics
+[2015-06-21 12:44:43.125] [INFO] [default] - acute
+[2015-06-21 12:44:43.125] [INFO] [default] - ad-api
+[2015-06-21 12:44:43.125] [INFO] [default] - ad2usb
+[2015-06-21 12:44:43.125] [INFO] [default] - ada
+[2015-06-21 12:44:43.126] [INFO] [default] - adafruit-i2c-lcd
+[2015-06-21 12:44:43.126] [INFO] [default] - adafruit-i2c-pwm-driver
+[2015-06-21 12:44:43.126] [INFO] [default] - adage-tools
+[2015-06-21 12:44:43.126] [INFO] [default] - adagio
+[2015-06-21 12:44:43.126] [INFO] [default] - adagio.json
+[2015-06-21 12:44:43.126] [INFO] [default] - adal-auth
+[2015-06-21 12:44:43.126] [INFO] [default] - adal-node
+[2015-06-21 12:44:43.126] [INFO] [default] - adal-token
+[2015-06-21 12:44:43.126] [INFO] [default] - adamant
+[2015-06-21 12:44:43.126] [INFO] [default] - adamdicarlo-howler
+[2015-06-21 12:44:43.126] [INFO] [default] - adamvr-apricot
+[2015-06-21 12:44:43.126] [INFO] [default] - adamvr-debug
+[2015-06-21 12:44:43.126] [INFO] [default] - adamvr-geoip-lite
+[2015-06-21 12:44:43.126] [INFO] [default] - adamvr-monk
+[2015-06-21 12:44:43.126] [INFO] [default] - adamvr-revalidator
+[2015-06-21 12:44:43.126] [INFO] [default] - adapt
+[2015-06-21 12:44:43.126] [INFO] [default] - adapt-cli
+[2015-06-21 12:44:43.126] [INFO] [default] - adapt-core
+[2015-06-21 12:44:43.126] [INFO] [default] - adapt-core-model
+[2015-06-21 12:44:43.126] [INFO] [default] - adapt-core-router
+[2015-06-21 12:44:43.126] [INFO] [default] - adapt-core-view
+[2015-06-21 12:44:43.127] [INFO] [default] - adapt-grunt-tracking-ids
+[2015-06-21 12:44:43.127] [INFO] [default] - adapter
+[2015-06-21 12:44:43.127] [INFO] [default] - adapter-template
+[2015-06-21 12:44:43.127] [INFO] [default] - adaptivejs
+[2015-06-21 12:44:43.127] [INFO] [default] - adaro
+[2015-06-21 12:44:43.127] [INFO] [default] - adb
+[2015-06-21 12:44:43.127] [INFO] [default] - adb-cli
+[2015-06-21 12:44:43.127] [INFO] [default] - adb-client
+[2015-06-21 12:44:43.127] [INFO] [default] - adb-cmd
+[2015-06-21 12:44:43.127] [INFO] [default] - adbhost
+[2015-06-21 12:44:43.127] [INFO] [default] - adbkit
+[2015-06-21 12:44:43.127] [INFO] [default] - adbkit-apkreader
+[2015-06-21 12:44:43.127] [INFO] [default] - adbkit-logcat
+[2015-06-21 12:44:43.127] [INFO] [default] - adbkit-monkey
+[2015-06-21 12:44:43.128] [INFO] [default] - adc-pi-gpio
+[2015-06-21 12:44:43.128] [INFO] [default] - adc-pi-spi
+[2015-06-21 12:44:43.128] [INFO] [default] - adclient
+[2015-06-21 12:44:43.128] [INFO] [default] - add
+[2015-06-21 12:44:43.128] [INFO] [default] - add-a-typo
+[2015-06-21 12:44:43.128] [INFO] [default] - add-banner
+[2015-06-21 12:44:43.128] [INFO] [default] - add-commas
+[2015-06-21 12:44:43.128] [INFO] [default] - add-component-symlinks
+[2015-06-21 12:44:43.128] [INFO] [default] - add-cors-to-couchdb
+[2015-06-21 12:44:43.128] [INFO] [default] - add-define-names
+[2015-06-21 12:44:43.128] [INFO] [default] - add-deps
+[2015-06-21 12:44:43.128] [INFO] [default] - add-dick-puns
+[2015-06-21 12:44:43.128] [INFO] [default] - add-event-listener
+[2015-06-21 12:44:43.128] [INFO] [default] - add-events
+[2015-06-21 12:44:43.129] [INFO] [default] - add-flash
+[2015-06-21 12:44:43.129] [INFO] [default] - add-func-name
+[2015-06-21 12:44:43.129] [INFO] [default] - add-keyup-events
+[2015-06-21 12:44:43.129] [INFO] [default] - add-less-import
+[2015-06-21 12:44:43.129] [INFO] [default] - add-to-jira-sprint
+[2015-06-21 12:44:43.129] [INFO] [default] - addTimeout
+[2015-06-21 12:44:43.129] [INFO] [default] - addc
+[2015-06-21 12:44:43.129] [INFO] [default] - adddep
+[2015-06-21 12:44:43.129] [INFO] [default] - addendum
+[2015-06-21 12:44:43.129] [INFO] [default] - addepar-connect-less
+[2015-06-21 12:44:43.129] [INFO] [default] - adder
+[2015-06-21 12:44:43.129] [INFO] [default] - addition
+[2015-06-21 12:44:43.129] [INFO] [default] - additionalinfo
+[2015-06-21 12:44:43.129] [INFO] [default] - addjs
+[2015-06-21 12:44:43.129] [INFO] [default] - addnumbers
+[2015-06-21 12:44:43.129] [INFO] [default] - addon
+[2015-06-21 12:44:43.129] [INFO] [default] - addon-js
+[2015-06-21 12:44:43.129] [INFO] [default] - addon-pathfinder
+[2015-06-21 12:44:43.129] [INFO] [default] - addons
+[2015-06-21 12:44:43.130] [INFO] [default] - addr
+[2015-06-21 12:44:43.130] [INFO] [default] - address
+[2015-06-21 12:44:43.130] [INFO] [default] - address-geoservices
+[2015-06-21 12:44:43.130] [INFO] [default] - address-gps
+[2015-06-21 12:44:43.130] [INFO] [default] - address-rfc2822
+[2015-06-21 12:44:43.131] [INFO] [default] - address-to-geocode
+[2015-06-21 12:44:43.131] [INFO] [default] - address-validator
+[2015-06-21 12:44:49.416] [INFO] [default] - addressable
+[2015-06-21 12:44:49.416] [INFO] [default] - addressbook
+[2015-06-21 12:44:49.416] [INFO] [default] - addressit
+[2015-06-21 12:44:49.417] [INFO] [default] - addressparser
+[2015-06-21 12:44:49.417] [INFO] [default] - addrtozip
+[2015-06-21 12:44:49.417] [INFO] [default] - addtwonumbers
+[2015-06-21 12:44:49.417] [INFO] [default] - adept
+[2015-06-21 12:44:49.417] [INFO] [default] - adesso-webpack
+[2015-06-21 12:44:49.417] [INFO] [default] - adf
+[2015-06-21 12:44:49.417] [INFO] [default] - adform

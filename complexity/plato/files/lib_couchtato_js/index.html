@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - lib/couchtato.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>lib/couchtato.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">70.00</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">120</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">28.17</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.10</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">var _ = require(&#039;lodash&#039;),
+  Db = require(&#039;./db&#039;),
+  fsx = require(&#039;fs.extra&#039;),
+  p = require(&#039;path&#039;),
+  Util = require(&#039;./util&#039;);
+
+/**
+ * class Couchtato
+ */
+function Couchtato() {
+}
+
+/**
+ * Create a sample couchtato.js configuration file in current directory.
+ *
+ * @param {Function} cb: standard cb(err, result) callback
+ */
+Couchtato.prototype.config = function (cb) {
+  fsx.copy(p.join(__dirname, &#039;../examples/couchtato.js&#039;), &#039;couchtato.js&#039;, cb);
+};
+
+/**
+ * Iterate documents in the database or view, and apply task functions to each document.
+ *
+ * @param {Object} tasks: task functions to be applied to each document,  the key is a name, the value is a function with (util, doc) signature
+ * @param {String} url: CouchDB URL in format http(s)://user:pass@host:port/db for database, and http(s)://user:pass@host:port/db/design/view for view
+ * @param {Object} opts: database options describing how many and how often the documents will be retrieved
+ * @param {Function} cb: standard cb(err, result) callback
+ */
+Couchtato.prototype.iterate = function (tasks, url, opts, cb) {
+  
+  opts.batchSize = opts.batchSize || 1000;
+  opts.pageSize = opts.pageSize || 1000;
+  opts.numPages = opts.numPages || undefined;
+  opts.startKey = opts.startKey || null;
+  opts.interval = opts.interval || 1000;
+  opts.quiet = opts.quiet || false;
+
+  var _db = new Db(url),
+    _util = new Util({
+      _couchtato_docs: 0,
+      _couchtato_pages: 0,
+      _couchtato_save: 0,
+      _couchtato_remove: 0
+    }, [], _db.db);
+
+  function _pageCb(rows) {
+
+    var docsCount = (rows.length === opts.pageSize + 1) ? opts.pageSize : rows.length;
+    if (opts.quiet === false) {
+      console.log(&#039;retrieved %d doc%s - %s&#039;, docsCount, docsCount &gt; 1 ? &#039;s&#039; : &#039;&#039;, rows[0].doc._id);
+    }
+    
+    _util.increment(&#039;_couchtato_docs&#039;, docsCount);
+    _util.increment(&#039;_couchtato_pages&#039;, 1);
+
+    // apply each task to each document
+    _.keys(tasks).forEach(function (task) {
+      for (var i = 0; i &lt; docsCount; i += 1) {
+        tasks[task](_util, rows[i].doc);
+      }
+    });
+
+    // bulk update queued documents
+    var queuedDocs = _util.getQueue().slice(0); // a copy of the queue
+    if (queuedDocs.length &gt;= opts.batchSize) {
+      console.log(&#039;updating %d doc%s - %s&#039;, queuedDocs.length, queuedDocs.length &gt; 1 ? &#039;s&#039; : &#039;&#039;, queuedDocs[0]._id);
+      _db.update(queuedDocs, function (err, result) {
+        if (err) {
+          console.error(err.message);
+        } else {
+          console.log(&#039;bulk update %d doc%s done - %s&#039;, result.length, result.length &gt; 1 ? &#039;s&#039; : &#039;&#039;, result[0].id);
+        }
+      });
+      _util.resetQueue();
+    }
+  }
+
+  function _endCb(err) {
+
+    function _report(err) {
+      if (opts.quiet === false) {
+        var stat = _util.getStat(),
+          report = &#039;\n------------------------\n&#039; +
+            &#039;Retrieved &#039; + stat._couchtato_docs + &#039; documents in &#039; + stat._couchtato_pages + &#039; pages\n&#039; +
+            &#039;Processed &#039; + stat._couchtato_save + &#039; saves and &#039; + stat._couchtato_remove + &#039; removes\n&#039;;
+        _.keys(stat).forEach(function (prop) {
+          if (!prop.match(/^_couchtato_.+/)) {
+            report += &#039;- &#039; + prop + &#039;: &#039; + stat[prop] + &#039;\n&#039;;
+          }
+        });
+        _util.log(report);
+      }
+      cb(err);
+    }
+
+    var queue = _util.getQueue();
+    if (!_.isEmpty(queue)) {
+
+      // update the remaining queued documents
+      _db.update(queue, function (err, result) {
+        function _wait() {
+          if (_db.done()) {
+            _report(err);    
+          } else {
+            setImmediate(_wait);
+          }
+        }
+        _wait();
+      });
+    // if queue is empty, then just report regardless there&#039;s an error or not
+    } else {
+      _report(err);
+    }
+  }
+
+  _db.paginate(opts.interval, opts.startKey, opts.endKey, opts.pageSize, opts.numPages, _pageCb, _endCb);
+};
+
+module.exports = Couchtato;</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

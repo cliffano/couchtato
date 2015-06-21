@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/db.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../prettify.css">
+    <link rel="stylesheet" href="../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">lib/db.js</span></h1>
+    <h2>
+        Statements: <span class="metric">100% <small>(47 / 47)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">100% <small>(16 / 16)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">100% <small>(9 / 9)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">100% <small>(47 / 47)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../index.html">All files</a> &#187; <a href="index.html">lib/</a> &#187; db.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141</td><td class="line-coverage"><span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">13</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13</span>
+<span class="cline-any cline-yes">11</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13</span>
+<span class="cline-any cline-yes">13</span>
+<span class="cline-any cline-yes">13</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var _ = require('lodash'),
+  async = require('async'),
+  nano = require('nano'),
+  url = require('url');
+&nbsp;
+/**
+ * class Db
+ *
+ * @param {String} _url: CouchDB URL in format http(s)://user:pass@host:port/db for database,
+ *                       and http(s)://user:pass@host:port/db/design/view for view
+ */
+function Db(_url, opts) {
+  opts = opts || {};
+&nbsp;
+  var dbPath = url.parse(_url.replace(/\/$/, '')).pathname.replace(/^\//, ''),
+    dbPathElems = dbPath.split('/'),
+    dbUrl;
+&nbsp;
+  if (dbPathElems.length === 1) {
+    this.dbName = dbPathElems[0];
+  } else {
+    this.dbName = dbPathElems[0];
+    this.dbDesign = dbPathElems[1];
+    this.dbView = dbPathElems[2];
+  }
+&nbsp;
+  dbUrl = _url.replace(new RegExp(dbPath + '$', 'g'), '');
+  this.db = opts.db || nano(dbUrl).use(this.dbName);
+  this.inProgress = 0;
+}
+&nbsp;
+/**
+ * Retrieve documents in CouchDB database or view, page by page.
+ * This implements linked list pagination - http://guide.couchdb.org/draft/recipes.html#fast .
+ *
+ * @param {Number} interval: interval between page retrievals, in milliseconds
+ * @param {String} startKey: key of the first document to retrieve, null indicates the first document in the database
+ * @param {String} endKey: key of the last document to retrieve
+ * @param {String} pageSize: how many documents to retrieve per page
+ * @param {String} numPages: how many pages to retrieve, undefined means all
+ * @param {Function} pageCb: a callback function to process documents per page retrieval
+ * @param {Function} cb: standard cb(err, result) callback
+ */
+Db.prototype.paginate = function (interval, startKey, endKey, pageSize, numPages, pageCb, cb) {
+&nbsp;
+  var done = false,
+    pageCount = 0,
+    key = startKey,
+    key_docid = startKey,
+    self = this;
+&nbsp;
+  function _action(cb) {
+&nbsp;
+    // both startkey and startkey_docid are specified to handle a view index with duplicated keys
+    var opts = {
+      startkey: key,
+      startkey_docid: key_docid,
+      limit: pageSize + 1,
+      include_docs: true
+    };
+&nbsp;
+    // unlike startkey/startkey_docid, null endkey/endkey_docid does not mean last document in the database
+    // don't set endkey_docid option unless endKey argument is set
+    if (endKey) {
+      opts.endkey = endKey;
+      opts.endkey_docid = endKey;
+    }
+&nbsp;
+    function _actionCb(err, result) {
+&nbsp;
+      if (err) {
+        cb(err);
+&nbsp;
+      } else {
+        pageCb(result.rows);
+&nbsp;
+        // when the number of retrieved documents is less than the limit,
+        // or the page count is the number of pages to retrieve,
+        // that means it's the last page
+        if (result.rows.length &lt; opts.limit || pageCount === numPages - 1) {
+          done = true;
+          interval = 0;
+        // if not last page, then use the last document's key/id as the startkey/startkey_docid of the first document on the next page
+        } else {
+          key = result.rows[result.rows.length - 1].key;
+          key_docid = result.rows[result.rows.length - 1].id;
+          pageCount++;
+        }
+        setTimeout(cb, interval);
+      }
+    }
+&nbsp;
+    if (self.dbView) {
+      self.db.view(self.dbDesign, self.dbView, opts, _actionCb);
+    } else {
+      self.db.list(opts, _actionCb);
+    }
+  }
+&nbsp;
+  function _check() {
+    return done === true;
+  }
+&nbsp;
+  function _end(err) {
+    cb(err);
+  }
+&nbsp;
+  async.until(_check, _action, _end);
+};
+&nbsp;
+/**
+ * Bulk update an array of documents.
+ *
+ * @param {Array} docs: documents to be bulk updated
+ * @param {Function} cb: standard cb(err, result) callback
+ */
+Db.prototype.update = function (docs, cb) {
+  
+  this.inProgress += 1;
+&nbsp;
+  var self = this;
+  // NOTE: when CouchDB instance requires authentication and the URL does not supply a username and password,
+  // nano bulk callback is called with null error and unmodified documents in CouchDB as the result, ignoring the modified documents.
+  // Ideally nano should pass an error.
+  this.db.bulk({ docs: docs }, function (err, result) {
+    self.inProgress -= 1;
+    cb(err, result);
+  }); 
+};
+&nbsp;
+/**
+ * Check if there's any database operation (documents save/remove) in progress.
+ *
+ * @return {Boolean} true if there's no database operation in progress, false otherwise.
+ */
+Db.prototype.done = function () {
+  return this.inProgress === 0;
+};
+&nbsp;
+module.exports = Db;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Jun 21 2015 12:44:15 GMT+1000 (AEST)</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>
