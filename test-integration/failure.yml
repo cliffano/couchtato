@@ -16,7 +16,7 @@
   exitcode: 1
   output: 'error happened in your connection'
 
-- description: Command iterate should fail when document does not exist
-  command: '{couchtato} iterate --url http://registry.npmjs.org/someinexistingdatabase'
+- description: Command iterate should fail when database does not exist
+  command: '{couchtato} iterate --url https://skimdb.npmjs.com/someinexistingdatabase'
   exitcode: 1
-  output: 'document not found'
+  output: 'no_db_file'

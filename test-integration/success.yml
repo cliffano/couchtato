@@ -12,7 +12,7 @@
   output: 'Creating example couchtato.js config'
 
 - description: Command iterate should succeed when database exists
-  command: '{couchtato} iterate --url http://isaacs.iriscouch.com/registry --start-key couchtato --end-key couchtatp'
+  command: '{couchtato} iterate --url https://skimdb.npmjs.com/registry --start-key couchtato --end-key couchtatp'
   exitcode: 0
   output: 'name: ''couchtato'''
 
@@ -21,5 +21,5 @@
   exitcode: 0
 
 - description: Command iterate should paginate documents
-  command: '{couchtato} iterate --config-file log_id.js --url http://isaacs.iriscouch.com/registry --start-key a --end-key b --num-pages 5 --page-size 100 --batch-size 200 --interval 100 --quiet'
+  command: '{couchtato} iterate --config-file log_id.js --url https://skimdb.npmjs.com/registry --start-key a --end-key b --num-pages 5 --page-size 100 --batch-size 200 --interval 100 --quiet'
   exitcode: 0
