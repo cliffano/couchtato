@@ -1,5 +1,5 @@
-### 0.2.1-pre
-*
+### 0.2.1
+* Make `util` API self-documenting in sample couchtato.js [Ronan Jouchet](https://github.com/ronjouch)
 
 ### 0.2.0
 * Change test lib to buster-node + referee
