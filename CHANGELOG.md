@@ -1,3 +1,6 @@
+### 0.2.2
+*
+
 ### 0.2.1
 * Make `util` API self-documenting in sample couchtato.js [Ronan Jouchet](https://github.com/ronjouch)
 
