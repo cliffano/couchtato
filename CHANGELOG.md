@@ -1,3 +1,10 @@
+### 0.3.0
+* Implement ES6 features and require Node 6.10+ [David Squier](https://github.com/dsquier)
+* Add response object to report callback [David Squier](https://github.com/dsquier)
+* Add util.audit() adds an object to an array that is returned upon [David Squier](https://github.com/dsquier)
+completion
+* Add util.hash() which returns a SHA256 hash using node-object-hash [David Squier](https://github.com/dsquier)
+
 ### 0.2.2
 *
 
@@ -37,7 +44,7 @@
 * Replace 'c' variable in couchtato.js tasks module with a more descriptive 'util'
 * Replace cradle with nano, replace nomnom and Config with bagofholding
 * Remove -d option, nano as a couchdb driver is fine
-* Set min node engine to >= 0.6.0, max node engine to < 0.9.0 
+* Set min node engine to >= 0.6.0, max node engine to < 0.9.0
 * Replace init command with config
 
 ### 0.0.5

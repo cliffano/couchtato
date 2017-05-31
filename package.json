@@ -46,7 +46,7 @@
     "test": "buster-test"
   },
   "engines": {
-    "node": "'>= 4.8.0'"
+    "node": "'>= 6.10.0'"
   },
   "licenses": [
     {
