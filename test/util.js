@@ -79,7 +79,7 @@ buster.testCase('util - util', {
     util.resetQueue();
     assert.equals(util.getQueue().length, 0);
   },
-  'should add an two objects to the audit array': function () {
+  'should add two objects to the audit array': function () {
     var util = new Util();
     util.audit({ id: 123, error: 'Some Message' });
     util.audit({ id: 456, error: 'Another Message' });
