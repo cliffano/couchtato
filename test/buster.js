@@ -9,4 +9,4 @@ config["Couchtato Tests"] = {
     tests: [
         "test/*.js"
     ]
-}
+};

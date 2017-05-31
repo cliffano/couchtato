@@ -1,10 +1,10 @@
 <img align="right" src="https://raw.github.com/cliffano/couchtato/master/avatar.jpg" alt="Avatar"/>
 
-<!--[![Build Status](https://img.shields.io/travis/cliffano/couchtato.svg)](http://travis-ci.org/cliffano/couchtato)
+[![Build Status](https://img.shields.io/travis/cliffano/couchtato.svg)](http://travis-ci.org/cliffano/couchtato)
 [![Dependencies Status](https://img.shields.io/david/cliffano/couchtato.svg)](http://david-dm.org/cliffano/couchtato)
 [![Coverage Status](https://img.shields.io/coveralls/cliffano/couchtato.svg)](https://coveralls.io/r/cliffano/couchtato?branch=master)
 [![Published Version](https://img.shields.io/npm/v/couchtato.svg)](http://www.npmjs.com/package/couchtato)
-[![npm Badge](https://nodei.co/npm/couchtato.png)](http://npmjs.org/package/couchtato)-->
+[![npm Badge](https://nodei.co/npm/couchtato.png)](http://npmjs.org/package/couchtato)
 
 Couchtato
 ---------
@@ -154,33 +154,6 @@ A summary report will be displayed at the end of the run:
     - Flagged data count: 88
 
 Summary report can be excluded from the log output by using -q/--quiet option.
-
-Testing
--------
-
-To run tests locally, first install `buster` globally:
-
-```
-sudo npm install -g buster
-```
-
-Then, change to the root directory of the couchtato repo and run `npm test`:
-
-```
-cd couchtato
-npm test
-```
-
-The resulting output should look similiar to:
-
-```
-ubuntu:/GitHub/couchtato/test> npm test
-
-> couchtato@0.3.0 test /GitHub/couchtato
-> buster-test
-
-28 tests, 36 assertions, 1 runtime ... OK
-```
 
 FAQ
 ---
