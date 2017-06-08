@@ -4,9 +4,7 @@
 [![Dependencies Status](https://img.shields.io/david/cliffano/couchtato.svg)](http://david-dm.org/cliffano/couchtato)
 [![Coverage Status](https://img.shields.io/coveralls/cliffano/couchtato.svg)](https://coveralls.io/r/cliffano/couchtato?branch=master)
 [![Published Version](https://img.shields.io/npm/v/couchtato.svg)](http://www.npmjs.com/package/couchtato)
-<br/>
 [![npm Badge](https://nodei.co/npm/couchtato.png)](http://npmjs.org/package/couchtato)
-
 
 Couchtato
 ---------
@@ -21,14 +19,14 @@ Installation
 ------------
 
     npm install -g couchtato
-    
+
 Usage
 -----
 
 Create sample couchtato.js configuration file:
 
     couchtato config
-    
+
 Iterate through all documents in a CouchDB database:
 
     couchtato iterate -u http://user:pass@host:port/db
@@ -48,7 +46,7 @@ Iterate through documents within a range of IDs:
 Only iterate the first 5 pages where each page contains 1000 documents:
 
     couchtato iterate -u http://user:pass@host:port/db -n 5 -p 1000
-    
+
 Save/remove docs in bulk of 20000 documents at a time:
 
     couchtato iterate -u http://user:pass@host:port/db -b 20000
@@ -90,6 +88,13 @@ Specify the task functions in config file. Each function in exports.conf.tasks w
             "count-by-field": function (util, doc) {
                 util.count(doc.status);
             },
+            "hash-doc": function (util, doc) {
+                const hash = util.hash(doc);
+                util.log('hash:' + hash);
+            },
+            "audit-object": function (util, doc) {
+                util.audit(doc);
+            },
             "whatever": function (util, doc) {
                 // you need to implement whatever function
                 whatever(doc);
@@ -116,18 +121,25 @@ That 'util' in function (util, doc) is a utility variable, it provides you with 
 
     # save the document back to the database
     util.save(doc)
-    
+
     # remove the document from the database
     util.remove(doc)
-    
+
     # increment a counter associated with a particular key
     # all counters will be displayed in the summary report
     util.count('somekey')
-    
+
     # log a message to both the console and to couchtato.log file
     # if you only want to display a message on the console,
     # simply use good old console.log(message)
     util.log(message)
+
+    # generate a SHA256 hash for a given document, object, or string
+    util.hash(doc)
+
+    # add an object to the audit array, which is returned in the
+    # callback and can be used for downstream processing
+    util.audit(doc)
 
 Report
 ------
@@ -148,7 +160,11 @@ FAQ
 
 Q: Why am I getting 'exports' is undefined Microsoft JScript runtime error on Windows?
 
-A: Since Couchtato's default config file is called couchtato.js, Windows tried to execute couchtato.js instead of couchtato command, which then resulted in the above error. A workaround to this problem is to rename couchtato.js to config.js, and then use -c/--config-file flag, e.g. `couchtato --config-file config.js iterate --url http://user:pass@host:port/db` .
+A: Since Couchtato's default config file is called couchtato.js, Windows tried to execute couchtato.js instead of couchtato command, which then resulted in the above error. A workaround to this problem is to rename couchtato.js to config.js, and then use -c/--config-file flag, e.g. `couchtato --config-file config.js iterate --url http://user:pass@host:port/db`.
+
+Q: What is the purpose of `util.audit` and/or the audit array?
+
+A: The audit array is a convenient way to store data while iterating through documents. All objects added via `util.audit()` will be returned in the callback response upon completion. This is a powerful way to chain processing steps via messaging queues, lambda functions, or monitoring tools.
 
 Colophon
 --------

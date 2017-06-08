@@ -78,5 +78,17 @@ buster.testCase('util - util', {
 
     util.resetQueue();
     assert.equals(util.getQueue().length, 0);
-  }
+  },
+  'should add two objects to the audit array': function () {
+    var util = new Util();
+    util.audit({ id: 123, error: 'Some Message' });
+    util.audit({ id: 456, error: 'Another Message' });
+    var auditObject = util.getAudit();
+    assert.isTrue((auditObject.length === 2));
+  },
+  'should return a correct SHA256 hash of an object': function () {
+    var util = new Util();
+    var hash = util.hash({ id: 123, error: 'Some Message' });
+    assert.isTrue(hash === 'fcf91ca61bf5b37187265faf8bb82acb63552c5581749a7e29e3338a76e2549c');
+  },
 });
