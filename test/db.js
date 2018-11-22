@@ -16,6 +16,7 @@ buster.testCase('db - paginate', {
         assert.equals(opts.endkey, 'someendkey');
         assert.equals(opts.endkey_docid, 'someendkey');
         assert.isTrue(opts.include_docs);
+        assert.isFalse(opts.reduce);
         assert.equals(opts.limit, 3);
         assert.equals(opts.startkey, 'somestartkey');
         assert.equals(opts.startkey_docid, 'somestartkey');
@@ -34,6 +35,7 @@ buster.testCase('db - paginate', {
         assert.equals(opts.endkey, undefined);
         assert.equals(opts.endkey_docid, undefined);
         assert.isTrue(opts.include_docs);
+        assert.isFalse(opts.reduce);
         assert.equals(opts.limit, 3);
         assert.equals(opts.startkey, 'somestartkey');
         assert.equals(opts.startkey_docid, 'somestartkey');
@@ -49,6 +51,7 @@ buster.testCase('db - paginate', {
         assert.equals(opts.endkey, undefined);
         assert.equals(opts.endkey_docid, undefined);
         assert.isTrue(opts.include_docs);
+        assert.isFalse(opts.reduce);
         assert.equals(opts.limit, 3);
         assert.equals(opts.startkey, 'somestartkey');
         assert.equals(opts.startkey_docid, 'somestartkey');
@@ -62,6 +65,7 @@ buster.testCase('db - paginate', {
     var mockNano = {
       list: function (opts, cb) {
         assert.isTrue(opts.include_docs);
+        assert.isFalse(opts.reduce);
         assert.equals(opts.limit, 3);
         cb(null, { rows: [{ _id: 'someid1' }, { _id: 'someid2' }, { _id: 'someid3' }, { _id: 'someid4' }]});
       }
