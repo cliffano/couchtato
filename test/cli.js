@@ -48,6 +48,7 @@ buster.testCase('cli - iterate', {
         batchSize: 10,
         pageSize: 20,
         numPages: 30,
+        interval: 5000,
         startKey: 'somestartkey',
         endKey: 'someendkey',
         quiet: true
@@ -59,6 +60,7 @@ buster.testCase('cli - iterate', {
       assert.equals(opts.batchSize, 10);
       assert.equals(opts.pageSize, 20);
       assert.equals(opts.numPages, 30);
+      assert.equals(opts.interval, 5000);
       assert.equals(opts.startKey, 'somestartkey');
       assert.equals(opts.endKey, 'someendkey');
       assert.isTrue(opts.quiet);
@@ -82,6 +84,7 @@ buster.testCase('cli - iterate', {
       assert.equals(opts.batchSize, undefined);
       assert.equals(opts.pageSize, undefined);
       assert.equals(opts.numPages, undefined);
+      assert.equals(opts.interval, undefined);
       assert.equals(opts.startKey, undefined);
       assert.equals(opts.endKey, undefined);
       assert.isFalse(opts.quiet);
